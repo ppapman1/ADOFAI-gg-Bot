@@ -10,6 +10,7 @@
 
   "SEARCH_NOT_FOUND": "검색 결과가 없습니다.",
   "UNSUPPORTED_LEVEL": "현재 지원되지 않는 레벨입니다.",
+  "DOWNLOAD_LINK_MISSING": "이 레벨의 다운로드 링크가 없습니다.",
 
   "SELECT_LEVEL_MESSAGE": "아래 메뉴에서 원하는 레벨을 선택하세요.",
   "SELECT_LEVEL_SELECT_MENU": "레벨을 선택하세요.",

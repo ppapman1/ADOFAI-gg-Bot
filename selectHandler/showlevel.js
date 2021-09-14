@@ -28,8 +28,12 @@ module.exports = async interaction => {
 
     const title = `${level.artists.join(' & ')} - ${level.title}`;
 
-    level.workshop = level.workshop.trim();
-    level.download = level.download.trim();
+    if(level.workshop) level.workshop = level.workshop.trim();
+    if(level.download) level.download = level.download.trim();
+    else return interaction.reply({
+        content: lang.langByChannel(interaction.channel, 'DOWNLOAD_LINK_MISSING'),
+        ephemeral: true
+    });
 
     const levelEmoji = main.Server.emoji[level.difficulty.toString()];
     if(!levelEmoji) return interaction.reply({
