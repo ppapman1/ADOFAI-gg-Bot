@@ -31,11 +31,11 @@ let selectHandler = {};
 let commands = [];
 let permissions = {};
 
-// const debug = process.argv[2] == '--debug';
-// if(debug && !process.argv[3]) {
-//     console.error('Debug guild missing');
-//     process.exit(1);
-// }
+const debug = process.argv[2] == '--debug';
+if(debug && !process.argv[3]) {
+    console.error('Debug guild missing');
+    process.exit(1);
+}
 
 const loadOwners = async () => {
     application = await client.application.fetch();
@@ -58,9 +58,11 @@ const loadCommands = () => {
     fs.readdirSync('./commands').forEach(c => {
         decache(`./commands/${c}`);
         const module = require(`./commands/${c}`);
-        commandHandler[module.info.name] = module.handler;
-        permissions[module.info.name] = module.permissions;
-        commands.push(module.info);
+        if(debug || module.permissions == null) {
+            commandHandler[module.info.name] = module.handler;
+            permissions[module.info.name] = module.permissions;
+            commands.push(module.info);
+        }
     });
 }
 
@@ -75,11 +77,11 @@ const loadSelectHandler = () => {
 
 const registerCommands = async () => {
     console.log('registering command');
-    // let commandInfo;
-    // if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
-    // else commandInfo = await client.application.commands.set(commands);
+    let commandInfo;
+    if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
+    else commandInfo = await client.application.commands.set(commands);
 
-    const commandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(commands);
+    // const commandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(commands);
     console.log('registered command');
 
     console.log('registering command permissions');
