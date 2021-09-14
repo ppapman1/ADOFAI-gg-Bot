@@ -151,10 +151,6 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', message => {
     if(message.author.bot) return;
 
-    if(message.channel.id != Server.channel.collab_application && message.content.includes(client.user.id)) {
-        message.reply('reply test');
-    }
-
     DokdoHandler.run(message);
 });
 
