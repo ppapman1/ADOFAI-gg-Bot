@@ -20,7 +20,7 @@ module.exports = async interaction => {
         options.getNumber('maxtiles')
     );
 
-    if(!search.length) return interaction.editReply('검색 결과가 없습니다.');
+    if(!search.length) return interaction.editReply(lang.langByChannel(interaction.channel, 'SEARCH_NOT_FOUND'));
 
     const selectOptions = [];
     for(let l of search) {

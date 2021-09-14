@@ -8,6 +8,8 @@
   "UNKNOWN_RELOAD_TARGET": "Unknown reload target.",
   "RELOADED": "Reloaded {target}.",
 
+  "SEARCH_NOT_FOUND": "No search results found.",
+
   "SELECT_LEVEL_MESSAGE": "Select a desired level from below menu.",
   "SELECT_LEVEL_SELECT_MENU": "Select a level.",
 
