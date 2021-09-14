@@ -1,0 +1,32 @@
+{
+  "name": "adofai-gg-bot",
+  "version": "1.0.0",
+  "description": "Discord bot for ADOFAI.gg",
+  "main": "main.js",
+  "scripts": {
+    "test": "nodemon main.js --debug"
+  },
+  "author": "HYONSU",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "axios": "^0.21.4",
+    "discord.js": "^13.1.0",
+    "dokdo": "^0.5.0"
+  },
+  "devDependencies": {
+    "decache": "^4.6.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "lang/*.json"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wjdgustn/ADOFAI-gg-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/wjdgustn/ADOFAI-gg-Bot/issues"
+  },
+  "homepage": "https://github.com/wjdgustn/ADOFAI-gg-Bot#readme"
+}

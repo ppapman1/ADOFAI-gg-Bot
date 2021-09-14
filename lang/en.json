@@ -1,0 +1,20 @@
+{
+  "CHANNEL": "886705004180832326",
+
+  "TEST": "Wa Sans",
+
+  "ERROR": "Error Encountered.",
+
+  "UNKNOWN_RELOAD_TARGET": "Unknown reload target.",
+  "RELOADED": "Reloaded {target}.",
+
+  "SELECT_LEVEL_MESSAGE": "Select a desired level from below menu.",
+  "SELECT_LEVEL_SELECT_MENU": "Select a level.",
+
+  "SELF_MESSAGE_ONLY": "You can only select options for command entered by you.",
+  "LEVEL_NOT_FOUND": "Cannot find information of the level.",
+
+  "DOWNLOAD": "Download",
+  "WORKSHOP": "Workshop",
+  "WATCH_VIDEO": "Watch video"
+}
