@@ -1,0 +1,5 @@
+{
+  "TOKEN": "bot token",
+  "MAIN_SITE": "https://adofai.gg",
+  "API": "https://api.adofai.gg:9200/api/v1"
+}

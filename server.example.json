@@ -1,0 +1,40 @@
+{
+  "adofai_gg": "serverid",
+
+  "role": {
+    "staff": "roleid"
+  },
+
+  "channel": {},
+
+  "emoji": {
+    "minus2": "emojiid",
+    "21": "emojiid",
+    "1": "emojiid",
+    "2": "emojiid",
+    "3": "emojiid",
+    "4": "emojiid",
+    "5": "emojiid",
+    "6": "emojiid",
+    "7": "emojiid",
+    "8": "emojiid",
+    "9": "emojiid",
+    "10": "emojiid",
+    "11": "emojiid",
+    "12": "emojiid",
+    "13": "emojiid",
+    "14": "emojiid",
+    "15": "emojiid",
+    "16": "emojiid",
+    "17": "emojiid",
+    "18": "emojiid",
+    "18.5": "emojiid",
+    "19": "emojiid",
+    "19.5": "emojiid",
+    "20": "emojiid",
+    "20.5": "emojiid",
+    "download": "emojiid",
+    "youtube": "emojiid",
+    "steam": "emojiid"
+  }
+}
