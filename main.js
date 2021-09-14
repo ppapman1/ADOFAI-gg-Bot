@@ -76,21 +76,24 @@ const loadSelectHandler = () => {
 }
 
 const registerCommands = async () => {
-    console.log('registering command');
-    let commandInfo;
-    if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
-    else commandInfo = await client.application.commands.set(commands);
+    // let commandInfo;
+    // if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
+    // else commandInfo = await client.application.commands.set(commands);
 
-    // const commandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(commands);
-    console.log('registered command');
+    const guilds = client.guilds.cache.map(guild => guild.id);
+    for(let g of guilds) {
+        console.log(`registering command in ${g}`);
+        const commandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(commands);
+        console.log(`registered command in ${g}`);
 
-    console.log('registering command permissions');
-    for(let c of commandInfo) {
-        if(permissions[c[1].name] != null) await c[1].permissions.set({
-            permissions: permissions[c[1].name]
-        });
+        console.log(`registering command permissions in ${g}`);
+        for(let c of commandInfo) {
+            if(permissions[c[1].name] != null) await c[1].permissions.set({
+                permissions: permissions[c[1].name]
+            });
+        }
+        console.log(`registered command permissions in ${g}`);
     }
-    console.log('registered command permissions');
 }
 
 module.exports.loadOwners = loadOwners;
