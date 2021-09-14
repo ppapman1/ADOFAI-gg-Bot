@@ -9,6 +9,7 @@
   "RELOADED": "Reloaded {target}.",
 
   "SEARCH_NOT_FOUND": "No search results found.",
+  "UNSUPPORTED_LEVEL": "This level is not currently supported.",
 
   "SELECT_LEVEL_MESSAGE": "Select a desired level from below menu.",
   "SELECT_LEVEL_SELECT_MENU": "Select a level.",

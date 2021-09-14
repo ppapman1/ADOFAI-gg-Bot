@@ -28,6 +28,15 @@ module.exports = async interaction => {
 
     const title = `${level.artists.join(' & ')} - ${level.title}`;
 
+    level.workshop = level.workshop.trim();
+    level.download = level.download.trim();
+
+    const levelEmoji = main.Server.emoji[level.difficulty.toString()];
+    if(!levelEmoji) return interaction.reply({
+        content: lang.langByChannel(interaction.channel, 'UNSUPPORTED_LEVEL'),
+        ephemeral: true
+    });
+
     return interaction.update({
         embeds: [
             new MessageEmbed()
@@ -35,7 +44,7 @@ module.exports = async interaction => {
                 .setTitle(title)
                 .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
                 .setDescription(`Level by ${level.creators.join(' & ')}`)
-                .addField('Lv.', main.Server.emoji[level.difficulty.toString()].toString(), true)
+                .addField('Lv.', levelEmoji.toString(), true)
                 .addField('BPM', level.minBpm.toString(), true)
                 .addField('Tiles', level.tiles.toString(), true)
                 .addField('Description', level.description || `There's no description for this level.`)
