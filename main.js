@@ -81,7 +81,7 @@ const registerCommands = async () => {
     const guilds = client.guilds.cache.map(guild => guild.id);
     for(let g of guilds) {
         console.log(`registering command in ${g}`);
-        const commandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(commands);
+        const commandInfo = await client.guilds.cache.get(g).commands.set(commands);
         console.log(`registered command in ${g}`);
 
         console.log(`registering command permissions in ${g}`);
