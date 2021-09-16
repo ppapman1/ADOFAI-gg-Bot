@@ -39,6 +39,11 @@ module.exports = {
                 name: 'select',
                 description: '셀렉트 메뉴 핸들러를 다시 불러옵니다. // Recall the select menu handler.',
                 type: 'SUB_COMMAND'
+            },
+            {
+                name: 'button',
+                description: '버튼 핸들러를 다시 불러옵니다. // Recall the button handler.',
+                type: 'SUB_COMMAND'
             }
         ]
     },
@@ -67,6 +72,9 @@ module.exports = {
                 break;
             case 'select':
                 main.loadSelectHandler();
+                break;
+            case 'button':
+                main.loadButtonHandler();
                 break;
             default:
                 return interaction.editReply(lang.langByChannel(interaction.channel, 'UNKNOWN_RELOAD_TARGET'));

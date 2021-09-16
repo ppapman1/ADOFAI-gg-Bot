@@ -20,5 +20,9 @@
 
   "DOWNLOAD": "Download",
   "WORKSHOP": "Workshop",
-  "WATCH_VIDEO": "Watch video"
+  "WATCH_VIDEO": "Watch video",
+
+  "PP_RANKING": "PP Ranking",
+  "PREV": "Prev",
+  "NEXT": "Next"
 }

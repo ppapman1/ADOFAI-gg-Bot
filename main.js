@@ -28,6 +28,7 @@ module.exports.Server = ServerCache;
 
 let commandHandler = {};
 let selectHandler = {};
+let buttonHandler = {};
 let commands = [];
 let permissions = {};
 
@@ -73,6 +74,15 @@ const loadSelectHandler = () => {
     });
 }
 
+const loadButtonHandler = () => {
+    buttonHandler = {};
+    fs.readdirSync('./buttonHandler').forEach(c => {
+        decache(`./buttonHandler/${c}`);
+        const module = require(`./buttonHandler/${c}`);
+        buttonHandler[c.replace('.js', '')] = module;
+    });
+}
+
 const registerCommands = async () => {
     // let commandInfo;
     // if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
@@ -98,6 +108,7 @@ module.exports.loadOwners = loadOwners;
 module.exports.loadDokdo = loadDokdo;
 module.exports.loadCommands = loadCommands;
 module.exports.loadSelectHandler = loadSelectHandler;
+module.exports.loadButtonHandler = loadButtonHandler;
 module.exports.registerCommands = registerCommands;
 
 client.once('ready', async () => {
@@ -107,6 +118,7 @@ client.once('ready', async () => {
     loadDokdo();
     loadCommands();
     loadSelectHandler();
+    loadButtonHandler();
     await registerCommands();
 
     console.log('cache start');
@@ -140,6 +152,17 @@ client.on('interactionCreate', async interaction => {
     if(interaction.isSelectMenu()) {
         const params = interaction.values[0].split('_');
         const handler = selectHandler[params[0]];
+        if(!handler) return interaction.reply({
+            content: lang.langByChannel(interaction.channel, 'ERROR'),
+            ephemeral: true
+        });
+
+        handler(interaction);
+    }
+
+    if(interaction.isButton()) {
+        const params = interaction.customId.split('_');
+        const handler = buttonHandler[params[0]];
         if(!handler) return interaction.reply({
             content: lang.langByChannel(interaction.channel, 'ERROR'),
             ephemeral: true
