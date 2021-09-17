@@ -4,6 +4,7 @@ const lang = require("../lang");
 const utils = require("../utils");
 
 module.exports = {
+    private: true,
     permissions: permissions.ownerOnly,
     info: {
         defaultPermission: false,

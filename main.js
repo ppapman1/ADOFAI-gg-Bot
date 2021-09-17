@@ -30,6 +30,7 @@ let commandHandler = {};
 let selectHandler = {};
 let buttonHandler = {};
 let commands = [];
+let privateCommands = [];
 let permissions = {};
 
 // const debug = process.argv[2] == '--debug';
@@ -55,13 +56,17 @@ const loadDokdo = () => {
 const loadCommands = () => {
     commandHandler = {};
     commands = [];
+    privateCommands = [];
     permissions = {};
     fs.readdirSync('./commands').forEach(c => {
         decache(`./commands/${c}`);
         const module = require(`./commands/${c}`);
         commandHandler[module.info.name] = module.handler;
-        permissions[module.info.name] = module.permissions;
-        commands.push(module.info);
+        if(module.private) {
+            privateCommands.push(module.info);
+            permissions[module.info.name] = module.permissions;
+        }
+        else commands.push(module.info);
     });
 }
 
@@ -88,20 +93,33 @@ const registerCommands = async () => {
     // if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
     // else commandInfo = await client.application.commands.set(commands);
 
-    const guilds = client.guilds.cache.map(guild => guild.id);
-    for(let g of guilds) {
-        console.log(`registering command in ${g}`);
-        const commandInfo = await client.guilds.cache.get(g).commands.set(commands);
-        console.log(`registered command in ${g}`);
+    console.log('registering global command...');
+    await client.application.commands.set(commands);
+    console.log('registered global command. registering guild command...');
 
-        console.log(`registering command permissions in ${g}`);
-        for(let c of commandInfo) {
-            if(permissions[c[1].name] != null) await c[1].permissions.set({
-                permissions: permissions[c[1].name]
-            });
-        }
-        console.log(`registered command permissions in ${g}`);
+    const guildCommandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(privateCommands);
+    console.log('registered guild command. registering guild command permission...');
+    for(let c of guildCommandInfo) {
+        if(permissions[c[1].name] != null) await c[1].permissions.set({
+            permissions: permissions[c[1].name]
+        });
     }
+    console.log('registered guild command permission.');
+
+    // const guilds = client.guilds.cache.map(guild => guild.id);
+    // for(let g of guilds) {
+    //     console.log(`registering command in ${g}`);
+    //     const commandInfo = await client.guilds.cache.get(g).commands.set(commands);
+    //     console.log(`registered command in ${g}`);
+    //
+    //     console.log(`registering command permissions in ${g}`);
+    //     for(let c of commandInfo) {
+    //         if(permissions[c[1].name] != null) await c[1].permissions.set({
+    //             permissions: permissions[c[1].name]
+    //         });
+    //     }
+    //     console.log(`registered command permissions in ${g}`);
+    // }
 }
 
 module.exports.loadOwners = loadOwners;
@@ -175,7 +193,7 @@ client.on('interactionCreate', async interaction => {
 client.on('messageCreate', message => {
     if(message.author.bot) return;
 
-    DokdoHandler.run(message);
+    if(DokdoHandler) DokdoHandler.run(message);
 });
 
 client.login(setting.TOKEN);

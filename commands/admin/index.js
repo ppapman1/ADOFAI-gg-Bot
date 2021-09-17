@@ -4,6 +4,7 @@ const permissions = require('../../permissions');
 const lang = require('../../lang');
 
 module.exports = {
+    private: true,
     permissions: permissions.ownerOnly,
     info: {
         defaultPermission: false,
