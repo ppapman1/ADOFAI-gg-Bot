@@ -5,7 +5,7 @@ const User = require('../schemas/user');
 module.exports = {
     info: {
         name: 'language',
-        description: '봇의 언어를 설정합니다 // Set bot\'s language.',
+        description: '봇의 언어를 설정합니다. // Set bot\'s language.',
         options: [
             {
                 name: 'lang',
