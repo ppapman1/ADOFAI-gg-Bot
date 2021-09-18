@@ -1,5 +1,11 @@
 {
   "TOKEN": "bot token",
   "MAIN_SITE": "https://adofai.gg",
-  "API": "https://api.adofai.gg:9200/api/v1"
+  "API": "https://api.adofai.gg:9200/api/v1",
+
+  "MONGODB_HOST": "localhost",
+  "MONGODB_PORT": 27017,
+  "MONGODB_USER": "user",
+  "MONGODB_PASSWORD": "pw",
+  "DBNAME": "ADOFAI-gg-bot"
 }
