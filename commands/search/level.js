@@ -20,7 +20,7 @@ module.exports = async interaction => {
         options.getNumber('maxtiles')
     );
 
-    if(!search.length) return interaction.editReply(lang.langByChannel(interaction.channel, 'SEARCH_NOT_FOUND'));
+    if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
     const selectOptions = [];
     for(let l of search) {
@@ -37,13 +37,13 @@ module.exports = async interaction => {
     }
 
     return interaction.editReply({
-        content: lang.langByChannel(interaction.channel, 'SELECT_LEVEL_MESSAGE'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'SELECT_LEVEL_MESSAGE'),
         components: [
             new MessageActionRow()
                 .addComponents(
                     new MessageSelectMenu()
                         .setCustomId(`showlevel`)
-                        .setPlaceholder(lang.langByChannel(interaction.channel, 'SELECT_LEVEL_SELECT_MENU'))
+                        .setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'SELECT_LEVEL_SELECT_MENU'))
                         .addOptions(selectOptions)
                 )
         ]

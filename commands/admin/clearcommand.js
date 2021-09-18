@@ -1,7 +1,7 @@
 const main = require('../../main');
 
 module.exports = async interaction => {
-    const globalCommands = await main.getClient().application?.commands.fetch();
+    // const globalCommands = await main.getClient().application?.commands.fetch();
     const guildCommands = await interaction.guild.commands.fetch();
 
     interaction.reply({
@@ -9,6 +9,6 @@ module.exports = async interaction => {
         ephemeral: true
     });
 
-    for(let c of globalCommands) await c[1].delete();
+    // for(let c of globalCommands) await c[1].delete();
     for(let c of guildCommands) await c[1].delete();
 }

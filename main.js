@@ -9,6 +9,8 @@ const lang = require('./lang');
 
 const Server = require('./server.json');
 
+const User = require('./schemas/user');
+
 const client = new Client({ intents: [ Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES , Intents.FLAGS.GUILD_MEMBERS ] });
 let DokdoHandler;
 
@@ -26,18 +28,22 @@ const ServerCache = {
 }
 module.exports.Server = ServerCache;
 
+const connect = require('./schemas');
+connect();
+
 let commandHandler = {};
 let selectHandler = {};
 let buttonHandler = {};
 let commands = [];
+let allCommands = [];
 let privateCommands = [];
 let permissions = {};
 
-// const debug = process.argv[2] == '--debug';
-// if(debug && !process.argv[3]) {
-//     console.error('Debug guild missing');
-//     process.exit(1);
-// }
+const debug = process.argv[2] == '--debug';
+if(debug && !process.argv[3]) {
+    console.error('Debug guild missing');
+    process.exit(1);
+}
 
 const loadOwners = async () => {
     application = await client.application.fetch();
@@ -57,6 +63,7 @@ const loadCommands = () => {
     commandHandler = {};
     commands = [];
     privateCommands = [];
+    allCommands = [];
     permissions = {};
     fs.readdirSync('./commands').forEach(c => {
         decache(`./commands/${c}`);
@@ -67,6 +74,8 @@ const loadCommands = () => {
             permissions[module.info.name] = module.permissions;
         }
         else commands.push(module.info);
+
+        allCommands.push(module.info);
     });
 }
 
@@ -89,22 +98,31 @@ const loadButtonHandler = () => {
 }
 
 const registerCommands = async () => {
-    // let commandInfo;
-    // if(debug) commandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(commands);
-    // else commandInfo = await client.application.commands.set(commands);
-
-    console.log('registering global command...');
-    await client.application.commands.set(commands);
-    console.log('registered global command. registering guild command...');
-
-    const guildCommandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(privateCommands);
-    console.log('registered guild command. registering guild command permission...');
-    for(let c of guildCommandInfo) {
-        if(permissions[c[1].name] != null) await c[1].permissions.set({
-            permissions: permissions[c[1].name]
-        });
+    if(debug) {
+        console.log('registering debug guild command...');
+        const guildCommandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(allCommands);
+        console.log('registered debug guild command. registering debug guild command permission...');
+        for(let c of guildCommandInfo) {
+            if(permissions[c[1].name] != null) await c[1].permissions.set({
+                permissions: permissions[c[1].name]
+            });
+        }
+        console.log('registered debug guild command permission.');
     }
-    console.log('registered guild command permission.');
+    else {
+        console.log('registering global command...');
+        await client.application.commands.set(commands);
+        console.log('registered global command. registering guild command...');
+
+        const guildCommandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(privateCommands);
+        console.log('registered guild command. registering guild command permission...');
+        for (let c of guildCommandInfo) {
+            if (permissions[c[1].name] != null) await c[1].permissions.set({
+                permissions: permissions[c[1].name]
+            });
+        }
+        console.log('registered guild command permission.');
+    }
 
     // const guilds = client.guilds.cache.map(guild => guild.id);
     // for(let g of guilds) {
@@ -157,6 +175,20 @@ client.once('ready', async () => {
 });
 
 client.on('interactionCreate', async interaction => {
+    let user = await User.findOne({ id : interaction.user.id });
+    if(!user) {
+        user = new User({
+            id: interaction.user.id
+        });
+        await user.save();
+
+        try {
+            await interaction.channel.send(lang.getFirstTimeString());
+        } catch (e) {}
+    }
+    
+    interaction.dbUser = user;
+    
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
 
@@ -171,7 +203,7 @@ client.on('interactionCreate', async interaction => {
         const params = interaction.values[0].split('_');
         const handler = selectHandler[params[0]];
         if(!handler) return interaction.reply({
-            content: lang.langByChannel(interaction.channel, 'ERROR'),
+            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true
         });
 
@@ -182,7 +214,7 @@ client.on('interactionCreate', async interaction => {
         const params = interaction.customId.split('_');
         const handler = buttonHandler[params[0]];
         if(!handler) return interaction.reply({
-            content: lang.langByChannel(interaction.channel, 'ERROR'),
+            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true
         });
 

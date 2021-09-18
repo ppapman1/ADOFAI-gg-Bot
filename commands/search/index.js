@@ -58,7 +58,7 @@ module.exports = {
 
         if(fs.existsSync(`./commands/search/${command}.js`)) require(`./${command}.js`)(interaction);
         else interaction.reply({
-            content: lang.langByChannel(interaction.channel, 'ERROR'),
+            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true
         });
     }

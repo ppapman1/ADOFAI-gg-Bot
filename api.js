@@ -77,7 +77,7 @@ module.exports.getPPEmbedField = async (userid, channel, offset = 0, amount = 5)
             embeds: [
                 {
                     color: '#349eeb',
-                    title: lang.langByChannel(channel, 'PP_RANKING'),
+                    title: lang.langByLangName(interaction.dbUser.lang, 'PP_RANKING'),
                     url: `${setting.MAIN_SITE}/ranks`,
                     fields: fields,
                     timestamp: new Date()
@@ -88,12 +88,12 @@ module.exports.getPPEmbedField = async (userid, channel, offset = 0, amount = 5)
                     .addComponents(
                         new MessageButton()
                             .setCustomId(`rankingpage_${userid}_${offset - amount}`)
-                            .setLabel(lang.langByChannel(channel, 'PREV'))
+                            .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PREV'))
                             .setStyle('PRIMARY')
                             .setDisabled(offset == 0),
                         new MessageButton()
                             .setCustomId(`rankingpage_${userid}_${rank - 1}`)
-                            .setLabel(lang.langByChannel(channel, 'NEXT'))
+                            .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
                             .setStyle('PRIMARY')
                             .setDisabled(leftCount == 0)
                     )

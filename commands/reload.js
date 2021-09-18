@@ -78,10 +78,10 @@ module.exports = {
                 main.loadButtonHandler();
                 break;
             default:
-                return interaction.editReply(lang.langByChannel(interaction.channel, 'UNKNOWN_RELOAD_TARGET'));
+                return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNKNOWN_RELOAD_TARGET'));
         }
 
-        await interaction.editReply(lang.langByChannel(interaction.channel, 'RELOADED')
+        await interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'RELOADED')
             .replace('{target}', target)
             .replace('{el_rel}', utils.checkBatchim(target) ? '을' : '를')
         );

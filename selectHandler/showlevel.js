@@ -12,17 +12,17 @@ const Server = require('../server.json');
 module.exports = async interaction => {
     const params = interaction.values[0].split('_');
     if(params.length != 3) return interaction.update({
-        content: lang.langByChannel(interaction.channel, 'ERROR'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
         components: []
     });
     if(params[1] != interaction.user.id) return interaction.reply({
-        content: lang.langByChannel(interaction.channel, 'SELF_MESSAGE_ONLY'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'SELF_MESSAGE_ONLY'),
         ephemeral: true
     });
 
     const level = await api.getLevel(params[2]);
     if(!level) return interaction.update({
-        content: lang.langByChannel(interaction.channel, 'LEVEL_NOT_FOUND'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'),
         components: []
     });
 
@@ -31,13 +31,13 @@ module.exports = async interaction => {
     if(level.workshop) level.workshop = level.workshop.trim();
     if(level.download) level.download = level.download.trim();
     else return interaction.reply({
-        content: lang.langByChannel(interaction.channel, 'DOWNLOAD_LINK_MISSING'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'DOWNLOAD_LINK_MISSING'),
         ephemeral: true
     });
 
     const levelEmoji = main.Server.emoji[level.difficulty.toString()];
     if(!levelEmoji) return interaction.reply({
-        content: lang.langByChannel(interaction.channel, 'UNSUPPORTED_LEVEL'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'UNSUPPORTED_LEVEL'),
         ephemeral: true
     });
 
@@ -59,18 +59,18 @@ module.exports = async interaction => {
             new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                        .setLabel(lang.langByChannel(interaction.channel, 'DOWNLOAD'))
+                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'DOWNLOAD'))
                         .setStyle('LINK')
                         .setURL(level.download)
                         .setEmoji(Server.emoji.download),
                     new MessageButton()
-                        .setLabel(lang.langByChannel(interaction.channel, 'WORKSHOP'))
+                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WORKSHOP'))
                         .setStyle('LINK')
                         .setURL(level.workshop || level.download)
                         .setEmoji(Server.emoji.steam)
                         .setDisabled(!level.workshop),
                     new MessageButton()
-                        .setLabel(lang.langByChannel(interaction.channel, 'WATCH_VIDEO'))
+                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WATCH_VIDEO'))
                         .setStyle('LINK')
                         .setURL(level.video)
                         .setEmoji(Server.emoji.youtube)

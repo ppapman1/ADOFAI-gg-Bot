@@ -23,15 +23,35 @@ const load = () => {
 
 module.exports.load = load;
 
-module.exports.langByChannel = (channel, key) => {
+module.exports.langByLangName = (langName, key) => {
     if(!loaded) load();
 
-    let langName = channelMap[channel.id];
-    if(!langName) langName = 'en';
+    if(!lang[langName]) langName = 'en';
 
     let result = lang[langName][key];
     if(!result) result = lang['ko'][key];
     if(!result) result = `missing key "${key}"`;
 
     return result;
+}
+
+module.exports.getLangChoices = () => {
+    if(!loaded) load();
+
+    const result = [];
+    for(let i in lang) result.push({
+        name: lang[i].DISPLAY_NAME,
+        value: i
+    });
+
+    return result;
+}
+
+module.exports.getFirstTimeString = () => {
+    if(!loaded) load();
+
+    const result = [];
+    for(let l in lang) result.push(lang[l].FIRST_TIME_BOT);
+
+    return result.join('\n');
 }

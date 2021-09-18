@@ -1,5 +1,8 @@
 {
-  "CHANNEL": "886705004180832326",
+  "DISPLAY_NAME": "English",
+
+  "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command.",
+  "LANGUAGE_CHANGED": "Language changed to english!",
 
   "TEST": "Wa Sans",
 
