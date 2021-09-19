@@ -13,7 +13,7 @@ module.exports = async interaction => {
         ephemeral: true
     });
 
-    const ranking = await api.getPPEmbedField(interaction.user.id, interaction.channel, Number(params[2]));
+    const ranking = await api.getPPEmbedField(interaction, Number(params[2]));
     if(!ranking) return interaction.update({
         content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
         embeds: [],
