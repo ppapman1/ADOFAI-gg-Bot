@@ -36,7 +36,7 @@ module.exports.getLevel = async id => {
     return level.data;
 }
 
-module.exports.getPPEmbedField = async (userid, channel, offset = 0, amount = 5) => {
+module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => {
     if(typeof offset != 'number' || typeof amount != 'number' || offset < 0 || amount < 0) return;
 
     const rankingRequest = await api.get('/ranking', {
@@ -87,12 +87,12 @@ module.exports.getPPEmbedField = async (userid, channel, offset = 0, amount = 5)
                 new MessageActionRow()
                     .addComponents(
                         new MessageButton()
-                            .setCustomId(`rankingpage_${userid}_${offset - amount}`)
+                            .setCustomId(`rankingpage_${interaction.user.id}_${offset - amount}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PREV'))
                             .setStyle('PRIMARY')
                             .setDisabled(offset == 0),
                         new MessageButton()
-                            .setCustomId(`rankingpage_${userid}_${rank - 1}`)
+                            .setCustomId(`rankingpage_${interaction.user.id}_${rank - 1}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
                             .setStyle('PRIMARY')
                             .setDisabled(leftCount == 0)
