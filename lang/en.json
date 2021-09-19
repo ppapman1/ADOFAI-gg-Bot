@@ -27,5 +27,7 @@
 
   "PP_RANKING": "PP Ranking",
   "PREV": "Prev",
-  "NEXT": "Next"
+  "NEXT": "Next",
+
+  "SERVERCOUNT": "Currently, the bot is on {servercount} servers."
 }
