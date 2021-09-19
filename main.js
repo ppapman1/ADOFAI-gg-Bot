@@ -183,7 +183,7 @@ client.on('interactionCreate', async interaction => {
         await user.save();
 
         try {
-            await interaction.channel.send(lang.getFirstTimeString());
+            await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
     
