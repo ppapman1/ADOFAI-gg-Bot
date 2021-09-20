@@ -17,7 +17,6 @@ let DokdoHandler;
 let application;
 let owners = [];
 let ownerID = [];
-module.exports.getClient = () => client;
 module.exports.getOwners = () => owners;
 module.exports.getOwnerID = () => ownerID;
 
