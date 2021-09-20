@@ -29,5 +29,7 @@
   "PREV": "Prev",
   "NEXT": "Next",
 
-  "SERVERCOUNT": "Currently, the bot is on {servercount} servers."
+  "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
+
+  "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions."
 }
