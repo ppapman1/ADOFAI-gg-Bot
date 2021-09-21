@@ -1,7 +1,6 @@
 const { Client , Intents , Team } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
-const decache = require('decache');
 
 const setting = require('./setting.json');
 
@@ -65,7 +64,8 @@ const loadCommands = () => {
     allCommands = [];
     permissions = {};
     fs.readdirSync('./commands').forEach(c => {
-        decache(`./commands/${c}`);
+        const file = require.resolve(`./commands/${c}`);
+        delete require.cache[file];
         const module = require(`./commands/${c}`);
         commandHandler[module.info.name] = module.handler;
         if(module.private) {
