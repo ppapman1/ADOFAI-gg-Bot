@@ -139,23 +139,7 @@ const registerCommands = async () => {
     // }
 }
 
-module.exports.loadOwners = loadOwners;
-module.exports.loadDokdo = loadDokdo;
-module.exports.loadCommands = loadCommands;
-module.exports.loadSelectHandler = loadSelectHandler;
-module.exports.loadButtonHandler = loadButtonHandler;
-module.exports.registerCommands = registerCommands;
-
-client.once('ready', async () => {
-    console.log(`${client.user.tag}으로 로그인하였습니다.`);
-
-    await loadOwners();
-    loadDokdo();
-    loadCommands();
-    loadSelectHandler();
-    loadButtonHandler();
-    await registerCommands();
-
+const cacheServer = async () => {
     console.log('cache start');
     const guild = await client.guilds.cache.get(Server.adofai_gg);
     ServerCache.adofai_gg = guild;
@@ -171,6 +155,25 @@ client.once('ready', async () => {
     console.log('emoji cached');
 
     console.log('cache finish');
+}
+
+module.exports.loadOwners = loadOwners;
+module.exports.loadDokdo = loadDokdo;
+module.exports.loadCommands = loadCommands;
+module.exports.loadSelectHandler = loadSelectHandler;
+module.exports.loadButtonHandler = loadButtonHandler;
+module.exports.registerCommands = registerCommands;
+
+client.once('ready', async () => {
+    console.log(`${client.user.tag}으로 로그인하였습니다.`);
+
+    await loadOwners();
+    loadDokdo();
+    loadCommands();
+    loadSelectHandler();
+    loadButtonHandler();
+    cacheServer();
+    registerCommands();
 });
 
 client.on('interactionCreate', async interaction => {
