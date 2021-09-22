@@ -3,6 +3,8 @@
   "MAIN_SITE": "https://adofai.gg",
   "API": "https://api.adofai.gg:9200/api/v1",
 
+  "DOKDO_PREFIX": ";",
+
   "MONGODB_HOST": "localhost",
   "MONGODB_PORT": 27017,
   "MONGODB_USER": "user",

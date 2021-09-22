@@ -54,7 +54,7 @@ const loadOwners = async () => {
 const loadDokdo = () => {
     DokdoHandler = new Dokdo(client, {
         aliases: [ 'dokdo', 'dok' ],
-        prefix: ';',
+        prefix: setting.DOKDO_PREFIX,
         owners: application.owner instanceof Team ? application.owner.ownerId : application.owner.id
     });
 }
