@@ -26,55 +26,5 @@ module.exports = async interaction => {
         components: []
     });
 
-    const title = `${level.artists.join(' & ')} - ${level.title}`;
-
-    if(level.workshop) level.workshop = level.workshop.trim();
-    if(level.download) level.download = level.download.trim();
-    else return interaction.reply({
-        content: lang.langByLangName(interaction.dbUser.lang, 'DOWNLOAD_LINK_MISSING'),
-        ephemeral: true
-    });
-
-    const levelEmoji = main.Server.emoji[level.difficulty.toString()];
-    if(!levelEmoji) return interaction.reply({
-        content: lang.langByLangName(interaction.dbUser.lang, 'UNSUPPORTED_LEVEL'),
-        ephemeral: true
-    });
-
-    return interaction.update({
-        embeds: [
-            new MessageEmbed()
-                .setColor('#349eeb')
-                .setTitle(title)
-                .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
-                .setDescription(`Level by ${level.creators.join(' & ')}`)
-                .addField('Lv.', levelEmoji.toString(), true)
-                .addField('BPM', level.minBpm.toString(), true)
-                .addField('Tiles', level.tiles.toString(), true)
-                .addField('Description', level.description || `There's no description for this level.`)
-                .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
-        ],
-        content: '\u200B',
-        components: [
-            new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'DOWNLOAD'))
-                        .setStyle('LINK')
-                        .setURL(level.download)
-                        .setEmoji(Server.emoji.download),
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WORKSHOP'))
-                        .setStyle('LINK')
-                        .setURL(level.workshop || level.download)
-                        .setEmoji(Server.emoji.steam)
-                        .setDisabled(!level.workshop),
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WATCH_VIDEO'))
-                        .setStyle('LINK')
-                        .setURL(level.video)
-                        .setEmoji(Server.emoji.youtube)
-                )
-        ]
-    });
+    return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang));
 }

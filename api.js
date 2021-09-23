@@ -1,20 +1,22 @@
-const { MessageActionRow , MessageButton } = require('discord.js');
+const { MessageActionRow , MessageButton, MessageEmbed} = require('discord.js');
 const axios = require('axios');
 
 const setting = require('./setting.json');
 const main = require("./main");
 const lang = require('./lang');
+const utils = require("./utils");
+const Server = require("./server.json");
 
 const api = axios.create({
     baseURL: setting.API
 });
 
-module.exports.searchLevel = async (query, minDifficulty, maxDifficulty, minBpm, maxBpm, minTiles, maxTiles) => {
+module.exports.searchLevel = async (query, minDifficulty, maxDifficulty, minBpm, maxBpm, minTiles, maxTiles, sort = 'RECENT_DESC') => {
     const search = await api.get('/levels', {
         params: {
             offset: 0,
             amount: 25,
-            sort: 'RECENT_DESC',
+            sort,
             queryTitle: query,
             queryArtist: query,
             queryCreator: query,
@@ -34,6 +36,60 @@ module.exports.getLevel = async id => {
     const level = await api.get(`/levels/${id}`);
 
     return level.data;
+}
+
+module.exports.getLevelInfoMessage = (level, language = 'en') => {
+    const title = `${level.artists.join(' & ')} - ${level.title}`;
+
+    if(level.workshop) level.workshop = level.workshop.trim();
+    if(level.download) level.download = level.download.trim();
+    else return {
+        content: lang.langByLangName(language, 'DOWNLOAD_LINK_MISSING'),
+        ephemeral: true
+    }
+
+    const levelEmoji = main.Server.emoji[level.difficulty.toString()];
+    if(!levelEmoji) return {
+        content: lang.langByLangName(language, 'UNSUPPORTED_LEVEL'),
+        ephemeral: true
+    }
+
+    return {
+        embeds: [
+            new MessageEmbed()
+                .setColor('#349eeb')
+                .setTitle(title)
+                .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
+                .setDescription(`Level by ${level.creators.join(' & ')}`)
+                .addField('Lv.', levelEmoji.toString(), true)
+                .addField('BPM', level.minBpm.toString(), true)
+                .addField('Tiles', level.tiles.toString(), true)
+                .addField('Description', level.description || `There's no description for this level.`)
+                .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
+        ],
+            content: '\u200B',
+        components: [
+            new MessageActionRow()
+                .addComponents(
+                    new MessageButton()
+                        .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
+                        .setStyle('LINK')
+                        .setURL(level.download)
+                        .setEmoji(Server.emoji.download),
+                    new MessageButton()
+                        .setLabel(lang.langByLangName(language, 'WORKSHOP'))
+                        .setStyle('LINK')
+                        .setURL(level.workshop || level.download)
+                        .setEmoji(Server.emoji.steam)
+                        .setDisabled(!level.workshop),
+                    new MessageButton()
+                        .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
+                        .setStyle('LINK')
+                        .setURL(level.video)
+                        .setEmoji(Server.emoji.youtube)
+                )
+        ]
+    }
 }
 
 module.exports.getPPEmbedField = async (userid, channel, offset = 0, amount = 5) => {
