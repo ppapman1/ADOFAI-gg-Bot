@@ -22,6 +22,8 @@ module.exports = async interaction => {
 
     if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
+    if(search.length == 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
+
     const selectOptions = [];
     for(let l of search) {
         const title = `${l.artists.join(' & ')} - ${l.title}`;
