@@ -16,7 +16,10 @@
   },
   "nodemonConfig": {
     "ignore": [
-      "lang/*.json"
+      "lang/*.json",
+      "commands/*",
+      "selectHandler/*",
+      "buttonHandler/*"
     ]
   },
   "repository": {
