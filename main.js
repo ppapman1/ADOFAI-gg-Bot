@@ -81,7 +81,8 @@ const loadCommands = () => {
 const loadSelectHandler = () => {
     selectHandler = {};
     fs.readdirSync('./selectHandler').forEach(c => {
-        decache(`./selectHandler/${c}`);
+        const file = require.resolve(`./selectHandler/${c}`);
+        delete require.cache[file];
         const module = require(`./selectHandler/${c}`);
         selectHandler[c.replace('.js', '')] = module;
     });
@@ -90,7 +91,8 @@ const loadSelectHandler = () => {
 const loadButtonHandler = () => {
     buttonHandler = {};
     fs.readdirSync('./buttonHandler').forEach(c => {
-        decache(`./buttonHandler/${c}`);
+        const file = require.resolve(`./buttonHandler/${c}`);
+        delete require.cache[file];
         const module = require(`./buttonHandler/${c}`);
         buttonHandler[c.replace('.js', '')] = module;
     });
