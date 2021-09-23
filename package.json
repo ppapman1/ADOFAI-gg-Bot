@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/wjdgustn/ADOFAI-gg-Bot/issues"
   },
-  "homepage": "https://github.com/wjdgustn/ADOFAI-gg-Bot#readme"
+  "homepage": "https://github.com/wjdgustn/ADOFAI-gg-Bot#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
 }
