@@ -11,11 +11,26 @@ const api = axios.create({
     baseURL: setting.API
 });
 
-module.exports.searchLevel = async (query, minDifficulty, maxDifficulty, minBpm, maxBpm, minTiles, maxTiles, sort = 'RECENT_DESC') => {
+module.exports.searchLevel = async data => {
+    let {
+        query,
+        minDifficulty,
+        maxDifficulty,
+        minBpm,
+        maxBpm,
+        minTiles,
+        maxTiles,
+        sort,
+        amount
+    } = data;
+
+    sort = sort || 'RECENT_DESC';
+    amount = amount || 25;
+
     const search = await api.get('/levels', {
         params: {
             offset: 0,
-            amount: 25,
+            amount,
             sort,
             queryTitle: query,
             queryArtist: query,

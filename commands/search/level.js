@@ -10,15 +10,15 @@ module.exports = async interaction => {
 
     const { options } = interaction;
 
-    const search = await api.searchLevel(
-        options.getString('query'),
-        options.getNumber('mindifficulty'),
-        options.getNumber('maxdifficulty'),
-        options.getNumber('minbpm'),
-        options.getNumber('maxbpm'),
-        options.getNumber('mintiles'),
-        options.getNumber('maxtiles')
-    );
+    const search = await api.searchLevel({
+        query: options.getString('query'),
+        minDifficulty: options.getNumber('mindifficulty'),
+        maxDifficulty: options.getNumber('maxdifficulty'),
+        minBpm: options.getNumber('minbpm'),
+        maxBpm: options.getNumber('maxbpm'),
+        minTiles: options.getNumber('mintiles'),
+        maxTiles: options.getNumber('maxtiles')
+    });
 
     if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
