@@ -4,7 +4,7 @@
   "description": "Discord bot for ADOFAI.gg",
   "main": "main.js",
   "scripts": {
-    "test": "nodemon main.js --debug 879657537669070848"
+    "test": "nodemon main.js --debug 860097560646516746"
   },
   "author": "HYONSU",
   "license": "UNLICENSED",
