@@ -1,7 +1,6 @@
 const { Client , Intents , Team } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
-const decache = require('decache');
 
 const setting = require('./setting.json');
 
@@ -17,7 +16,6 @@ let DokdoHandler;
 let application;
 let owners = [];
 let ownerID = [];
-module.exports.getClient = () => client;
 module.exports.getOwners = () => owners;
 module.exports.getOwnerID = () => ownerID;
 
@@ -66,7 +64,8 @@ const loadCommands = () => {
     allCommands = [];
     permissions = {};
     fs.readdirSync('./commands').forEach(c => {
-        decache(`./commands/${c}`);
+        const file = require.resolve(`./commands/${c}`);
+        delete require.cache[file];
         const module = require(`./commands/${c}`);
         commandHandler[module.info.name] = module.handler;
         if(module.private) {
@@ -140,23 +139,7 @@ const registerCommands = async () => {
     // }
 }
 
-module.exports.loadOwners = loadOwners;
-module.exports.loadDokdo = loadDokdo;
-module.exports.loadCommands = loadCommands;
-module.exports.loadSelectHandler = loadSelectHandler;
-module.exports.loadButtonHandler = loadButtonHandler;
-module.exports.registerCommands = registerCommands;
-
-client.once('ready', async () => {
-    console.log(`${client.user.tag}으로 로그인하였습니다.`);
-
-    await loadOwners();
-    loadDokdo();
-    loadCommands();
-    loadSelectHandler();
-    loadButtonHandler();
-    await registerCommands();
-
+const cacheServer = async () => {
     console.log('cache start');
     const guild = await client.guilds.cache.get(Server.adofai_gg);
     ServerCache.adofai_gg = guild;
@@ -172,6 +155,25 @@ client.once('ready', async () => {
     console.log('emoji cached');
 
     console.log('cache finish');
+}
+
+module.exports.loadOwners = loadOwners;
+module.exports.loadDokdo = loadDokdo;
+module.exports.loadCommands = loadCommands;
+module.exports.loadSelectHandler = loadSelectHandler;
+module.exports.loadButtonHandler = loadButtonHandler;
+module.exports.registerCommands = registerCommands;
+
+client.once('ready', async () => {
+    console.log(`${client.user.tag}으로 로그인하였습니다.`);
+
+    await loadOwners();
+    loadDokdo();
+    loadCommands();
+    loadSelectHandler();
+    loadButtonHandler();
+    cacheServer();
+    registerCommands();
 });
 
 client.on('interactionCreate', async interaction => {
@@ -183,7 +185,7 @@ client.on('interactionCreate', async interaction => {
         await user.save();
 
         try {
-            await interaction.channel.send(lang.getFirstTimeString());
+            await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
     

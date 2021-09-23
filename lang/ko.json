@@ -27,5 +27,9 @@
 
   "PP_RANKING": "PP 랭킹",
   "PREV": "이전",
-  "NEXT": "다음"
+  "NEXT": "다음",
+
+  "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
+
+  "BOT_INVITE": "최소한의 권한으로 초대하려면 [여기]({minperm})를, 관리자 권한으로 초대하려면 [여기]({admin})를 클릭하세요."
 }

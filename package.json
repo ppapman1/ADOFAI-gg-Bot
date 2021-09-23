@@ -4,7 +4,7 @@
   "description": "Discord bot for ADOFAI.gg",
   "main": "main.js",
   "scripts": {
-    "test": "nodemon main.js --debug 860097560646516746"
+    "test": "npx nodemon main.js --debug 860097560646516746"
   },
   "author": "HYONSU",
   "license": "UNLICENSED",
@@ -13,9 +13,6 @@
     "discord.js": "^13.1.0",
     "dokdo": "^0.5.0",
     "mongoose": "^6.0.6"
-  },
-  "devDependencies": {
-    "decache": "^4.6.0"
   },
   "nodemonConfig": {
     "ignore": [
