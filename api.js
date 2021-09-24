@@ -1,5 +1,6 @@
 const { MessageActionRow , MessageButton, MessageEmbed} = require('discord.js');
 const axios = require('axios');
+const querystring = require('querystring');
 
 const setting = require('./setting.json');
 const main = require("./main");
@@ -39,6 +40,9 @@ module.exports.searchLevel = async data => {
             maxBpm,
             minTiles,
             maxTiles
+        },
+        paramsSerializer: p => {
+            return querystring.stringify(p);
         }
     });
 
