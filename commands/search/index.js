@@ -1,6 +1,5 @@
 const fs = require('fs');
 
-const permissions = require('../../permissions');
 const lang = require('../../lang');
 
 module.exports = {

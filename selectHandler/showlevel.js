@@ -1,13 +1,5 @@
-const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
-
-const setting = require('../setting.json');
-
-const main = require('../main');
-const utils = require('../utils');
 const lang = require('../lang');
 const api = require('../api');
-
-const Server = require('../server.json');
 
 module.exports = async interaction => {
     const params = interaction.values[0].split('_');

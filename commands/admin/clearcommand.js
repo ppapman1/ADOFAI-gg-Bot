@@ -1,5 +1,3 @@
-const main = require('../../main');
-
 module.exports = async interaction => {
     // const globalCommands = await interaction.client.application?.commands.fetch();
     // const guildCommands = await interaction.guild.commands.fetch();

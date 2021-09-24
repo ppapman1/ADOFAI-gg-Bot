@@ -41,9 +41,7 @@ module.exports.searchLevel = async data => {
             minTiles,
             maxTiles
         },
-        paramsSerializer: p => {
-            return querystring.stringify(p);
-        }
+        paramsSerializer: querystring.stringify
     });
 
     return search.data.results;
