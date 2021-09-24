@@ -1,4 +1,9 @@
-/.idea/
-/node_modules/
+# Environments
+.vscode/
+.idea/
+node_modules/
+dist/
+
+# Secrets
 setting.json
 server.json
