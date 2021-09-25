@@ -20,10 +20,7 @@ module.exports = {
         const levelID = interaction.options.getNumber('id');
         const level = await api.getLevel(levelID);
 
-        if(!level) return interaction.editReply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'),
-            components: []
-        });
+        if(!level) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'));
 
         return interaction.editReply(api.getLevelInfoMessage(level));
     }
