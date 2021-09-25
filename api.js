@@ -81,6 +81,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en') => {
                 .addField('Tiles', level.tiles.toString(), true)
                 .addField('Description', level.description || `There's no description for this level.`)
                 .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
+                .setFooter(`ID : ${level.id}`)
         ],
             content: '\u200B',
         components: [
