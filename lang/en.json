@@ -1,7 +1,7 @@
 {
   "DISPLAY_NAME": "English",
 
-  "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command.",
+  "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command and invite the bot using the /invite command.",
   "LANGUAGE_CHANGED": "Language changed to english!",
 
   "TEST": "Wa Sans",

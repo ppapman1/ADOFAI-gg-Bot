@@ -1,7 +1,7 @@
 {
   "DISPLAY_NAME": "한국어",
 
-  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있습니다.",
+  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있고, /invite 명령어를 이용해 봇을 초대할 수 있습니다.",
   "LANGUAGE_CHANGED": "언어가 한국어로 변경되었습니다!",
 
   "TEST": "와 샌즈",
