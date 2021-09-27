@@ -1,0 +1,110 @@
+{
+  "chart": {
+    "subjective": {
+      "id": 20,
+      "title": "Subjective",
+      "description": "This level's difficulty can vary by person."
+    },
+    "pseudo": {
+      "id": 13,
+      "title": "Pseudo",
+      "description": "This level contains parts where you have to press two fingers at once."
+    },
+    "pseudo2": {
+      "id": 15,
+      "title": "Pseudo +2",
+      "description": "This level contains parts where you have to press multiple fingers at once."
+    },
+    "gallop": {
+      "id": 14,
+      "title": "Gallop",
+      "description": "This level contains parts where you do fast streams."
+    },
+    "magicshape": {
+      "id": 8,
+      "title": "Magic Shape",
+      "description": "This level contains magic shapes."
+    },
+    "memorization": {
+      "id": 5,
+      "title": "Memorization",
+      "description": "This level requires memorization."
+    },
+    "nospeedchange": {
+      "id": 3,
+      "title": "No Speed Change",
+      "description": "The tile bpm remains constant throughout this level."
+    },
+    "noswirls": {
+      "id": 6,
+      "title": "No Swirls",
+      "description": "This level has no swirls."
+    }
+  },
+
+  "rhythm": {
+    "triplet": {
+      "id": 2,
+      "title": "Triplet",
+      "description": "This level contains triplets."
+    },
+    "quintuplet": {
+      "id": 19,
+      "title": "Quintuplet",
+      "description": "This level contains quintuplets."
+    },
+    "septuplet": {
+      "id": 9,
+      "title": "Septuplet",
+      "description": "This level contains septuplets."
+    },
+    "polyrhythm": {
+      "id": 18,
+      "title": "Polyrhythm",
+      "description": "This level contains polyrhythms."
+    },
+    "swing": {
+      "id": 16,
+      "title": "Swing",
+      "description": "This level contains swing rhythms."
+    },
+    "tresillo": {
+      "id": 21,
+      "title": "Tresillo",
+      "description": "This level contains tresillos."
+    },
+    "funkybeat": {
+      "id": 12,
+      "title": "Funky Beat",
+      "description": "This level contains funky beats."
+    },
+    "64beat": {
+      "id": 10,
+      "title": "64+ Beat",
+      "description": "This level contains beats higher than 64."
+    },
+    "acceldecel": {
+      "id": 7,
+      "title": "Acceleration / Deceleration",
+      "description": "This level uses a song that changes BPM."
+    },
+    "slow": {
+      "id": 17,
+      "title": "Slow",
+      "description": "This level's BPM is under 300."
+    }
+  },
+
+  "length": {
+    "short": {
+      "id": 1,
+      "title": "Short",
+      "description": "Levels that are under a minute."
+    },
+    "long": {
+      "id": 11,
+      "title": "Long",
+      "description": "Levels that are over 4 minutes."
+    }
+  }
+}

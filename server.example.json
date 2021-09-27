@@ -35,6 +35,27 @@
     "20.5": "emojiid",
     "download": "emojiid",
     "youtube": "emojiid",
-    "steam": "emojiid"
+    "steam": "emojiid",
+
+    "subjective": "",
+    "pseudo": "",
+    "pseudo2": "",
+    "gallop": "",
+    "magicshape": "",
+    "memorization": "",
+    "nospeedchange": "",
+    "noswirls": "",
+    "triplet": "",
+    "quintuplet": "",
+    "septuplet": "",
+    "polyrhythm": "",
+    "swing": "",
+    "tresillo": "",
+    "funkybeat": "",
+    "64beat": "",
+    "acceldecel": "",
+    "slow": "",
+    "short": "",
+    "long": ""
   }
 }

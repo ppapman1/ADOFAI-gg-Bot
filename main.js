@@ -204,12 +204,10 @@ client.on('interactionCreate', async interaction => {
     }
 
     if(interaction.isSelectMenu()) {
+        if(!interaction.values[0]) return;
         const params = interaction.values[0].split('_');
         const handler = selectHandler[params[0]];
-        if(!handler) return interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
+        if(!handler) return;
 
         handler(interaction);
     }

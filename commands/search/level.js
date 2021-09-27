@@ -10,7 +10,7 @@ module.exports = async interaction => {
 
     const { options } = interaction;
 
-    const search = await api.searchLevel({
+    const searchQuery = {
         query: options.getString('query'),
         minDifficulty: options.getNumber('mindifficulty'),
         maxDifficulty: options.getNumber('maxdifficulty'),
@@ -18,36 +18,43 @@ module.exports = async interaction => {
         maxBpm: options.getNumber('maxbpm'),
         minTiles: options.getNumber('mintiles'),
         maxTiles: options.getNumber('maxtiles')
-    });
+    }
+    const search = await api.searchLevel(searchQuery);
 
     if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
     if(search.length == 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
 
-    const selectOptions = [];
-    for(let l of search) {
-        const title = `${l.artists.join(' & ')} - ${l.title}`;
+    const msg = await interaction.editReply(api.getSearchList(search, interaction.user.id, interaction.dbUser.lang));
 
-        selectOptions.push({
-            label: title.substring(0, 100),
-            description: `by ${l.creators.join(' & ')}`,
-            value: `showlevel_${interaction.user.id}_${l.id}`,
-            emoji: {
-                id: Server.emoji[l.difficulty.toString()]
-            }
+    const tagCollector = msg.createMessageComponentCollector({
+        filter: i => i.customId == 'tagSearch' && i.user.id == interaction.user.id,
+        time: 30000
+    });
+    
+    tagCollector.on('collect', async i => {
+        searchQuery.includeTags = i.values.join(',');
+        const search = await api.searchLevel(searchQuery);
+
+        const result = api.getSearchList(search, interaction.user.id, interaction.dbUser.lang, i.values);
+        if(result.components[0].components[0].options[0].value == 'fake') {
+            result.components[0].components[0].setDisabled();
+            result.components[0].components[0].setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'CANT_FIND_LEVEL'));
+        }
+        await interaction.editReply(result);
+
+        await i.deferUpdate();
+        return tagCollector.resetTimer();
+    });
+
+    tagCollector.on('end', async () => {
+        const checkMsg = await msg.fetch();
+
+        if(checkMsg.components.length != 2) return;
+
+        checkMsg.components[1].components[0].setDisabled();
+        await interaction.editReply({
+            components: checkMsg.components
         });
-    }
-
-    return interaction.editReply({
-        content: lang.langByLangName(interaction.dbUser.lang, 'SELECT_LEVEL_MESSAGE'),
-        components: [
-            new MessageActionRow()
-                .addComponents(
-                    new MessageSelectMenu()
-                        .setCustomId(`showlevel`)
-                        .setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'SELECT_LEVEL_SELECT_MENU'))
-                        .addOptions(selectOptions)
-                )
-        ]
     });
 }

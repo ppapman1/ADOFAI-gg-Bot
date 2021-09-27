@@ -1,7 +1,7 @@
 {
   "DISPLAY_NAME": "한국어",
 
-  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있고, /invite 명령어를 이용해 봇을 초대할 수 있습니다.",
+  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있고, `/invite` 명령어를 이용해 봇을 초대할 수 있습니다.",
   "LANGUAGE_CHANGED": "언어가 한국어로 변경되었습니다!",
 
   "TEST": "와 샌즈",
@@ -15,8 +15,10 @@
   "UNSUPPORTED_LEVEL": "현재 지원되지 않는 레벨입니다.",
   "DOWNLOAD_LINK_MISSING": "이 레벨의 다운로드 링크가 없습니다.",
 
-  "SELECT_LEVEL_MESSAGE": "아래 메뉴에서 원하는 레벨을 선택하세요.",
+  "SELECT_LEVEL_MESSAGE": "아래 메뉴에서 원하는 레벨을 선택하거나, 태그를 선택하여 상세하게 검색하세요.",
   "SELECT_LEVEL_SELECT_MENU": "레벨을 선택하세요.",
+  "TAG_SEARCH_SELECT_MENU": "태그를 선택하세요.",
+  "CANT_FIND_LEVEL": "레벨을 찾을 수 없음",
 
   "SELF_MESSAGE_ONLY": "명령어를 입력한 본인만 선택할 수 있습니다.",
   "LEVEL_NOT_FOUND": "해당 레벨의 정보를 찾을 수 없습니다.",

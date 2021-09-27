@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton, MessageEmbed} = require('discord.js');
+const { MessageActionRow , MessageButton, MessageEmbed, MessageSelectMenu} = require('discord.js');
 const axios = require('axios');
 const querystring = require('querystring');
 
@@ -7,6 +7,7 @@ const main = require("./main");
 const lang = require('./lang');
 const utils = require("./utils");
 const Server = require("./server.json");
+const tags = require('./tags.json');
 
 const api = axios.create({
     baseURL: setting.API
@@ -22,7 +23,8 @@ module.exports.searchLevel = async data => {
         minTiles,
         maxTiles,
         sort,
-        amount
+        amount,
+        includeTags
     } = data;
 
     sort = sort || 'RECENT_DESC';
@@ -39,7 +41,8 @@ module.exports.searchLevel = async data => {
             minBpm,
             maxBpm,
             minTiles,
-            maxTiles
+            maxTiles,
+            includeTags
         },
         paramsSerializer: querystring.stringify
     });
@@ -105,6 +108,72 @@ module.exports.getLevelInfoMessage = (level, language = 'en') => {
                         .setEmoji(Server.emoji.youtube)
                 )
         ]
+    }
+}
+
+module.exports.getSearchList = (search, userid, language = 'en', selectedTags = []) => {
+    if (!userid) return null;
+
+    const selectOptions = [];
+
+    if(!search.length) selectOptions.push({
+        label: 'how did you found this?',
+        value: 'fake'
+    });
+    else for(let l of search) {
+        const title = `${l.artists.join(' & ')} - ${l.title}`;
+
+        selectOptions.push({
+            label: title.substring(0, 100),
+            description: `by ${l.creators.join(' & ')}`,
+            value: `showlevel_${userid}_${l.id}`,
+            emoji: {
+                id: Server.emoji[l.difficulty.toString()]
+            }
+        });
+    }
+
+    const components = [
+        new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId(`showlevel`)
+                    .setPlaceholder(lang.langByLangName(language, 'SELECT_LEVEL_SELECT_MENU'))
+                    .addOptions(selectOptions)
+            )
+    ]
+
+    const tagOptions = [];
+
+    for(let tagSubject in tags) {
+        for(let tagName in tags[tagSubject]) {
+            const tag = tags[tagSubject][tagName];
+            tagOptions.push({
+                label: tag.title,
+                description: tag.description,
+                value: tag.id.toString(),
+                emoji: {
+                    id: Server.emoji[tagName]
+                },
+                default: selectedTags.includes(tag.id.toString())
+            });
+        }
+    }
+
+    components.push(
+        new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('tagSearch')
+                    .setPlaceholder(lang.langByLangName(language, 'TAG_SEARCH_SELECT_MENU'))
+                    .addOptions(tagOptions)
+                    .setMinValues(1)
+            )
+    );
+
+    return {
+        content: lang.langByLangName(language, 'SELECT_LEVEL_MESSAGE'),
+        components
     }
 }
 
