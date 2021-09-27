@@ -22,6 +22,6 @@ module.exports = {
 
         if(!level) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'));
 
-        return interaction.editReply(api.getLevelInfoMessage(level));
+        return interaction.editReply(api.getLevelInfoMessage(level, interaction.dbUser.lang));
     }
 }
