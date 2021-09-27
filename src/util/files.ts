@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync, PathLike } from 'fs';
+import { existsSync, readdirSync, readFileSync } from 'fs';
 
 /**
  * Checks the filename's extension.
@@ -31,8 +31,8 @@ export function combinePath(...paths: string[]): string {
  * @param path Directory to read files from
  * @returns Map of file name and file content
  */
-export function readFiles(path: string, allowedExtensions: string[] | null = null): Map<PathLike, string> | null {
-    let result = new Map<PathLike, string>();
+export function readFiles(path: string, allowedExtensions: string[] | null = null): Map<string, string> | null {
+    let result = new Map<string, string>();
 
     // Return null if there is no directory
     if (!existsSync(path)) return null;
