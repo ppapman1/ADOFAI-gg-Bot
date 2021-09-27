@@ -55,7 +55,11 @@ module.exports = {
     handler: async interaction => {
         const command = interaction.options.getSubcommand();
 
-        if(fs.existsSync(`./commands/search/${command}.js`)) require(`./${command}.js`)(interaction);
+        if(fs.existsSync(`./commands/search/${command}.js`)) {
+            const file = require.resolve(`./${command}.js`);
+            if(process.argv[2] == '--debug') delete require.cache[file];
+            require(file)(interaction);
+        }
         else interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true

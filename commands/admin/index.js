@@ -22,7 +22,11 @@ module.exports = {
         let command = interaction.options.getSubcommand();
         if(!fs.existsSync(`./commands/admin/${command}.js`)) command = interaction.options.getSubcommandGroup();
 
-        if(fs.existsSync(`./commands/admin/${command}.js`)) require(`./${command}.js`)(interaction);
+        if(fs.existsSync(`./commands/admin/${command}.js`)) {
+            const file = require.resolve(`./${command}.js`);
+            if(process.argv[2] == '--debug') delete require.cache[file];
+            require(file)(interaction);
+        }
         else interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true
