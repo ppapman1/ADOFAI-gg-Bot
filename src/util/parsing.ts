@@ -1,7 +1,18 @@
+/**
+ * Checks if the value is flat parsable.
+ * @param value Value to check whether it's flat parsable
+ * @returns Whether the value is flat parsable
+ */
 export function isFlatParsable(value: any) {
     return typeof value === "object" && value != null && !Array.isArray(value);
 }
 
+/**
+ * Wraps object with the base key from the value.
+ * @param baseKey Base key to wrap the object
+ * @param value Object to get keys and values from
+ * @returns Wrapped object
+ */
 export function wrapObject(baseKey: string, value: any) {
     let result: any = {};
     baseKey += ".";
@@ -13,28 +24,11 @@ export function wrapObject(baseKey: string, value: any) {
     return result;
 }
 
-/*
-
-{
-    asdf: {
-        a: 1,
-        b: 3
-    },
-    cc: "AsdDSA"
-}
-
-=>
-
-{
-    "asdf.a": 1,
-    "asdf.b": 3,
-    "cc": "AsdDSA"
-}
-
-dfdsfdfsfs
-
-*/
-
+/**
+ * Flat parses the object.
+ * @param obj Object to flat parse from
+ * @returns Flat parsed object
+ */
 export function flatParseObject(obj: any): any {
     if (!isFlatParsable(obj)) {
         // console.warn(`Unsupported parse type ${typeof parsed} (isArray: ${Array.isArray(parsed)}, isNull: ${parsed == null})`);
