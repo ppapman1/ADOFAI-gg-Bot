@@ -6,7 +6,7 @@ import { existsSync, readdirSync, readFileSync } from 'fs';
  * @param extensions List of extensions to check
  * @returns Whether the filename ends with any of extensions listed
  */
-export function checkExtension(filename: string, extensions: string[]): boolean {
+export function checkExtensions(filename: string, extensions: string[]): boolean {
     for (let i = 0; i < extensions.length; i++) {
         if (filename.endsWith(extensions[i] as string)) return true;
     }
@@ -38,7 +38,7 @@ export function readFiles(path: string, allowedExtensions: string[] | null = nul
     if (!existsSync(path)) return null;
     
     readdirSync(path).forEach(f => {
-        if (!allowedExtensions || checkExtension(f, allowedExtensions)) {
+        if (!allowedExtensions || checkExtensions(f, allowedExtensions)) {
             // result.set (filename, content)
             result.set(f, readFileSync(combinePath(path, f)).toString());
         }
