@@ -1,10 +1,23 @@
-import { assignParams } from ".";
-import { loadFiles } from "../lang";
 import { Language } from "../typings";
+import { assignParams, FileData } from "../util";
 
-let localizationContents = loadFiles();
+export class Localizations extends FileData {
+    protected static override _instance: Localizations;
 
-export namespace Localization {
+    /**
+     * Instance of this class.
+     */
+    static override get instance() {
+        return this._instance;
+    }
+
+    static override Load(): void {
+        this.LoadFrom("./dist/localization");
+    }
+
+    // extended features
+    // -----------------
+
     /**
      * Gets the localization string without returning check values.
      * @param key Localization string key
@@ -12,8 +25,8 @@ export namespace Localization {
      * @param params Parameters to assign to the result string
      * @returns Localized string with variables applied
      */
-    export function Get(key: string, language: Language, params: {[key: string]: any} = {}): string {
-        return GetWithCheck(key, language, params).value;
+    static Get(key: string, language: Language, params: {[key: string]: any} = {}): string {
+        return this.GetWithCheck(key, language, params).value;
     }
 
     /**
@@ -23,13 +36,13 @@ export namespace Localization {
      * @param params Parameters to assign to the result string
      * @returns Localized string with variables applied
      */
-    export function GetWithCheck (key: string, language: Language, params: {[key: string]: any} = {}): { success: boolean, value: string} {
+    static GetWithCheck (key: string, language: Language, params: {[key: string]: any} = {}): { success: boolean, value: string} {
         let result = {
             success: false,
             value: ""
         };
 
-        let langContent = localizationContents.get(language);
+        let langContent: any = this.instance.data.get(language);
 
         // Language not found
         if (!langContent) {
@@ -47,7 +60,7 @@ export namespace Localization {
 
             // Fallback
             if (language !== "English") {
-                result = GetWithCheck (key, "English", params);
+                result = this.GetWithCheck (key, "English", params);
             }
 
             return result;
@@ -57,12 +70,5 @@ export namespace Localization {
         result.value = assignParams(str, params);
 
         return result;
-    }
-
-    /**
-     * Reload the localization strings.
-     */
-    export function Reload(): void {
-        localizationContents = loadFiles();
     }
 }

@@ -1,9 +1,10 @@
-import { CredentialsValue } from "../typings"
+import { flatParse } from "..";
+import { JsonValue } from "../../typings"
 
 /**
  * Basically Map but with an extra feature.
  */
-export class CredentialsMap extends Map<string, CredentialsValue> {
+export class DataMap extends Map<string, JsonValue> {
     /**
      * Finds keys based from certain key.
      * @param baseKey Base key to get keys "based in" the key
@@ -27,6 +28,17 @@ export class CredentialsMap extends Map<string, CredentialsValue> {
 
         // Try to add one more because if done is true, item won't get pushed
         pushItem(iteratorValue.value);
+
+        return result;
+    }
+
+    static Build(fileContent: string): DataMap {
+        let result = new DataMap();
+
+        let parsed = flatParse(fileContent);
+        Object.keys(parsed).forEach(k => {
+            result.set(k, parsed[k]);
+        });
 
         return result;
     }

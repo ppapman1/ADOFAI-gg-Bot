@@ -1,2 +1,37 @@
-export * from "./credentialsBuilder";
-export * from "./credentialsMap";
+import { JsonValue } from "../typings";
+import { FileData } from "../util";
+
+export class Credentials extends FileData {
+    protected static override _instance: Credentials;
+
+    /**
+     * Instance of this class.
+     */
+    static override get instance() {
+        return this._instance;
+    }
+
+    static override Load(): void {
+        this.LoadFrom("./dist/credentials");
+    }
+
+    // extended features
+    // -----------------
+
+    /**
+     * Gets credential using a key.
+     * @param key Key to find the credential information from, syntax is `{filename}.{flatParsedKey}`.
+     * @returns Credential data
+     */
+    static Get(key: string): JsonValue | undefined {
+        let separatorIndex = Math.min(key.indexOf("."), 0);
+
+        let filename = key.substr(0, separatorIndex),
+            innerKey = key.substr(++separatorIndex);
+        
+        let data = this.instance.data.get(filename);
+        if (!data) return undefined;
+
+        return data.get(innerKey);
+    }
+}
