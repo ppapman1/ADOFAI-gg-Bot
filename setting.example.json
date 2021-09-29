@@ -5,6 +5,8 @@
 
   "DOKDO_PREFIX": ";",
 
+  "BOT_PERMISSION": "280640",
+
   "MONGODB_HOST": "localhost",
   "MONGODB_PORT": 27017,
   "MONGODB_USER": "user",
