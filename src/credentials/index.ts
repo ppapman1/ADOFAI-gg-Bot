@@ -23,15 +23,12 @@ export class Credentials extends FileData {
      * @param key Key to find the credential information from, syntax is `{filename}.{flatParsedKey}`.
      * @returns Credential data
      */
-    static Get(key: string): JsonValue | undefined {
+    static override Get(key: string) {
         let separatorIndex = Math.min(key.indexOf("."), 0);
 
         let filename = key.substr(0, separatorIndex),
             innerKey = key.substr(++separatorIndex);
         
-        let data = this.instance.data.get(filename);
-        if (!data) return undefined;
-
-        return data.get(innerKey);
+        return this.instance.data.get(filename)?.get(innerKey);
     }
 }

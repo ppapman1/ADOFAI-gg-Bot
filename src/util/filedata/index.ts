@@ -1,5 +1,6 @@
 import { DataMap } from "./map";
 import { readFiles } from "..";
+import { JsonValue } from "../../typings";
 
 export class FileData {
     /**
@@ -29,13 +30,22 @@ export class FileData {
     /**
      * Creates the cached values in selected files.
      */
-    protected static LoadFrom(directory: string): void {
+    protected static LoadFrom(directory: string, extensions: string[] = [".json"]): void {
         let result = new Map<string, DataMap>();
 
-        readFiles(directory, [".json"])?.forEach((content, filename) => {
-            result.set(filename.replace(".json", ""), DataMap.Build(content));
+        let ext = "(";
+        extensions.forEach((e, i) => {
+            ext += e.replace(/\./g, "\\.") + (i == extensions.length - 1 ? ")$" : "|");
+        });
+
+        readFiles(directory,extensions)?.forEach((content, filename) => {
+            result.set(filename.replace(new RegExp(ext, "g"), ""), DataMap.Build(content));
         });
 
         new FileData(result);
     }
+
+    public static Get(key: string): JsonValue | undefined {
+        throw new Error("Please override FileData.Get in order to use this method!!!");
+    };
 }

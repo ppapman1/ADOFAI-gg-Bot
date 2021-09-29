@@ -25,7 +25,12 @@ export class Localizations extends FileData {
      * @param params Parameters to assign to the result string
      * @returns Localized string with variables applied
      */
-    static Get(key: string, language: Language, params: {[key: string]: any} = {}): string {
+    static override Get(key: string, language: Language = "English", params: {[key: string]: any} = {}): string {
+        if (key.startsWith("global.")) {
+            language = "Global";
+            key = key.replace("global.", "");
+        }
+
         return this.GetWithCheck(key, language, params).value;
     }
 
