@@ -101,7 +101,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false) =>
                     .setCustomId('reroll')
                     .setLabel(lang.langByLangName(language, 'REROLL'))
                     .setStyle('PRIMARY')
-                    .setEmoji('🔄')
+                    .setEmoji(Server.emoji.reroll)
             )
     );
 
