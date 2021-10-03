@@ -5,7 +5,10 @@
     "staff": "roleid"
   },
 
-  "channel": {},
+  "channel": {
+    "openTicketCategory": "channelid",
+    "closedTicketCategory": "channelid"
+  },
 
   "emoji": {
     "minus2": "emojiid",
