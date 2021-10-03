@@ -218,10 +218,7 @@ client.on('interactionCreate', async interaction => {
     if(interaction.isButton()) {
         const params = interaction.customId.split('_');
         const handler = buttonHandler[params[0]];
-        if(!handler) return interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
+        if(!handler) return;
 
         handler(interaction);
     }

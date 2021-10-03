@@ -48,7 +48,7 @@ module.exports = {
 
         const { options } = interaction;
 
-        const search = await api.searchLevel({
+        const searchQuery = {
             query: options.getString('query'),
             minDifficulty: options.getNumber('mindifficulty'),
             maxDifficulty: options.getNumber('maxdifficulty'),
@@ -58,10 +58,36 @@ module.exports = {
             maxTiles: options.getNumber('maxtiles'),
             sort: 'RANDOM',
             amount: 1
+        };
+
+        let msg;
+
+        const pickLevel = async () => {
+            const search = await api.searchLevel(searchQuery);
+
+            if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
+
+            msg = await interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang, true));
+        }
+
+        await pickLevel();
+
+        const rerollCollector = msg.createMessageComponentCollector({
+            filter: i => i.customId == 'reroll' && i.user.id == interaction.user.id,
+            time: 30000
         });
 
-        if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
+        rerollCollector.on('collect', async i => {
+            await pickLevel();
+            await i.deferUpdate();
+            return rerollCollector.resetTimer();
+        });
 
-        return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
+        rerollCollector.on('end', async () => {
+            msg.components[1].components[0].setDisabled();
+            await interaction.editReply({
+                components: msg.components
+            });
+        });
     }
 }

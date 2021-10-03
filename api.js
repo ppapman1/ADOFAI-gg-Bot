@@ -56,7 +56,7 @@ module.exports.getLevel = async id => {
     return level.data;
 }
 
-module.exports.getLevelInfoMessage = (level, language = 'en') => {
+module.exports.getLevelInfoMessage = (level, language = 'en', random = false) => {
     const title = `${level.artists.join(' & ')} - ${level.title}`;
 
     if(level.workshop) level.workshop = level.workshop.trim();
@@ -71,6 +71,39 @@ module.exports.getLevelInfoMessage = (level, language = 'en') => {
         content: lang.langByLangName(language, 'UNSUPPORTED_LEVEL'),
         ephemeral: true
     }
+
+    const components = [
+        new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
+                    .setStyle('LINK')
+                    .setURL(level.download)
+                    .setEmoji(Server.emoji.download),
+                new MessageButton()
+                    .setLabel(lang.langByLangName(language, 'WORKSHOP'))
+                    .setStyle('LINK')
+                    .setURL(level.workshop || level.download)
+                    .setEmoji(Server.emoji.steam)
+                    .setDisabled(!level.workshop),
+                new MessageButton()
+                    .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
+                    .setStyle('LINK')
+                    .setURL(level.video)
+                    .setEmoji(Server.emoji.youtube)
+            )
+    ];
+
+    if(random) components.push(
+        new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('reroll')
+                    .setLabel(lang.langByLangName(language, 'REROLL'))
+                    .setStyle('PRIMARY')
+                    .setEmoji('🔄')
+            )
+    );
 
     return {
         embeds: [
@@ -87,27 +120,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en') => {
                 .setFooter(`ID : ${level.id}`)
         ],
             content: '\u200B',
-        components: [
-            new MessageActionRow()
-                .addComponents(
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
-                        .setStyle('LINK')
-                        .setURL(level.download)
-                        .setEmoji(Server.emoji.download),
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(language, 'WORKSHOP'))
-                        .setStyle('LINK')
-                        .setURL(level.workshop || level.download)
-                        .setEmoji(Server.emoji.steam)
-                        .setDisabled(!level.workshop),
-                    new MessageButton()
-                        .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
-                        .setStyle('LINK')
-                        .setURL(level.video)
-                        .setEmoji(Server.emoji.youtube)
-                )
-        ]
+        components
     }
 }
 
