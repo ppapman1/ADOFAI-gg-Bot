@@ -16,8 +16,10 @@ let DokdoHandler;
 let application;
 let owners = [];
 let ownerID = [];
+let teamOwner;
 module.exports.getOwners = () => owners;
 module.exports.getOwnerID = () => ownerID;
+module.exports.getTeamOwner = () => teamOwner;
 
 const ServerCache = {
     role: {},
@@ -47,13 +49,14 @@ const loadOwners = async () => {
     application = await client.application.fetch();
     owners = application.owner instanceof Team ? application.owner.members.map(a => a.user) : [application.owner];
     ownerID = owners.map(a => a.id);
+    teamOwner = application.owner instanceof Team ? application.owner.ownerId : application.owner.id;
 }
 
 const loadDokdo = () => {
     DokdoHandler = new Dokdo(client, {
         aliases: [ 'dokdo', 'dok' ],
         prefix: setting.DOKDO_PREFIX,
-        owners: application.owner instanceof Team ? application.owner.ownerId : application.owner.id
+        owners: teamOwner
     });
 }
 

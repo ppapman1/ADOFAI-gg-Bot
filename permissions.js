@@ -17,5 +17,9 @@ staffOnly.push({
     permission: true
 });
 
-module.exports.ownerOnly = ownerOnly;
+module.exports.ownerOnly = ownerOnly.length > 10 ? [{
+    id: main.getTeamOwner(),
+    type: 'USER',
+    permission: true
+}] : ownerOnly;
 module.exports.staffOnly = staffOnly;
