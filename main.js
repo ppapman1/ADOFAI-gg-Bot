@@ -10,7 +10,17 @@ const Server = require('./server.json');
 
 const User = require('./schemas/user');
 
-const client = new Client({ intents: [ Intents.FLAGS.GUILDS , Intents.FLAGS.GUILD_MESSAGES , Intents.FLAGS.GUILD_MEMBERS ] });
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.GUILD_MEMBERS,
+        Intents.FLAGS.DIRECT_MESSAGES
+    ],
+    partials: [
+        'CHANNEL'
+    ]
+});
 let DokdoHandler;
 
 let application;
@@ -118,7 +128,7 @@ const registerCommands = async () => {
         await client.application.commands.set(commands);
         console.log('registered global command. registering guild command...');
 
-        const guildCommandInfo = await client.guilds.cache.get(Server.adofai_gg).commands.set(privateCommands);
+        const guildCommandInfo = await client.guilds.cache.get(process.argv[3] || Server.adofai_gg).commands.set(privateCommands);
         console.log('registered guild command. registering guild command permission...');
         for (let c of guildCommandInfo) {
             if (permissions[c[1].name] != null) await c[1].permissions.set({
@@ -146,8 +156,9 @@ const registerCommands = async () => {
 
 const cacheServer = async () => {
     console.log('cache start');
+    // TODO: remove debug code here
     const guild = await client.guilds.cache.get(Server.adofai_gg);
-    ServerCache.adofai_gg = guild;
+    ServerCache.adofai_gg = process.argv[3] ? await client.guilds.cache.get(process.argv[3]) : guild;
     console.log('guild cached');
     for(let r in Server.role)
         ServerCache.role[r] = await guild.roles.fetch(Server.role[r]);
@@ -162,12 +173,23 @@ const cacheServer = async () => {
     console.log('cache finish');
 }
 
+const loadHandler = () => {
+    fs.readdirSync('./handler').forEach(f => {
+        const file = require.resolve(`./handler/${f}`);
+        delete require.cache[file];
+        require(file)(client);
+
+        console.log(`loaded handler ${f}`);
+    });
+}
+
 module.exports.loadOwners = loadOwners;
 module.exports.loadDokdo = loadDokdo;
 module.exports.loadCommands = loadCommands;
 module.exports.loadSelectHandler = loadSelectHandler;
 module.exports.loadButtonHandler = loadButtonHandler;
 module.exports.registerCommands = registerCommands;
+module.exports.loadHandler = loadHandler;
 
 client.once('ready', async () => {
     console.log(`${client.user.tag}으로 로그인하였습니다.`);
@@ -179,6 +201,7 @@ client.once('ready', async () => {
     loadButtonHandler();
     cacheServer();
     registerCommands();
+    loadHandler();
 });
 
 client.on('interactionCreate', async interaction => {
@@ -199,9 +222,9 @@ client.on('interactionCreate', async interaction => {
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
 
-        if(!interaction.guild) return interaction.reply({
-            content: '이 기능은 서버에서만 사용할 수 있습니다.'
-        });
+        if(!interaction.guild) return interaction.reply(
+            lang.langByLangName(interaction.dbUser.lang, 'SERVER_ONLY')
+        );
 
         if(commandHandler[interaction.commandName] != null) commandHandler[interaction.commandName](interaction);
     }

@@ -1,7 +1,7 @@
 const main = require('./main');
 const Server = require('./server.json');
 
-const ownerOnly = [];
+let ownerOnly = [];
 for(let u of main.getOwnerID()) {
     ownerOnly.push({
         id: u,
@@ -9,6 +9,11 @@ for(let u of main.getOwnerID()) {
         permission: true
     });
 }
+ownerOnly = ownerOnly.length > 10 ? [{
+    id: main.getTeamOwner(),
+    type: 'USER',
+    permission: true
+}] : ownerOnly;
 
 const staffOnly = ownerOnly.slice();
 staffOnly.push({
@@ -17,9 +22,5 @@ staffOnly.push({
     permission: true
 });
 
-module.exports.ownerOnly = ownerOnly.length > 10 ? [{
-    id: main.getTeamOwner(),
-    type: 'USER',
-    permission: true
-}] : ownerOnly;
+module.exports.ownerOnly = ownerOnly;
 module.exports.staffOnly = staffOnly;

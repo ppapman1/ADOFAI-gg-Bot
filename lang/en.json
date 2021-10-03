@@ -1,6 +1,8 @@
 {
   "DISPLAY_NAME": "English",
 
+  "SERVER_ONLY": "This function is only available on the server.",
+
   "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command and invite the bot using the `/invite` command.",
   "LANGUAGE_CHANGED": "Language changed to english!",
 
@@ -31,8 +33,25 @@
   "PP_RANKING": "PP Ranking",
   "PREV": "Prev",
   "NEXT": "Next",
+  "DELETE": "Delete",
+  "OPEN": "Open",
+  "CLOSE": "Close",
 
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
 
-  "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions."
+  "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions.",
+
+  "TICKET_CHANNEL_ONLY": "This command is only available on the ticket channel.",
+  "TICKET_NAME_CHANGED": "The ticket has been renamed {name}.",
+  "TICKET_NOT_FOUND": "No information was found on this ticket.",
+  "TICKET_OPEN_CONFIRM": "Do you really want to open the ticket? Press \"Open\" to open it.",
+  "TICKET_ALREADY_OPENING": "Tickets are already being opened. Please press \"Open\".",
+  "TICKET_OTHER_OPENED": "This ticket cannot be reopened because another ticket ({channel}) is already open.",
+  "TICKET_OPENED": "I opened the ticket again. You can close the ticket again using /ticket close.",
+  "TICKET_CLOSE_CONFIRM": "Do you really want to close the ticket? Press \"Close\" to close it.",
+  "TICKET_ALREADY_CLOSING": "Tickets are already being closed. Please press \"Close\".",
+  "TICKET_CLOSED": "I closed the ticket. You can delete tickets using /ticket delete.",
+  "TICKET_DELETE_CONFIRM": "Do you really want to delete the ticket? Press \"Delete\" to delete it.",
+  "TICKET_ALREADY_DELETING": "Ticket deletion is already in progress. Please press \"Delete\".",
+  "TICKET_OPEN_CANT_DELETE": "The ticket is open and cannot be deleted. Please enter /ticket close to close the ticket."
 }

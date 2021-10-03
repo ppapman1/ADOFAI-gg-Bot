@@ -45,6 +45,11 @@ module.exports = {
                 name: 'button',
                 description: '버튼 핸들러를 다시 불러옵니다. // Recall the button handler.',
                 type: 'SUB_COMMAND'
+            },
+            {
+                name: 'handler',
+                description: '기타 이벤트 핸들러를 다시 불러옵니다. // Reload the event handler.',
+                type: 'SUB_COMMAND'
             }
         ]
     },
@@ -76,6 +81,9 @@ module.exports = {
                 break;
             case 'button':
                 main.loadButtonHandler();
+                break;
+            case 'handler':
+                main.loadHandler();
                 break;
             default:
                 return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNKNOWN_RELOAD_TARGET'));
