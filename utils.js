@@ -1,7 +1,7 @@
 const Url = require('url');
 const querystring = require('querystring');
 
-const escapeRegExp = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const escapeRegExp = s => s.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 module.exports.escapeRegExp = escapeRegExp;
 
 module.exports.checkBatchim = word => {
