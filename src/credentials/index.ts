@@ -10,6 +10,14 @@ export class Credentials extends FileData {
         return this._instance;
     }
 
+    /**
+     * Name of the data to display in the log.
+     */
+    static override readonly dataType = "credentials";
+
+    /**
+     * Loads current file data.
+     */
     static override Load(): void {
         this.LoadFrom("./dist/credentials");
     }

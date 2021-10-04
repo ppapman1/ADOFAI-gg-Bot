@@ -21,6 +21,11 @@ export class FileData {
     }
 
     /**
+     * Name of the data to display in the log.
+     */
+    static readonly dataType: string = "unset";
+
+    /**
      * Loads the file contents from extended types.
      */
     static Load(): void {
