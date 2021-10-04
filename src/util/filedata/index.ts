@@ -45,6 +45,7 @@ export class FileData {
         new FileData(result);
     }
 
+    //@ts-ignore key parameter is unused here but it is extended
     public static Get(key: string): JsonValue | undefined {
         throw new Error("Please override FileData.Get in order to use this method!!!");
     };

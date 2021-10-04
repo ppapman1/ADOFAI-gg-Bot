@@ -1,4 +1,3 @@
-import { JsonValue } from "../typings";
 import { FileData } from "../util";
 
 export class Config extends FileData {

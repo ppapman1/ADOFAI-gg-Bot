@@ -1,3 +1,4 @@
+/*
 import { createPool } from "mariadb";
 import { Credentials } from "../credentials";
 
@@ -30,3 +31,4 @@ pool.getConnection()
    }).catch(err => {
      //not connected
    });
+   */
