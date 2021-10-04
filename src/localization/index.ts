@@ -19,18 +19,13 @@ export class Localizations extends FileData {
     // -----------------
 
     /**
-     * Gets the localization string without returning check values.
+     * Gets the localization string directly.
      * @param key Localization string key
      * @param language Language to get the key from
      * @param params Parameters to assign to the result string
      * @returns Localized string with variables applied
      */
     static override Get(key: string, language: Language = "English", params: {[key: string]: any} = {}): string {
-        if (key.startsWith("global.")) {
-            language = "Global";
-            key = key.replace("global.", "");
-        }
-
         return this.GetWithCheck(key, language, params).value;
     }
 
@@ -47,6 +42,12 @@ export class Localizations extends FileData {
             value: ""
         };
 
+        // Global key check
+        if (key.startsWith("global.")) {
+            language = "Global";
+            key = key.replace("global.", "");
+        }
+
         let langContent: any = this.instance.data.get(language);
 
         // Language not found
@@ -59,6 +60,7 @@ export class Localizations extends FileData {
 
         let str = langContent[key];
 
+        // There's no string here
         if (str === undefined) {
             console.warn(`Localization key '${key}' on language '${language}' not found!`);
             result.value = `No such key '${key}'`;
