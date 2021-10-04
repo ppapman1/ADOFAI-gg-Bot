@@ -4,7 +4,7 @@
  * @returns Whether the value is flat parsable
  */
 export function isFlatParsable(value: any) {
-    return typeof value === "object" && value != null && !Array.isArray(value);
+    return typeof value === "object" && value != null;
 }
 
 /**
@@ -27,7 +27,7 @@ export function wrapObject(baseKey: string, value: any) {
 /**
  * Flat parses the object.
  * @param obj Object to flat parse from
- * @returns Flat parsed object
+ * @returns Flat parsed object (returns array if given value is array)
  */
 export function flatParseObject(obj: any): any {
     if (!isFlatParsable(obj)) {
@@ -35,7 +35,7 @@ export function flatParseObject(obj: any): any {
         return obj;
     }
 
-    let result: any = {};
+    let result: any = Array.isArray(obj) ? [] : {};
 
     // For each keys, check if the value is flat-parsable
     Object.keys(obj).forEach(k => {
