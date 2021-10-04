@@ -88,7 +88,7 @@ module.exports = client => {
             else ticketChannel = await main.Server.adofai_gg.channels.fetch(ticket.channel);
 
             try {
-                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content);
+                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, message.attachments);
                 await message.react('✅');
             } catch(e) {
                 await message.react('❌');
@@ -116,7 +116,10 @@ module.exports = client => {
             for(let r of bot_mentions_regex) content = content.replace(r, '');
 
             try {
-                await ticketUser.send(content);
+                await ticketUser.send({
+                    content: content || null,
+                    files: message.attachments
+                });
                 await message.react('✅');
             } catch(e) {
                 await message.react('❌');
@@ -125,15 +128,16 @@ module.exports = client => {
     });
 }
 
-const sendTicketMessage = async (channel, username, avatarURL, content) => {
+const sendTicketMessage = async (channel, username, avatarURL, content, files) => {
     let webhook;
     const webhooks = await channel.fetchWebhooks();
     if(!webhooks.size) webhook = await channel.createWebhook('ADOFAI.gg Ticket Webhook');
     else webhook = webhooks.first();
 
     await webhook.send({
-        content,
+        content: content || null,
         username,
-        avatarURL
+        avatarURL,
+        files
     });
 }
