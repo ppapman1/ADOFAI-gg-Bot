@@ -1,7 +1,8 @@
-/*
-import { createPool } from "mariadb";
-import { Credentials } from "../credentials";
+// import { createPool } from "mariadb";
+// import { Credentials } from "../credentials";
 
+
+/* Example code
 const pool = createPool({
     host: 'mydb.com', 
     user:'myUser', 
