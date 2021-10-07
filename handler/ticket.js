@@ -21,7 +21,7 @@ module.exports = client => {
             });
             if(!ticket) {
                 const msg = await message.channel.send({
-                    content: '티겟을 여시겠습니까? 티켓을 열려면 아래 "열기" 버튼을 눌러주세요.\nDo you want to open the ticket? Press the "Open" button below to open the ticket.',
+                    content: '티켓을 여시겠습니까? 티켓을 열려면 아래 "열기" 버튼을 눌러주세요.\nDo you want to open the ticket? Press the "Open" button below to open the ticket.',
                     components: [
                         new MessageActionRow()
                             .addComponents(
