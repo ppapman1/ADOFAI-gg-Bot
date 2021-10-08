@@ -3,12 +3,15 @@ const fs = require('fs');
 const Dokdo = require('dokdo');
 
 const setting = require('./setting.json');
+const utils = require('./utils');
 
+const api = require('./api');
 const lang = require('./lang');
 
 const Server = require('./server.json');
 
 const User = require('./schemas/user');
+const Ticket = require('./schemas/ticket');
 
 const client = new Client({
     intents: [
@@ -65,7 +68,23 @@ const loadDokdo = () => {
     DokdoHandler = new Dokdo(client, {
         aliases: [ 'dokdo', 'dok' ],
         prefix: setting.DOKDO_PREFIX,
-        owners: teamOwner
+        owners: teamOwner,
+        secrets: [
+            setting.MONGODB_HOST,
+            setting.MONGODB_PORT,
+            setting.MONGODB_HOST,
+            setting.MONGODB_USER,
+            setting.MONGODB_PASSWORD
+        ],
+        globalVariable: {
+            User,
+            Ticket,
+            Server,
+            setting,
+            utils,
+            api,
+            lang
+        }
     });
 }
 
