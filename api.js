@@ -66,7 +66,10 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false) =>
         ephemeral: true
     }
 
-    const levelEmoji = main.Server.emoji[level.difficulty.toString()];
+    let difficultyString = level.difficulty.toString();
+    if(level.censored) difficultyString = 'minus2';
+
+    const levelEmoji = main.Server.emoji[difficultyString];
     if(!levelEmoji) return {
         content: lang.langByLangName(language, 'UNSUPPORTED_LEVEL'),
         ephemeral: true
