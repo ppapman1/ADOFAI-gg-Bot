@@ -41,6 +41,14 @@
 
   "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions.",
 
+  "EXPECTED_PP": "Expected PP is `{pp}`.",
+  "ACCURACY": "Accuracy",
+  "ACCURACY_V2": "Accuracy V2",
+  "ACCURACY_FIELD_VALUE": "{accuracy}% (Max {maxaccuracy}%)",
+  "TILES": "Tiles",
+  "PITCH": "Pitch",
+  "TOTAL_MAGNIFICATION": "Total maganifcaiton",
+  
   "TICKET_CHANNEL_ONLY": "This command is only available on the ticket channel.",
   "TICKET_NAME_CHANGED": "The ticket has been renamed {name}.",
   "TICKET_NOT_FOUND": "No information was found on this ticket.",
