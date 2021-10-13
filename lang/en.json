@@ -42,6 +42,10 @@
   "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions.",
 
   "EXPECTED_PP": "Expected PP is `{pp}`.",
+  "ACCURACY_IS_TOO_LOW": "Accuracy cannot be less than zero.",
+  "ACCURACY_CANNOT_EXCEED": "※ Accuracy cannot exceed {accuracy}%, which is the maximum accuracy of this level.",
+  "PITCH_IS_TOO_LOW": "Pitch cannot be less than zero.",
+  "PITCH_IS_TOO_HIGH": "Pitch cannot be greater than 100000.",
   
   "TICKET_CHANNEL_ONLY": "This command is only available on the ticket channel.",
   "TICKET_NAME_CHANGED": "The ticket has been renamed {name}.",
