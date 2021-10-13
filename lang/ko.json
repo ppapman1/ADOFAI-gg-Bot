@@ -42,12 +42,6 @@
   "BOT_INVITE": "최소한의 권한으로 초대하려면 [여기]({minperm})를, 관리자 권한으로 초대하려면 [여기]({admin})를 클릭하세요.",
 
   "EXPECTED_PP": "예상 PP는 `{pp}`입니다.",
-  "ACCURACY": "정확도",
-  "ACCURACY_V2": "정확도 V2",
-  "ACCURACY_FIELD_VALUE": "{accuracy}% (최대 {maxaccuracy}%)",
-  "TILES": "타일 수",
-  "PITCH": "피치",
-  "TOTAL_MAGNIFICATION": "총 배율",
 
   "TICKET_CHANNEL_ONLY": "이 명령어는 티켓 채널에서만 사용할 수 있습니다.",
   "TICKET_NAME_CHANGED": "티켓의 이름이 {name}{eh}로 변경되었습니다.",

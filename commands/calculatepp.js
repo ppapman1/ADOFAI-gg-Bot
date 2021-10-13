@@ -50,39 +50,33 @@ module.exports = {
             ephemeral: true
         }
         
-        let diffV2 = level.difficulty;
-        if(diffV2 == -2) diff == 0;
-        if(diffV2 == -1) diff == 20.5;
-        let ratingByDiff = (1600/(1+Math.exp(-0.42*level.difficulty+7.4)));
         
-        let magByTiles;
-        if(level.tiles < 2000) magByTiles = 0.84+level.tiles/12500;
-        else magByTiles = (level.tiles/2000)^0.1;
+        //calculate pp
+        let diffV2 = (level.difficulty == -1) ? 20.5 : level.difficulty;
+        let ratingByDiff = (diffV2 == -2) ? 0.0 : (1600/(1+Math.exp(-0.42*level.difficulty+7.4)));
+        
+        let magByTiles = (level.tiles < 2000) ? magByTiles = 0.84+level.tiles/12500 : (level.tiles/2000)^0.1;
 
         let accuracyV2 = accuracy ? accuracy/(100+(level.tiles*0.01)) : 0.93;
         let magByAcc = 0.013/(-(accuracyV2)+1.0125)+0.2;
         
-        let magByPitch;
-        if(pitch < 100) magByPitch = Math.pow((pitch/100), 1.8);
-        else magByPitch = Math.pow(((1+(pitch/100))/2),Math.min((0.1+(level.tiles)^0.5/(2000^0.5),1.1)));
+        let magByPitch = (pitch < 100) ? Math.pow((pitch/100), 1.8) : Math.pow(((1+(pitch/100))/2),Math.min((0.1+(level.tiles)^0.5/(2000^0.5),1.1)));
         
-        return interaction.editReply({
-            embeds: [
-                new MessageEmbed()
-                    .setColor('#349eeb')
-                    .setTitle(title)
-                    .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
-                    .setDescription(lang.langByLangName(interaction.dbUser.lang, 'EXPECTED_PP').replace('{pp}',Math.pow(ratingByDiff*magByAcc*magByPitch*magByTiles, 1.01).toFixed(4).toString()) + "\n\u200B")
-                    .addField('Lv.', `${levelEmoji} (${ratingByDiff.toFixed(2)} PP)`, true)
-                    .addField(lang.langByLangName(interaction.dbUser.lang, 'ACCURACY'), lang.langByLangName(interaction.dbUser.lang, 'ACCURACY_FIELD_VALUE').replace('{accuracy}', accuracy || -1).replace('{maxaccuracy}', (100+(level.tiles*0.01))), true)
-                    .addField(lang.langByLangName(interaction.dbUser.lang, 'ACCURACY_V2'), `${(accuracyV2*100).toFixed(2)}% (${magByAcc.toFixed(2)}x)`, true)
-                    .addField(lang.langByLangName(interaction.dbUser.lang, 'TILES'), `${level.tiles} (${magByTiles.toFixed(2)}x)`, true)
-                    .addField(lang.langByLangName(interaction.dbUser.lang, 'PITCH'), `${pitch}% (${magByPitch.toFixed(2)}x)`, true)
-                    .addField(lang.langByLangName(interaction.dbUser.lang, 'TOTAL_MAGNIFICATION'), `${(magByAcc*magByPitch*magByTiles).toFixed(4)}x`, true)
-                    .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
-                    .setFooter(`ID : ${level.id}`)
-            ],
-            content: '\u200B'
+        const resultPP = Math.pow(ratingByDiff*magByAcc*magByPitch*magByTiles, 1.01);
+        
+		return interaction.editReply({
+			embeds: [
+				new MessageEmbed()
+					.setColor('#349eeb')
+					.setTitle(title)
+					.setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
+					.setDescription(lang.langByLangName(interaction.dbUser.lang, 'EXPECTED_PP').replace('{pp}',Math.pow(ratingByDiff*magByAcc*magByPitch*magByTiles, 1.01).toFixed(4).toString()) + "\n\u200B")
+					.addField('Lv.', levelEmoji.toString(), true)
+					.addField('Speed', "x" + (pitch/100).toString(), true)
+					.addField('Accuracy', ((accuracy) ? accuracy : ((100+(level.tiles*0.01))*0.93)).toString() + "%", true)
+					//.setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
+					.setFooter(`ID : ${level.id}`)
+			]
         });
     }
 }
