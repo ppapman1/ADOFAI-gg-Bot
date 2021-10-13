@@ -42,7 +42,7 @@ module.exports = {
         
         if(accuracy) if(accuracy < 0) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'ACCURACY_IS_TOO_LOW'));
             
-        if(pitch < 1) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'PITCH_IS_TOO_LOW'));
+        if(pitch < 0) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'PITCH_IS_TOO_LOW'));
         if(pitch > 100000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'PITCH_IS_TOO_HIGH'));
         
         
