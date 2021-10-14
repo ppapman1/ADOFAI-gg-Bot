@@ -62,7 +62,7 @@ module.exports = {
         const ratingByDiff = level.difficulty === -2 ? 0.0 : (1600/(1+Math.exp(-0.42*((level.difficulty === -1) ? 20.5 : level.difficulty)+7.4)));
 
         // Magnification by Tiles
-        const magByTiles = level.tiles < 2000 ? 0.84+level.tiles/12500 : (level.tiles/2000)^0.1;
+        const magByTiles = level.tiles < 2000 ? 0.84+level.tiles/12500 : Math.pow((level.tiles/2000),0.1);
 
         // Converted Accuracy
         if(!accuracy) {
@@ -84,7 +84,7 @@ module.exports = {
             magByPitch = Math.pow(
                 (1+(pitch/100))/2,
                 Math.min(
-                    0.1+(level.tiles)^0.5/(2000^0.5),
+                    Math.pow(0.1+(level.tiles),0.5)/Math.pow(2000,0.5),
                     1.1
                 )
             );
