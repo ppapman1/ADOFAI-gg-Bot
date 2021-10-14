@@ -81,7 +81,13 @@ module.exports = {
         if(pitch < 100) {
             magByPitch = Math.pow((pitch/100), 1.8);
         } else {
-            magByPitch = Math.pow(((1+(pitch/100))/2),Math.min((0.1+(level.tiles)^0.5/(2000^0.5),1.1)));
+            magByPitch = Math.pow(
+                (1+(pitch/100))/2,
+                Math.min(
+                    0.1+(level.tiles)^0.5/(2000^0.5),
+                    1.1
+                )
+            );
         }
 
         // Final Rating
