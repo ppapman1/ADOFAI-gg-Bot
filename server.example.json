@@ -2,7 +2,8 @@
   "adofai_gg": "serverid",
 
   "role": {
-    "staff": "roleid"
+    "staff": "roleid",
+    "mute": "roleid"
   },
 
   "channel": {
@@ -12,7 +13,7 @@
 
   "emoji": {
     "minus2": "emojiid",
-    "21": "emojiid",
+    "101": "emojiid",
     "1": "emojiid",
     "2": "emojiid",
     "3": "emojiid",
@@ -35,7 +36,16 @@
     "19": "emojiid",
     "19.5": "emojiid",
     "20": "emojiid",
+    "20.1": "emojiid",
+    "20.2": "emojiid",
+    "20.3": "emojiid",
+    "20.4": "emojiid",
     "20.5": "emojiid",
+    "20.6": "emojiid",
+    "20.7": "emojiid",
+    "20.8": "emojiid",
+    "20.9": "emojiid",
+    "21": "emojiid",
     "download": "emojiid",
     "youtube": "emojiid",
     "steam": "emojiid",
