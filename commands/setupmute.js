@@ -26,7 +26,8 @@ module.exports = {
                 CREATE_PUBLIC_THREADS: false,
                 CREATE_PRIVATE_THREADS: false,
                 ADD_REACTIONS: false,
-                SPEAK: false
+                SPEAK: false,
+                STREAM: false
             }, {
                 reason: 'setup mute role'
             });
@@ -38,7 +39,8 @@ module.exports = {
                 CREATE_PUBLIC_THREADS: false,
                 CREATE_PRIVATE_THREADS: false,
                 ADD_REACTIONS: false,
-                SPEAK: false
+                SPEAK: false,
+                STREAM: false
             }, {
                 reason: 'setup mute role'
             });
