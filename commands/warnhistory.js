@@ -8,6 +8,7 @@ const Server = require('../server.json');
 const Warn = require('../schemas/warn');
 
 module.exports = {
+    private: true,
     info: {
         name: 'warnhistory',
         description: '경고 기록을 확인합니다. // Warn the user.',
