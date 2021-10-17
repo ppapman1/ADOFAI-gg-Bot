@@ -83,7 +83,8 @@ module.exports = async interaction => {
         });
     } catch(e) {}
 
-    return interaction.editReply(
-        lang.langByLangName(interaction.dbUser.lang, 'TICKET_OPENED')
-    );
+    return interaction.editReply({
+        content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_OPENED'),
+        components: []
+    });
 }
