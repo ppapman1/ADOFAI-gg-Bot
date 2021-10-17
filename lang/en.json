@@ -59,5 +59,28 @@
   "TICKET_CLOSED": "I closed the ticket. You can delete tickets using /ticket delete.",
   "TICKET_DELETE_CONFIRM": "Do you really want to delete the ticket? Press \"Delete\" to delete it.",
   "TICKET_ALREADY_DELETING": "Ticket deletion is already in progress. Please press \"Delete\".",
-  "TICKET_OPEN_CANT_DELETE": "The ticket is open and cannot be deleted. Please enter /ticket close to close the ticket."
+  "TICKET_OPEN_CANT_DELETE": "The ticket is open and cannot be deleted. Please enter /ticket close to close the ticket.",
+
+  "TOO_SHORT_LENGTH": "Length too short!",
+  "CANNOT_MANAGE_STAFF": "You can't manage staff.",
+
+  "MUTE_ROLE_SETUP_FINISH": "The mute role setting is over.",
+  "MUTE_USER_MUTED": "Muted {user} for {duration}.",
+
+  "UNMUTE_ALREADY_UNMUTED": "{user} has not been muted.",
+  "UNMUTE_USER_UNMUTED": "I unmuted {user}.",
+
+  "BAN_USER_BANNED": "Banned {user} for {duration}.",
+
+  "UNBAN_ALREADY_UNBANNED": "{user} has not been banned.",
+  "UNBAN_USER_UNBANNED": "I unbanned {user}.",
+
+  "KICK_USER_KICKED": "Kicked {user}.",
+
+  "WARN_USER_WARNED": "Warned {user}.",
+
+  "CANCEL_WARN_CONFIRM": "Do you really want to cancel this warning? Press the Confirm button below to cancel.",
+  "CANCEL_WARN_BUTTON_SUCCESS": "Canceled warn.",
+
+  "FOREVER_CONFIRM": "We want to punish you permanently. Press the Confirm button to continue."
 }

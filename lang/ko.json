@@ -59,5 +59,28 @@
   "TICKET_CLOSED": "티켓을 닫았습니다. /ticket delete를 사용해 티켓을 삭제할 수 있습니다.",
   "TICKET_DELETE_CONFIRM": "정말 티켓을 삭제하시겠습니까? 삭제하려면 \"삭제\"를 눌러주세요.",
   "TICKET_ALREADY_DELETING": "이미 티켓 삭제가 진행중입니다. \"삭제\"를 눌러주세요.",
-  "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 /ticket close를 입력해주세요."
+  "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 /ticket close를 입력해주세요.",
+
+  "TOO_SHORT_LENGTH": "길이가 너무 짧습니다!",
+  "CANNOT_MANAGE_STAFF": "스태프를 관리할 수 없습니다.",
+
+  "MUTE_ROLE_SETUP_FINISH": "뮤트 역할 설정이 끝났습니다.",
+  "MUTE_USER_MUTED": "{user}님을 {duration}동안 뮤트했습니다.",
+
+  "UNMUTE_ALREADY_UNMUTED": "{user}님은 뮤트되지 않았습니다.",
+  "UNMUTE_USER_UNMUTED": "{user}님을 뮤트 해제했습니다.",
+
+  "BAN_USER_BANNED": "{user}님을 {duration}동안 밴했습니다.",
+
+  "UNBAN_ALREADY_UNBANNED": "{user}님은 밴되지 않았습니다.",
+  "UNBAN_USER_UNBANNED": "{user}님을 밴 해제했습니다.",
+
+  "KICK_USER_KICKED": "{user}님을 킥했습니다.",
+
+  "WARN_USER_WARNED": "{user}님에게 경고를 부여했습니다.",
+
+  "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래 확인 버튼을 누르세요.",
+  "CANCEL_WARN_BUTTON_SUCCESS": "해당 경고를 취소하였습니다.",
+
+  "FOREVER_CONFIRM": "영구적으로 사용자를 처벌하려고 합니다. 계속하려면 확인 버튼을 누르세요."
 }

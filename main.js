@@ -7,11 +7,13 @@ const utils = require('./utils');
 
 const api = require('./api');
 const lang = require('./lang');
+const moderator = require('./moderator');
 
 const Server = require('./server.json');
 
 const User = require('./schemas/user');
 const Ticket = require('./schemas/ticket');
+const Warn = require('./schemas/warn');
 
 const client = new Client({
     intents: [
@@ -39,6 +41,7 @@ const ServerCache = {
     emoji: {}
 }
 module.exports.Server = ServerCache;
+moderator.setup(client, ServerCache);
 
 const connect = require('./schemas');
 connect();
@@ -51,7 +54,7 @@ let allCommands = [];
 let privateCommands = [];
 let permissions = {};
 
-const debug = process.argv[2] == '--debug';
+const debug = process.argv[2] === '--debug';
 if(debug && !process.argv[3]) {
     console.error('Debug guild missing');
     process.exit(1);
@@ -79,11 +82,14 @@ const loadDokdo = () => {
         globalVariable: {
             User,
             Ticket,
+            Warn,
             Server,
             setting,
             utils,
             api,
-            lang
+            lang,
+            main: module.exports,
+            moderator
         }
     });
 }
@@ -179,7 +185,7 @@ const cacheServer = async () => {
     ServerCache.adofai_gg = process.argv[3] ? await client.guilds.cache.get(process.argv[3]) : guild;
     console.log('guild cached');
     for(let r in Server.role)
-        ServerCache.role[r] = await guild.roles.fetch(Server.role[r]);
+        ServerCache.role[r] = await ServerCache.adofai_gg.roles.fetch(Server.role[r]);
     console.log('role cached');
     for(let c in Server.channel)
         ServerCache.channel[c] = await client.channels.fetch(Server.channel[c]);
@@ -234,9 +240,9 @@ client.on('interactionCreate', async interaction => {
             await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
-    
+
     interaction.dbUser = user;
-    
+
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
 

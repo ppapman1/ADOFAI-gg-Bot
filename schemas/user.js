@@ -4,12 +4,19 @@ const { Schema } = mongoose;
 const newSchema = new Schema({
     id: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     lang: {
         type: String,
         required: true,
         default: 'en'
+    },
+    unmuteAt: {
+        type: Number
+    },
+    unbanAt: {
+        type: Number
     }
 });
 

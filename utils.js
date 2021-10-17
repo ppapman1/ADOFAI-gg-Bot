@@ -101,7 +101,7 @@ module.exports.getRandomInt = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-module.exports.msToTime = duration => {
+module.exports.msToTime = (duration, en = false) => {
     // const weeks = duration / (1000 * 60 * 60 * 24 * 7);
     // const absoluteWeeks = Math.floor(weeks);
     // const w = absoluteWeeks ? (absoluteWeeks + '주 ') : '';
@@ -109,19 +109,19 @@ module.exports.msToTime = duration => {
     // const days = (weeks - absoluteWeeks) * 7;
     const days = duration / (1000 * 60 * 60 * 24);
     const absoluteDays = Math.floor(days);
-    const d = absoluteDays ? (absoluteDays + '일 ') : '';
+    const d = absoluteDays ? (absoluteDays + (en ? ` Day${absoluteDays > 1 ? 's' : ''} ` : '일 ')) : '';
 
     const hours = (days - absoluteDays) * 24;
     const absoluteHours = Math.floor(hours);
-    const h = absoluteHours ? (absoluteHours + '시간 ') : '';
+    const h = absoluteHours ? (absoluteHours + (en ? ` Hour${absoluteHours > 1 ? 's' : ''} ` : '시간 ')) : '';
 
     const minutes = (hours - absoluteHours) * 60;
     const absoluteMinutes = Math.floor(minutes);
-    const m = absoluteMinutes ? (absoluteMinutes + '분 ') : '';
+    const m = absoluteMinutes ? (absoluteMinutes + (en ? ` Minute${absoluteMinutes > 1 ? 's' : ''} ` : '분 ')) : '';
 
     const seconds = (minutes - absoluteMinutes) * 60;
     const absoluteSeconds = Math.floor(seconds);
-    const s = absoluteSeconds ? (absoluteSeconds + '초 ') : '';
+    const s = absoluteSeconds ? (absoluteSeconds + (en ? ` Second${absoluteSeconds > 1 ? 's' : ''} ` : '초 ')) : '';
 
     return (/* w + */ d + h + m + s).trim();
 }
