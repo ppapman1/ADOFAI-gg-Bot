@@ -143,6 +143,9 @@ const sendTicketMessage = async (channel, username, avatarURL, content, files) =
         content: content || null,
         username,
         avatarURL,
-        files
+        files,
+        allowedMentions: {
+            parse: []
+        }
     });
 }
