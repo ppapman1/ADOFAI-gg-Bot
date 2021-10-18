@@ -241,6 +241,8 @@ client.on('interactionCreate', async interaction => {
         } catch (e) {}
     }
 
+    if(user.blacklist && !ownerID.includes(user.id)) return;
+
     interaction.dbUser = user;
 
     if(interaction.isCommand() || interaction.isContextMenu()) {

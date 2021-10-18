@@ -82,5 +82,8 @@
   "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래 확인 버튼을 누르세요.",
   "CANCEL_WARN_BUTTON_SUCCESS": "해당 경고를 취소하였습니다.",
 
-  "FOREVER_CONFIRM": "영구적으로 사용자를 처벌하려고 합니다. 계속하려면 확인 버튼을 누르세요."
+  "FOREVER_CONFIRM": "영구적으로 사용자를 처벌하려고 합니다. 계속하려면 확인 버튼을 누르세요.",
+
+  "BLACKLIST_USER_ADDED": "{user}님을 블랙리스트에 등록했습니다.",
+  "BLACKLIST_USER_REMOVED": "{user}님을 블랙리스트에서 제거했습니다."
 }

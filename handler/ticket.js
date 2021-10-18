@@ -4,12 +4,17 @@ const main = require('../main');
 const utils = require('../utils');
 
 const Ticket = require('../schemas/ticket');
+const User = require("../schemas/user");
 
 const createProcessing = {};
 
 module.exports = client => {
     client.on('messageCreate', async message => {
         if(message.author.bot) return;
+
+        let user = await User.findOne({ id : message.author.id });
+
+        if(user && user.blacklist) return;
 
         if(message.channel.type == 'DM') {
             if(createProcessing[message.author.id]) return message.channel.send('이미 티켓 생성이 진행중입니다. "열기"를 눌러주세요.\nTicket generation is already underway. Please press "Open".');
