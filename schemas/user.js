@@ -17,6 +17,11 @@ const newSchema = new Schema({
     },
     unbanAt: {
         type: Number
+    },
+    blacklist: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 
