@@ -1,4 +1,5 @@
 const permissions = require('../permissions');
+const main = require('../main');
 const lang = require('../lang');
 const moderator = require('../moderator');
 
@@ -37,7 +38,7 @@ module.exports = {
         const reason = options.getString('reason') || 'No Reason';
 
         const member = await interaction.guild.members.fetch(user.id);
-        if(member.roles.cache.has(Server.role.staff)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
+        if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         const checkUser = await User.findOne({
             id: user.id

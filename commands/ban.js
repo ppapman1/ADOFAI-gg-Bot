@@ -2,6 +2,7 @@ const { MessageActionRow , MessageButton } = require('discord.js');
 const parseDuration = require('parse-duration');
 
 const permissions = require('../permissions');
+const main = require('../main');
 const lang = require('../lang');
 const utils = require('../utils');
 const moderator = require('../moderator');
@@ -46,7 +47,7 @@ module.exports = {
         const parsedDuration = parseDuration(duration);
 
         const member = await interaction.guild.members.fetch(user.id);
-        if(member.roles.cache.has(Server.role.staff)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
+        if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
 
