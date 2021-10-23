@@ -249,6 +249,11 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                             .setStyle('PRIMARY')
                             .setDisabled(offset == 0),
                         new MessageButton()
+                            .setCustomId('fake')
+                            .setLabel(`${Math.ceil(offset / 5) + 1} / ${Math.ceil(ranking.count / 5)}`)
+                            .setStyle('SECONDARY')
+                            .setDisabled(),
+                        new MessageButton()
                             .setCustomId(`rankingpage_${interaction.user.id}_${rank - 1}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
                             .setStyle('PRIMARY')
