@@ -36,6 +36,8 @@
   "DELETE": "Delete",
   "OPEN": "Open",
   "CLOSE": "Close",
+  "ARCHIVE": "Archive",
+  "UNARCHIVE": "Unarchive",
 
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
 
@@ -60,6 +62,14 @@
   "TICKET_DELETE_CONFIRM": "Do you really want to delete the ticket? Press \"Delete\" to delete it.",
   "TICKET_ALREADY_DELETING": "Ticket deletion is already in progress. Please press \"Delete\".",
   "TICKET_OPEN_CANT_DELETE": "The ticket is open and cannot be deleted. Please enter /ticket close to close the ticket.",
+  "TICKET_ARCHIVE_CONFIRM": "Do you really want to archive the tickets? Press \"Archive\" to archive.",
+  "TICKET_ALREADY_ARCHIVED": "This ticket has already been archived.",
+  "TICKET_ALREADY_ARCHIVING": "Ticket archive is already in progress. Please press \"Archive\".",
+  "TICKET_ARCHIVED": "I archived the ticket.",
+  "TICKET_UNARCHIVE_CONFIRM": "Do you really want to unarchive the tickets? If you want to unarchive, please press \"Unarchive\".",
+  "TICKET_ALREADY_UNARCHIVED": "This ticket has already been unarchived.",
+  "TICKET_ALREADY_UNARCHIVING": "Ticket unarchive is already in progress. Please press \"Unarchive\".",
+  "TICKET_UNARCHIVED": "I Unarchived the ticket.",
 
   "TOO_SHORT_LENGTH": "Length too short!",
   "CANNOT_MANAGE_STAFF": "You can't manage staff.",

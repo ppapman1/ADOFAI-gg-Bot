@@ -39,12 +39,23 @@ module.exports = {
                 name: 'delete',
                 description: '티켓을 삭제합니다. // Delete the ticket.',
                 type: 'SUB_COMMAND'
+            },
+            {
+                name: 'archive',
+                description: '티켓을 아카이브합니다. // Archive the ticket.',
+                type: 'SUB_COMMAND'
+            },
+            {
+                name: 'unarchive',
+                description: '티켓을 아카이브 해제합니다. // Unarchive the ticket.',
+                type: 'SUB_COMMAND'
             }
         ]
     },
     handler: async interaction => {
-        if(interaction.channel.parentId != main.Server.channel.openTicketCategory.id
-            && interaction.channel.parentId != main.Server.channel.closedTicketCategory.id)
+        if(interaction.channel.parentId !== main.Server.channel.openTicketCategory.id
+            && interaction.channel.parentId !== main.Server.channel.closedTicketCategory.id
+        && interaction.channel.parentId !== main.Server.channel.archivedTicketCategory.id)
             return interaction.reply({
                 content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_CHANNEL_ONLY'),
                 ephemeral: true
