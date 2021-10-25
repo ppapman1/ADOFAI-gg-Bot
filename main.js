@@ -1,6 +1,7 @@
 const { Client , Intents , Team } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
+const path = require('path');
 
 const setting = require('./setting.json');
 const utils = require('./utils');
@@ -15,12 +16,19 @@ const User = require('./schemas/user');
 const Ticket = require('./schemas/ticket');
 const Warn = require('./schemas/warn');
 
+const intents = [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGES
+];
+
+if(process.argv[2] === '--debug') {
+    intents.push(Intents.FLAGS.GUILD_MEMBERS);
+    intents.push(Intents.FLAGS.GUILD_PRESENCES);
+}
+
 const client = new Client({
-    intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.DIRECT_MESSAGES
-    ],
+    intents,
     partials: [
         'CHANNEL'
     ]
@@ -52,6 +60,7 @@ let buttonHandler = {};
 let commands = [];
 let allCommands = [];
 let privateCommands = [];
+let groupCommands = {};
 let permissions = {};
 
 const debug = process.argv[2] === '--debug';
@@ -92,27 +101,40 @@ const loadDokdo = () => {
             moderator
         }
     });
+
+    module.exports.getGlobalVariable = () => DokdoHandler.globalVariable;
 }
 
 const loadCommands = () => {
     commandHandler = {};
     commands = [];
-    privateCommands = [];
     allCommands = [];
+    privateCommands = [];
+    groupCommands = {};
     permissions = {};
-    fs.readdirSync('./commands').forEach(c => {
-        const file = require.resolve(`./commands/${c}`);
-        delete require.cache[file];
-        const module = require(`./commands/${c}`);
-        commandHandler[module.info.name] = module.handler;
-        if(module.private) {
-            privateCommands.push(module.info);
-            permissions[module.info.name] = module.permissions;
-        }
-        else commands.push(module.info);
 
-        allCommands.push(module.info);
-    });
+    const registerLoop = (c, sub) => {
+        c.forEach(c => {
+            if(!c.endsWith('.js') && !fs.existsSync(path.join('./commands', c, 'index.js'))) return registerLoop(fs.readdirSync(path.join('./commands', c)), c);
+            const file = require.resolve('./' + path.join('commands', sub || '', c));
+            delete require.cache[file];
+            const module = require(file);
+            commandHandler[module.info.name] = module.handler;
+            if(module.private) {
+                privateCommands.push(module.info);
+                permissions[module.info.name] = module.permissions;
+            }
+            else if(typeof module.group === 'string') {
+                if(!groupCommands[module.group]) groupCommands[module.group] = [];
+                groupCommands[module.group].push(module.info);
+            }
+            else commands.push(module.info);
+
+            if(typeof module.group !== 'string') allCommands.push(module.info);
+        });
+    }
+
+    registerLoop(fs.readdirSync('./commands'));
 }
 
 const loadSelectHandler = () => {
@@ -180,7 +202,6 @@ const registerCommands = async () => {
 
 const cacheServer = async () => {
     console.log('cache start');
-    // TODO: remove debug code here
     const guild = await client.guilds.cache.get(Server.adofai_gg);
     ServerCache.adofai_gg = process.argv[3] ? await client.guilds.cache.get(process.argv[3]) : guild;
     console.log('guild cached');
@@ -236,8 +257,11 @@ client.on('interactionCreate', async interaction => {
         });
         await user.save();
 
-        try {
+        if(interaction.isCommand()) try {
             await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
+        } catch (e) {}
+        else try {
+            await interaction.user.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
 
