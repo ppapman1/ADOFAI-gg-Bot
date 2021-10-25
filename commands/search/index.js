@@ -15,7 +15,8 @@ module.exports = {
                     {
                         name: 'query',
                         description: '검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요. // Enter the name, or creator, or artist.',
-                        type: 'STRING'
+                        type: 'STRING',
+                        required: true
                     },
                     {
                         name: 'mindifficulty',
