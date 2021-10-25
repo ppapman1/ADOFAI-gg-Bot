@@ -36,6 +36,8 @@
   "DELETE": "삭제",
   "OPEN": "열기",
   "CLOSE": "닫기",
+  "ARCHIVE": "아카이브",
+  "UNARCHIVE": "아카이브 해제",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
 
@@ -60,6 +62,14 @@
   "TICKET_DELETE_CONFIRM": "정말 티켓을 삭제하시겠습니까? 삭제하려면 \"삭제\"를 눌러주세요.",
   "TICKET_ALREADY_DELETING": "이미 티켓 삭제가 진행중입니다. \"삭제\"를 눌러주세요.",
   "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 /ticket close를 입력해주세요.",
+  "TICKET_ARCHIVE_CONFIRM": "정말 티켓을 아카이브하시겠습니까? 아카이브하려면 \"아카이브\"를 눌러주세요.",
+  "TICKET_ALREADY_ARCHIVED": "이 티켓은 이미 아카이브되었습니다.",
+  "TICKET_ALREADY_ARCHIVING": "이미 티켓 아카이브가 진행중입니다. \"아카이브\"를 눌러주세요.",
+  "TICKET_ARCHIVED": "티켓을 아카이브했습니다.",
+  "TICKET_UNARCHIVE_CONFIRM": "정말 티켓을 아카이브 해제하시겠습니까? 아카이브를 해제하려면 \"아카이브 해제\"를 눌러주세요.",
+  "TICKET_ALREADY_UNARCHIVED": "이 티켓은 이미 아카이브 해제되었습니다.",
+  "TICKET_ALREADY_UNARCHIVING": "이미 티켓 아카이브 해제가 진행중입니다. \"아카이브 해제\"를 눌러주세요.",
+  "TICKET_UNARCHIVED": "티켓을 아카이브 해제했습니다.",
 
   "TOO_SHORT_LENGTH": "길이가 너무 짧습니다!",
   "CANNOT_MANAGE_STAFF": "스태프를 관리할 수 없습니다.",
