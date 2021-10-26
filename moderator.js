@@ -377,7 +377,7 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
         user: user.id,
         createdAt: { $gt : Date.now() - (1000 * 60 * 60 * 24 * 60) }
     });
-    if(warnCount >= 3) await module.exports.mute(user.id, `${warnCount} warns`, warnCount < 9 ? 86400000 * warnCount * 2 : Number.MAX_SAFE_INTEGER, null, true);
+    if(warnCount >= 3) await module.exports.mute(user.id, `${warnCount} warns`, warnCount < 10 ? 86400000 * warnCount * 2 : Number.MAX_SAFE_INTEGER, null, true);
 }
 
 module.exports.unwarn = async (warnId, moderatorId) => {
@@ -428,5 +428,5 @@ module.exports.unwarn = async (warnId, moderatorId) => {
     });
     const beforeWarnCount = warnCount + 1;
 
-    if(beforeWarnCount >= 3) await module.exports.mute(user.id, `Cancel warning`, (beforeWarnCount < 9 ? 86400000 * beforeWarnCount * 2 : Number.MAX_SAFE_INTEGER) * -1, null, true);
+    if(beforeWarnCount >= 3) await module.exports.mute(user.id, `Cancel warning`, (beforeWarnCount < 10 ? 86400000 * beforeWarnCount * 2 : Number.MAX_SAFE_INTEGER) * -1, null, true);
 }
