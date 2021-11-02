@@ -1,9 +1,9 @@
-const permissions = require('../permissions');
-const lang = require('../lang');
+const permissions = require('../../permissions');
+const lang = require('../../lang');
 
-const moderator = require('../moderator');
+const moderator = require('../../moderator');
 
-const User = require('../schemas/user');
+const User = require('../../schemas/user');
 
 module.exports = {
     private: true,

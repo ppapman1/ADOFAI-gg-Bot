@@ -1,6 +1,5 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
-const main = require('../../main');
 const lang = require('../../lang');
 
 const Ticket = require('../../schemas/ticket');
@@ -62,7 +61,7 @@ module.exports = async interaction => {
         });
     }
 
-    await interaction.channel.setParent(main.Server.channel.openTicketCategory);
+    await interaction.channel.setParent(interaction.dbGuild.openTicketCategory);
 
     await Ticket.updateOne({
         channel: interaction.channel.id

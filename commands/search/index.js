@@ -16,7 +16,8 @@ module.exports = {
                         name: 'query',
                         description: '검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요. // Enter the name, or creator, or artist.',
                         type: 'STRING',
-                        required: true
+                        required: true,
+                        autocomplete: true
                     },
                     {
                         name: 'mindifficulty',
@@ -53,16 +54,30 @@ module.exports = {
         ]
     },
     handler: async interaction => {
-        const command = interaction.options.getSubcommand();
+        let command = interaction.options.getSubcommand();
+        if(!fs.existsSync(`./commands/search/${command}.js`)) command = interaction.options.getSubcommandGroup();
 
         if(fs.existsSync(`./commands/search/${command}.js`)) {
             const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] == '--debug') delete require.cache[file];
-            require(file)(interaction);
+            if(process.argv[2] === '--debug') delete require.cache[file];
+            const handler = require(file);
+            if(handler.commandHandler) handler.commandHandler(interaction);
+            else handler(interaction);
         }
         else interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
             ephemeral: true
         });
+    },
+    autoCompleteHandler: async interaction => {
+        let command = interaction.options.getSubcommand();
+        if(!fs.existsSync(`./commands/search/${command}.js`)) command = interaction.options.getSubcommandGroup();
+
+        if(fs.existsSync(`./commands/search/${command}.js`)) {
+            const file = require.resolve(`./${command}.js`);
+            if(process.argv[2] === '--debug') delete require.cache[file];
+            const handler = require(file);
+            if(handler.autoCompleteHandler) handler.autoCompleteHandler(interaction);
+        }
     }
 }

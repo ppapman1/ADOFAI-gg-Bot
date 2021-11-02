@@ -1,12 +1,12 @@
 const parseDuration = require('parse-duration');
 
-const permissions = require('../permissions');
-const main = require('../main');
-const lang = require('../lang');
-const utils = require('../utils');
-const moderator = require('../moderator');
+const permissions = require('../../permissions');
+const main = require('../../main');
+const lang = require('../../lang');
+const utils = require('../../utils');
+const moderator = require('../../moderator');
 
-const Server = require('../server.json');
+const Server = require('../../server.json');
 const {MessageActionRow, MessageButton} = require("discord.js");
 
 module.exports = {

@@ -2,23 +2,19 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const newSchema = new Schema({
-    user: {
-        type: String,
-        required: true
-    },
     guild: {
         type: String,
         required: true
     },
-    channel: {
+    command: {
         type: String,
         required: true
     },
-    open: {
-        type: Boolean,
+    permissions: {
+        type: Array,
         required: true,
-        default: true
+        default: []
     }
 });
 
-module.exports = mongoose.model('Ticket', newSchema);
+module.exports = mongoose.model('FeaturesPermission', newSchema);

@@ -1,6 +1,6 @@
-const permissions = require('../permissions');
-const lang = require('../lang');
-const main = require("../main");
+const permissions = require('../../permissions');
+const lang = require('../../lang');
+const main = require("../../main");
 
 module.exports = {
     private: true,

@@ -2,23 +2,19 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const newSchema = new Schema({
-    user: {
+    id: {
         type: String,
-        required: true
-    },
-    guild: {
-        type: String,
-        required: true
-    },
-    channel: {
-        type: String,
-        required: true
-    },
-    open: {
-        type: Boolean,
         required: true,
-        default: true
+        unique: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    code: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = mongoose.model('Ticket', newSchema);
+module.exports = mongoose.model('Eval', newSchema);

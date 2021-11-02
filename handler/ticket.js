@@ -1,10 +1,10 @@
-const { MessageActionRow , MessageButton , MessageEmbed } = require('discord.js');
+const { MessageActionRow , MessageSelectMenu , MessageEmbed } = require('discord.js');
 
-const main = require('../main');
 const utils = require('../utils');
 
 const Ticket = require('../schemas/ticket');
 const User = require("../schemas/user");
+const Guild = require("../schemas/guild");
 
 const createProcessing = {};
 
@@ -16,8 +16,8 @@ module.exports = client => {
 
         if(user && user.blacklist) return;
 
-        if(message.channel.type == 'DM') {
-            if(createProcessing[message.author.id]) return message.channel.send('이미 티켓 생성이 진행중입니다. "열기"를 눌러주세요.\nTicket generation is already underway. Please press "Open".');
+        if(message.channel.type === 'DM') {
+            if(createProcessing[message.author.id]) return message.channel.send('이미 티켓 생성이 진행중입니다. 서버를 선택해주세요.\nTicket generation is already underway. Please select server.');
 
             let ticketChannel;
             let ticket = await Ticket.findOne({
@@ -25,15 +25,24 @@ module.exports = client => {
                 open: true
             });
             if(!ticket) {
+                const guilds = await Guild.find({
+                    features: 'ticket'
+                });
+                if(!guilds.length) return message.channel.send('티켓을 생성할 수 있는 서버가 없습니다.\nThere are no servers that can create tickets.');
+
                 const msg = await message.channel.send({
-                    content: '티켓을 여시겠습니까? 티켓을 열려면 아래 "열기" 버튼을 눌러주세요.\nDo you want to open the ticket? Press the "Open" button below to open the ticket.',
+                    content: '티켓을 여시겠습니까? 티켓을 열려면 아래에서 열 서버를 선택해주세요.\nDo you want to open the ticket? Please select the server below to open the ticket.',
                     components: [
                         new MessageActionRow()
                             .addComponents(
-                                new MessageButton()
-                                    .setCustomId('confirmTicket')
-                                    .setLabel('열기 / Open')
-                                    .setStyle('SUCCESS')
+                                new MessageSelectMenu()
+                                    .setCustomId('selectGuild')
+                                    .setPlaceholder('티켓을 열 서버를 선택하세요. / Select ticket server.')
+                                    .addOptions(guilds.map(g => ({
+                                        label: message.client.guilds.cache.get(g.id)?.name || '알 수 없음',
+                                        description: g.ticketGuildDescription,
+                                        value: g.id
+                                    })))
                             )
                     ]
                 });
@@ -43,7 +52,7 @@ module.exports = client => {
                     createProcessing[message.author.id] = true;
 
                     confirmInteraction = await msg.awaitMessageComponent({
-                        filter: i => i.customId == 'confirmTicket',
+                        filter: i => i.customId === 'selectGuild',
                         time: 30000
                     });
 
@@ -57,14 +66,23 @@ module.exports = client => {
                     });
                 }
 
+                msg.components[0].components[0].setDisabled();
+                await msg.edit({
+                    components: msg.components
+                });
+
+                const guild = message.client.guilds.cache.get(confirmInteraction.values[0]);
+                const dbGuild = await Guild.findOne({ id: guild.id });
+
                 const channelName = `ticket-${message.author.username}-${message.author.id}`;
-                ticketChannel = await main.Server.adofai_gg.channels.create(channelName, {
-                    parent: main.Server.channel.openTicketCategory,
+                ticketChannel = await guild.channels.create(channelName, {
+                    parent: dbGuild.openTicketCategory,
                     reason: 'User created ticket'
                 });
 
                 await Ticket.create({
                     user: message.author.id,
+                    guild: guild.id,
                     channel: ticketChannel.id
                 });
 
@@ -90,7 +108,7 @@ module.exports = client => {
                     ]
                 });
             }
-            else ticketChannel = await main.Server.adofai_gg.channels.fetch(ticket.channel);
+            else ticketChannel = await message.client.guilds.cache.get(ticket.guild).channels.fetch(ticket.channel);
 
             try {
                 await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, message.attachments);

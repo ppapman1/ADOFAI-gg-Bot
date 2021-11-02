@@ -9,11 +9,14 @@ for(let u of main.getOwnerID()) {
         permission: true
     });
 }
-ownerOnly = ownerOnly.length > 10 ? [{
+
+const teamOwnerOnly = [{
     id: main.getTeamOwner(),
     type: 'USER',
     permission: true
-}] : ownerOnly;
+}];
+
+ownerOnly = ownerOnly.length > 10 ? teamOwnerOnly : ownerOnly;
 
 const staffOnly = ownerOnly.slice();
 staffOnly.push({
@@ -23,4 +26,5 @@ staffOnly.push({
 });
 
 module.exports.ownerOnly = ownerOnly;
+module.exports.teamOwnerOnly = teamOwnerOnly;
 module.exports.staffOnly = staffOnly;

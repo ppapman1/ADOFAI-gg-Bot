@@ -5,7 +5,8 @@ const lang = require('../../lang');
 const main = require("../../main");
 
 module.exports = {
-    private: true,
+    group: 'ticket',
+    // private: true,
     permissions: permissions.staffOnly,
     info: {
         defaultPermission: false,
@@ -49,13 +50,61 @@ module.exports = {
                 name: 'unarchive',
                 description: '티켓을 아카이브 해제합니다. // Unarchive the ticket.',
                 type: 'SUB_COMMAND'
+            },
+            {
+                name: 'category',
+                description: '티켓 카테고리를 설정합니다. // Set ticket category.',
+                type: 'SUB_COMMAND',
+                options: [
+                    {
+                        name: 'type',
+                        description: '카테고리 종류입니다. // This is the type of the category.',
+                        type: 'STRING',
+                        required: true,
+                        choices: [
+                            {
+                                name: 'openTicketCategory',
+                                value: 'openTicketCategory'
+                            },
+                            {
+                                name: 'closedTicketCategory',
+                                value: 'closedTicketCategory'
+                            },
+                            {
+                                name: 'archivedTicketCategory',
+                                value: 'archivedTicketCategory'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'category',
+                        description: '설정할 카테고리입니다.',
+                        type: 'CHANNEL',
+                        channel_types: [ 4 ],
+                        required: true
+                    }
+                ]
+            },
+            {
+                name: 'description',
+                description: '티켓의 설명을 설정합니다. // Set the description of the ticket.',
+                type: 'SUB_COMMAND',
+                options: [
+                    {
+                        name: 'description',
+                        description: '티켓의 설명입니다. // This is the description of the ticket.',
+                        type: 'STRING',
+                        required: true
+                    }
+                ]
             }
         ]
     },
     handler: async interaction => {
-        if(interaction.channel.parentId !== main.Server.channel.openTicketCategory.id
-            && interaction.channel.parentId !== main.Server.channel.closedTicketCategory.id
-        && interaction.channel.parentId !== main.Server.channel.archivedTicketCategory.id)
+        if(interaction.channel.parentId !== interaction.dbGuild.openTicketCategory
+            && interaction.channel.parentId !== interaction.dbGuild.closedTicketCategory
+        && interaction.channel.parentId !== interaction.dbGuild.archivedTicketCategory
+        && ![ 'category' , 'description' ].includes(interaction.options.getSubcommand()))
             return interaction.reply({
                 content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_CHANNEL_ONLY'),
                 ephemeral: true

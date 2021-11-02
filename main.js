@@ -15,6 +15,9 @@ const Server = require('./server.json');
 const User = require('./schemas/user');
 const Ticket = require('./schemas/ticket');
 const Warn = require('./schemas/warn');
+const Guild = require('./schemas/guild');
+const Eval = require('./schemas/eval');
+const FeaturesPermission = require('./schemas/featuresPermission');
 
 const intents = [
     Intents.FLAGS.GUILDS,
@@ -55,6 +58,7 @@ const connect = require('./schemas');
 connect();
 
 let commandHandler = {};
+let autoCompleteHandler = {};
 let selectHandler = {};
 let buttonHandler = {};
 let commands = [];
@@ -62,6 +66,10 @@ let allCommands = [];
 let privateCommands = [];
 let groupCommands = {};
 let permissions = {};
+let groupByCommand = {};
+
+module.exports.getGroups = () => Object.keys(groupByCommand);
+module.exports.getGroupCommands = () => groupCommands;
 
 const debug = process.argv[2] === '--debug';
 if(debug && !process.argv[3]) {
@@ -98,7 +106,10 @@ const loadDokdo = () => {
             api,
             lang,
             main: module.exports,
-            moderator
+            moderator,
+            Guild,
+            Eval,
+            FeaturesPermission
         }
     });
 
@@ -112,6 +123,7 @@ const loadCommands = () => {
     privateCommands = [];
     groupCommands = {};
     permissions = {};
+    groupByCommand = {};
 
     const registerLoop = (c, sub) => {
         c.forEach(c => {
@@ -120,6 +132,7 @@ const loadCommands = () => {
             delete require.cache[file];
             const module = require(file);
             commandHandler[module.info.name] = module.handler;
+            if(module.autoCompleteHandler) autoCompleteHandler[module.info.name] = module.autoCompleteHandler;
             if(module.private) {
                 privateCommands.push(module.info);
                 permissions[module.info.name] = module.permissions;
@@ -127,6 +140,7 @@ const loadCommands = () => {
             else if(typeof module.group === 'string') {
                 if(!groupCommands[module.group]) groupCommands[module.group] = [];
                 groupCommands[module.group].push(module.info);
+                groupByCommand[module.info.name] = module.group;
             }
             else commands.push(module.info);
 
@@ -162,12 +176,20 @@ const registerCommands = async () => {
         console.log('registering debug guild command...');
         const guildCommandInfo = await client.guilds.cache.get(process.argv[3]).commands.set(allCommands);
         console.log('registered debug guild command. registering debug guild command permission...');
-        for(let c of guildCommandInfo) {
-            if(permissions[c[1].name] != null) await c[1].permissions.set({
+        const fullPermissions = [];
+        for (let c of guildCommandInfo) {
+            // if (permissions[c[1].name] != null) await c[1].permissions.set({
+            //     permissions: permissions[c[1].name]
+            // });
+            if(permissions[c[1].name] != null) fullPermissions.push({
+                id: c[1].id,
                 permissions: permissions[c[1].name]
             });
         }
-        console.log('registered debug guild command permission.');
+        await client.guilds.cache.get(process.argv[3]).commands.permissions.set({
+            fullPermissions
+        });
+        console.log('registered debug guild command permission. registering feature guild command...');
     }
     else {
         console.log('registering global command...');
@@ -176,13 +198,54 @@ const registerCommands = async () => {
 
         const guildCommandInfo = await client.guilds.cache.get(process.argv[3] || Server.adofai_gg).commands.set(privateCommands);
         console.log('registered guild command. registering guild command permission...');
+        const fullPermissions = [];
         for (let c of guildCommandInfo) {
-            if (permissions[c[1].name] != null) await c[1].permissions.set({
+            // if (permissions[c[1].name] != null) await c[1].permissions.set({
+            //     permissions: permissions[c[1].name]
+            // });
+            if(permissions[c[1].name] != null) fullPermissions.push({
+                id: c[1].id,
                 permissions: permissions[c[1].name]
             });
         }
-        console.log('registered guild command permission.');
+        await client.guilds.cache.get(process.argv[3] || Server.adofai_gg).commands.permissions.set({
+            fullPermissions
+        });
+
+        console.log('registered guild command permission. registering feature guild command...');
     }
+
+    const featureGuilds = await Guild.find({ 'features.0' : { $exists: true } });
+    for(let g of featureGuilds) {
+        const guild = client.guilds.cache.get(g.id);
+
+        const beforeCommands = await guild.commands.fetch();
+        let commandInfos = guild.id === (process.argv[3] || Server.adofai_gg) ? Array.from(beforeCommands.values()) : [];
+        for(let f of g.features) commandInfos = commandInfos.concat(groupCommands[f]);
+
+        const guildCommandInfo = await guild.commands.set(commandInfos);
+        console.log(`registered ${guild.name} guild command. registering feature guild command permission...`);
+        const fullPermissions = [];
+        for (let c of guildCommandInfo) {
+            // if (permissions[c[1].name] != null) await c[1].permissions.set({
+            //     permissions: permissions[c[1].name]
+            // });
+            const permissions = await FeaturesPermission.findOne({
+                guild: g.id,
+                command: c[1].name
+            });
+            if(permissions != null) fullPermissions.push({
+                id: c[1].id,
+                permissions: permissions.permissions
+            });
+        }
+        await guild.commands.permissions.set({
+            fullPermissions
+        });
+        console.log(`registered ${guild.name} guild command permission.`);
+    }
+
+    console.log('registered all feature guild command permission.');
 
     // const guilds = client.guilds.cache.map(guild => guild.id);
     // for(let g of guilds) {
@@ -251,6 +314,8 @@ client.once('ready', async () => {
 
 client.on('interactionCreate', async interaction => {
     let user = await User.findOne({ id : interaction.user.id });
+    let guild;
+    if(interaction.guild) guild = await Guild.findOne({ id : interaction.guild.id });
     if(!user) {
         user = new User({
             id: interaction.user.id
@@ -264,10 +329,17 @@ client.on('interactionCreate', async interaction => {
             await interaction.user.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
+    if(!guild && interaction.guild) {
+        guild = new Guild({
+            id: interaction.guild.id
+        });
+        await guild.save();
+    }
 
     if(user.blacklist && !ownerID.includes(user.id)) return;
 
     interaction.dbUser = user;
+    if(interaction.guild) interaction.dbGuild = guild;
 
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
@@ -295,12 +367,28 @@ client.on('interactionCreate', async interaction => {
 
         handler(interaction);
     }
+
+    if(interaction.isAutocomplete()) {
+        if(!interaction.commandName) return;
+
+        if(autoCompleteHandler[interaction.commandName] != null) autoCompleteHandler[interaction.commandName](interaction);
+    }
 });
 
 client.on('messageCreate', message => {
     if(message.author.bot) return;
 
     if(DokdoHandler) DokdoHandler.run(message);
+});
+
+client.on('guildDelete', async guild => {
+    await Guild.deleteOne({
+        id: guild.id
+    });
+});
+
+client.on('debug', d => {
+    if(debug) console.log(d);
 });
 
 client.login(setting.TOKEN);

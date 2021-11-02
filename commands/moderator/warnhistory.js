@@ -1,11 +1,11 @@
 const { MessageEmbed } = require('discord.js');
 
-const permissions = require('../permissions');
-const lang = require('../lang');
+const permissions = require('../../permissions');
+const lang = require('../../lang');
 
-const Server = require('../server.json');
+const Server = require('../../server.json');
 
-const Warn = require('../schemas/warn');
+const Warn = require('../../schemas/warn');
 
 module.exports = {
     private: true,

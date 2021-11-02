@@ -10,8 +10,9 @@
   "license": "UNLICENSED",
   "dependencies": {
     "axios": "^0.21.4",
-    "discord.js": "^13.2.0",
+    "discord.js": "^13.3.1",
     "dokdo": "^0.5.1",
+    "json5": "^2.2.0",
     "mongoose": "^6.0.6",
     "parse-duration": "^1.0.1",
     "unique-string": "^2.0.0"

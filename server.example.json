@@ -7,9 +7,6 @@
   },
 
   "channel": {
-    "openTicketCategory": "channelid",
-    "closedTicketCategory": "channelid",
-    "archivedTicketCategory": "channelid",
     "modLogs": "channelid"
   },
 

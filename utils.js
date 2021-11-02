@@ -125,3 +125,17 @@ module.exports.msToTime = (duration, en = false) => {
 
     return (/* w + */ d + h + m + s).trim();
 }
+
+module.exports.parseDiscordCodeBlock = str => {
+    let codeBlock = str.match(/```(.+)\n((?:.*?\r?\n?)*)\n```/);
+    if(!codeBlock) codeBlock = str.match(/```((?:.*?\r?\n?)*)```/s);
+    if(!codeBlock) return null;
+
+    const language = codeBlock.length > 1 ? codeBlock[1] : null;
+    const code = codeBlock[codeBlock.length > 1 ? 2 : 1];
+
+    return {
+        language,
+        code
+    }
+}

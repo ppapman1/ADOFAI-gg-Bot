@@ -1,11 +1,11 @@
-const permissions = require('../permissions');
-const main = require('../main');
-const lang = require('../lang');
-const moderator = require('../moderator');
+const permissions = require('../../permissions');
+const main = require('../../main');
+const lang = require('../../lang');
+const moderator = require('../../moderator');
 
-const Server = require('../server.json');
+const Server = require('../../server.json');
 
-const User = require('../schemas/user');
+const User = require('../../schemas/user');
 
 module.exports = {
     private: true,

@@ -1,6 +1,5 @@
 const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
-const main = require('../../main');
 const lang = require('../../lang');
 
 const Ticket = require('../../schemas/ticket');
@@ -37,7 +36,7 @@ module.exports = async interaction => {
         closeProcessing[interaction.channel.id] = true;
 
         const confirmInteraction = await msg.awaitMessageComponent({
-            filter: i => i.customId == 'ticketCloseConfirm',
+            filter: i => i.customId === 'ticketCloseConfirm',
             time: 10000
         });
 
@@ -53,7 +52,7 @@ module.exports = async interaction => {
         });
     }
 
-    await interaction.channel.setParent(main.Server.channel.closedTicketCategory);
+    await interaction.channel.setParent(interaction.dbGuild.closedTicketCategory);
 
     await Ticket.updateOne({
         channel: interaction.channel.id

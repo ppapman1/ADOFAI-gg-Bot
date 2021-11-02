@@ -1,6 +1,5 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageActionRow, MessageButton } = require('discord.js');
 
-const main = require('../../main');
 const lang = require('../../lang');
 
 const Ticket = require('../../schemas/ticket');
@@ -16,7 +15,7 @@ module.exports = async interaction => {
     });
     if(!ticket) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TICKET_NOT_FOUND'));
 
-    if(interaction.channel.parentId === main.Server.channel.closedTicketCategory.id)
+    if(interaction.channel.parentId === interaction.dbGuild.closedTicketCategory.id)
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TICKET_ALREADY_UNARCHIVED'));
 
     if(unarchiveProcessing[interaction.channel.id]) return interaction.editReply(
@@ -56,7 +55,7 @@ module.exports = async interaction => {
         });
     }
 
-    await interaction.channel.setParent(main.Server.channel.closedTicketCategory);
+    await interaction.channel.setParent(interaction.dbGuild.closedTicketCategory);
 
     return interaction.editReply({
         content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_UNARCHIVED'),
