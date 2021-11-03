@@ -196,7 +196,7 @@ module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
     });
 }
 
-module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false) => {
+module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false, deleteDays = 0) => {
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -263,7 +263,8 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
     } catch (e) {}
 
     await member.ban({
-        reason
+        reason,
+        days: deleteDays
     });
 }
 

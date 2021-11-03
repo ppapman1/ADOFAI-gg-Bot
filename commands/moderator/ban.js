@@ -33,6 +33,11 @@ module.exports = {
                 name: 'duration',
                 description: '밴할 기간을 입력합니다. 예) 1d 2h // Enter the period to ban. ex) 1d 2h',
                 type: 'STRING'
+            },
+            {
+                name: 'deletedays',
+                description: '메시지를 삭제할 일수를 입력합니다. 예) 1d 2h // Enter the days to delete message. ex) 1d 2h',
+                type: 'NUMBER'
             }
         ]
     },
@@ -45,9 +50,12 @@ module.exports = {
         const reason = options.getString('reason') || 'No Reason';
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
+        const deleteDays = options.getNumber('deletedays') || 0;
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
+
+        if(deleteDays < 0 || deleteDays > 7) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'DELETE_DAYS_RANGE'));
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
 
@@ -80,7 +88,7 @@ module.exports = {
             }
         }
 
-        await moderator.ban(user.id, reason, banLength, interaction.user.id);
+        await moderator.ban(user.id, reason, banLength, interaction.user.id, false, deleteDays);
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'BAN_USER_BANNED')
