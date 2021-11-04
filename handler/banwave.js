@@ -39,7 +39,7 @@ module.exports = client => {
         if(!afterMessages.get(secondMsg.id)) return message.reply('so wide, maximum 100');
 
         const messages = afterMessages.filter(m => m.createdTimestamp >= firstMsg.createdTimestamp && m.createdTimestamp <= secondMsg.createdTimestamp);
-        const users = Array.from(new Set(messages.map(m => m.member)));
+        const users = Array.from(new Set(messages.map(m => m.member))).filter(m => m?.constructor.name === 'GuildMember');
         
         const msg = await message.channel.send({
             content: `Ban List\`\`\`${users.map(m => Util.escapeCodeBlock(m.user.username)).join('\n')}\`\`\``,
