@@ -62,6 +62,11 @@ module.exports = client => {
 
             await i.deferUpdate();
         } catch(e) {
+            msg.components[0].components[0].setDisabled();
+            await msg.edit({
+                components: msg.components
+            });
+
             return message.reply('time out');
         }
 
