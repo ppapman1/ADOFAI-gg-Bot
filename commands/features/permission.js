@@ -117,7 +117,11 @@ module.exports.commandHandler = async interaction => {
         } else if(action === 'apply') {
             await i.deferUpdate();
 
-            const fullPermissions = [];
+            const guildCommandPermissions = await interaction.guild.commands.permissions.fetch();
+            const fullPermissions = Array.from(guildCommandPermissions).map(p => ({
+                id: p[0],
+                permissions: p[1]
+            }));
             const guildCommandInfo = await interaction.guild.commands.fetch();
             if(!guildCommandInfo.find(c => c.name === command)) return interaction.channel.send('command not enabled yet');
 

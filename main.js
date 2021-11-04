@@ -225,7 +225,11 @@ const registerCommands = async () => {
 
         const guildCommandInfo = await guild.commands.set(commandInfos);
         console.log(`registered ${guild.name} guild command. registering feature guild command permission...`);
-        const fullPermissions = [];
+        const guildCommandPermissions = await guild.commands.permissions.fetch();
+        const fullPermissions = Array.from(guildCommandPermissions).map(p => ({
+            id: p[0],
+            permissions: p[1]
+        }));
         for (let c of guildCommandInfo) {
             // if (permissions[c[1].name] != null) await c[1].permissions.set({
             //     permissions: permissions[c[1].name]
