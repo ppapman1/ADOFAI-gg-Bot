@@ -191,9 +191,7 @@ module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
         });
     } catch (e) {}
 
-    await member.kick({
-        reason
-    });
+    await member.kick(reason);
 }
 
 module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false, deleteDays = 0) => {
