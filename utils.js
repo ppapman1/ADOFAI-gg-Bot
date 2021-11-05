@@ -1,6 +1,8 @@
 const Url = require('url');
 const querystring = require('querystring');
 
+const tags = require('./tags.json');
+
 const escapeRegExp = s => s.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 module.exports.escapeRegExp = escapeRegExp;
 
@@ -138,4 +140,13 @@ module.exports.parseDiscordCodeBlock = str => {
         language,
         code
     }
+}
+
+const tagByID = {};
+for(let c in tags) for(let t in tags[c]) {
+    tags[c][t].emojiName = t;
+    tagByID[tags[c][t].id] = tags[c][t];
+}
+module.exports.getTagByID = tag => {
+    return tagByID[tag];
 }
