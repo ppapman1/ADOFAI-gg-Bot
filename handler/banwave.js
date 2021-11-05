@@ -42,7 +42,7 @@ module.exports = client => {
         const users = Array.from(new Set(messages.map(m => m.member))).filter(m => m?.constructor.name === 'GuildMember');
         
         const msg = await message.channel.send({
-            content: `Ban List\`\`\`${users.map(m => Util.escapeCodeBlock(m.user.username)).join('\n')}\`\`\``,
+            content: `Ban List\`\`\`${users.map(m => Util.escapeCodeBlock(m.user.tag)).join('\n')}\`\`\``,
             components: [
                 new MessageActionRow()
                     .addComponents(
