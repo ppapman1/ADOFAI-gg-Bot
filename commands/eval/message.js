@@ -8,7 +8,7 @@ module.exports.commandHandler = async interaction => {
     const { options } = interaction;
 
     const name = options.getString('name');
-    const content = options.getString('message');
+    const content = options.getString('message').split('///').join('\n');
     const buttonText = options.getString('buttontext');
     const buttonColor = options.getString('buttoncolor');
 
