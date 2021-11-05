@@ -85,6 +85,23 @@ const loadOwners = async () => {
 }
 
 const loadDokdo = () => {
+    const globalVariable = {
+        ServerCache,
+        User,
+        Ticket,
+        Warn,
+        Server,
+        setting,
+        utils,
+        api,
+        lang,
+        main: module.exports,
+        moderator,
+        Guild,
+        Eval,
+        FeaturesPermission
+    }
+
     DokdoHandler = new Dokdo(client, {
         aliases: [ 'dokdo', 'dok' ],
         prefix: setting.DOKDO_PREFIX,
@@ -96,25 +113,10 @@ const loadDokdo = () => {
             setting.MONGODB_USER,
             setting.MONGODB_PASSWORD
         ],
-        globalVariable: {
-            ServerCache,
-            User,
-            Ticket,
-            Warn,
-            Server,
-            setting,
-            utils,
-            api,
-            lang,
-            main: module.exports,
-            moderator,
-            Guild,
-            Eval,
-            FeaturesPermission
-        }
+        globalVariable
     });
 
-    module.exports.getGlobalVariable = () => DokdoHandler.globalVariable;
+    module.exports.getGlobalVariable = () => globalVariable;
 }
 
 const loadCommands = () => {

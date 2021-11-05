@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
+const uniqueString = require('unique-string');
 
 const { Schema } = mongoose;
 const newSchema = new Schema({
     id: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        default: uniqueString
     },
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     code: {
         type: String,
