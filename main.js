@@ -97,6 +97,7 @@ const loadDokdo = () => {
             setting.MONGODB_PASSWORD
         ],
         globalVariable: {
+            ServerCache,
             User,
             Ticket,
             Warn,
