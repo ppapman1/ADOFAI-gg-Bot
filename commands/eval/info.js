@@ -16,7 +16,7 @@ module.exports.commandHandler = async interaction => {
     if(!eval) return interaction.reply('해당 eval을 찾을 수 없습니다.');
 
     return interaction.reply({
-        content: `Code\n\`\`\`js\n${Util.escapeCodeBlock(eval.code)}\`\`\`\nID : \`${eval.id}\``,
+        content: `\`${Util.escapeCodeBlock(eval.name)}\` Code\n\`\`\`js\n${Util.escapeCodeBlock(eval.code)}\`\`\`\nID : \`${eval.id}\``,
         components: [
             new MessageActionRow()
                 .addComponents(
