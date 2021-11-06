@@ -28,7 +28,7 @@ module.exports.commandHandler = async interaction => {
             new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                        .setCustomId(`eval_run_${eval.id}${customParams ? '_' : ''}${customParams}`)
+                        .setCustomId(`eval_run_${eval.id}${customParams ? `_${customParams}` : ''}`)
                         .setLabel(buttonText)
                         .setStyle(buttonColor)
                 )
