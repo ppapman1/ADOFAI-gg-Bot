@@ -4,7 +4,7 @@ const Eval = require('../schemas/eval');
 
 module.exports = async interaction => {
     const params = interaction.customId.split('_');
-    if(params.length !== 3) return;
+    if(params.length < 3) return;
 
     if(params[1] === 'run') {
         const evalData = await Eval.findOne({ id : params[2] });
