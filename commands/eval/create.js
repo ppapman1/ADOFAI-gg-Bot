@@ -8,7 +8,7 @@ module.exports = async interaction => {
     const name = options.getString('name');
 
     const checkName = await Eval.findOne({ name });
-    if(checkName) return interaction.reply(`"${name}"${utils.checkBatchim(name) ? '이' : '가'} 이미 존재합니다.`);
+    if(checkName) await interaction.channel.send(`"${name}"${utils.checkBatchim(name) ? '이' : '가'} 이미 존재합니다!\n계속하면 이 eval을 덮어씌우게 됩니다.`);
 
     const msg = await interaction.reply({
         fetchReply: true,
@@ -25,6 +25,10 @@ module.exports = async interaction => {
 
     const code = utils.parseDiscordCodeBlock(response);
     if(!code) return interaction.followUp('코드 블럭 메시지가 잘못되었습니다.');
+
+    await Eval.deleteMany({
+        name
+    });
 
     const eval = new Eval({
         name,
