@@ -26,15 +26,15 @@ module.exports = async interaction => {
     const code = utils.parseDiscordCodeBlock(response);
     if(!code) return interaction.followUp('코드 블럭 메시지가 잘못되었습니다.');
 
-    await Eval.deleteMany({
+    const eval = await Eval.findOneAndUpdate({
         name
-    });
-
-    const eval = new Eval({
-        name,
+    }, {
         code: code.code
+    }, {
+        new: true,
+        upsert: true,
+        setDefaultsOnInsert: true
     });
-    await eval.save();
 
     return interaction.followUp(`eval "${name}"${utils.checkBatchim(name) ? '이' : '가'} 생성되었습니다.\nID : \`${eval.id}\``);
 }
