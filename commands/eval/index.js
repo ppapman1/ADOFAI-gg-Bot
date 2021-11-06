@@ -85,6 +85,11 @@ module.exports = {
                                 value: 'DANGER'
                             }
                         ]
+                    },
+                    {
+                        name: 'params',
+                        description: '버튼에 들어갈 추가 파라미터입니다.',
+                        type: 'STRING'
                     }
                 ]
             }

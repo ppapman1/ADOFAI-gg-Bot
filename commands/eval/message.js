@@ -11,6 +11,7 @@ module.exports.commandHandler = async interaction => {
     const content = options.getString('message').split('///').join('\n');
     const buttonText = options.getString('buttontext');
     const buttonColor = options.getString('buttoncolor');
+    const customParams = options.getString('params');
 
     const nameRegex = new RegExp(utils.escapeRegExp(name), 'i');
 
@@ -27,7 +28,7 @@ module.exports.commandHandler = async interaction => {
             new MessageActionRow()
                 .addComponents(
                     new MessageButton()
-                        .setCustomId(`eval_run_${eval.id}`)
+                        .setCustomId(`eval_run_${eval.id}${customParams ? '_' : ''}${customParams}`)
                         .setLabel(buttonText)
                         .setStyle(buttonColor)
                 )
