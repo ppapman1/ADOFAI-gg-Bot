@@ -7,6 +7,7 @@ const User = require("../schemas/user");
 const Guild = require("../schemas/guild");
 
 const createProcessing = {};
+const stopNewTicket = {};
 
 module.exports = client => {
     client.on('messageCreate', async message => {
@@ -25,6 +26,26 @@ module.exports = client => {
                 open: true
             });
             if(!ticket) {
+                if(stopNewTicket[message.author.id]) return;
+
+                if(message.content.startsWith('/')) {
+                    const checkCommandMsg = 'confirm';
+
+                    await message.channel.send(`명령어를 사용하려고 시도한 것으로 보입니다. 명령어는 서버에서 사용해 주세요. 티켓을 열려는 목적이었다면 "${checkCommandMsg}"${utils.checkBatchim(checkCommandMsg) ? '을' : '를'} 입력해주세요.\nIt appears that you have attempted to use the command. Please use the command on the server. If you wanted to open the ticket, please enter "${checkCommandMsg}".`);
+
+                    stopNewTicket[message.author.id] = true;
+
+                    const response = await message.channel.awaitMessages({
+                        filter: m => m.content === checkCommandMsg,
+                        max: 1,
+                        time: 20000
+                    });
+                    if(!response.first()) {
+                        delete stopNewTicket[message.author.id];
+                        return message.channel.send('시간이 초과되었습니다.');
+                    }
+                }
+
                 const guilds = await Guild.find({
                     features: 'ticket'
                 });
@@ -57,8 +78,10 @@ module.exports = client => {
                     });
 
                     delete createProcessing[message.author.id];
+                    delete stopNewTicket[message.author.id];
                 } catch(e) {
                     delete createProcessing[message.author.id];
+                    delete stopNewTicket[message.author.id];
 
                     msg.components[0].components[0].setDisabled();
                     return msg.edit({
