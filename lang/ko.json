@@ -38,6 +38,7 @@
   "CLOSE": "닫기",
   "ARCHIVE": "아카이브",
   "UNARCHIVE": "아카이브 해제",
+  "REMOVE_TAGS": "태그 삭제",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
 

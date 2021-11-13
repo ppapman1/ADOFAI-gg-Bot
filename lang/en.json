@@ -38,6 +38,7 @@
   "CLOSE": "Close",
   "ARCHIVE": "Archive",
   "UNARCHIVE": "Unarchive",
+  "REMOVE_TAGS": "Remove Tags",
 
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
 

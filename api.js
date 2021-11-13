@@ -8,6 +8,7 @@ const lang = require('./lang');
 const utils = require("./utils");
 const Server = require("./server.json");
 const tags = require('./tags.json');
+const {langByLangName} = require("./lang");
 
 const api = axios.create({
     baseURL: setting.API
@@ -177,7 +178,12 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
                     .setCustomId('next')
                     .setLabel(lang.langByLangName(language, 'NEXT'))
                     .setStyle('PRIMARY')
-                    .setDisabled(page >= totalPage)
+                    .setDisabled(page >= totalPage),
+                new MessageButton()
+                    .setCustomId('removeTags')
+                    .setLabel(langByLangName(language, 'REMOVE_TAGS'))
+                    .setStyle('SECONDARY')
+                    .setEmoji('❌')
             )
     ]
 

@@ -31,16 +31,16 @@ module.exports.commandHandler = async interaction => {
     const msg = await interaction.editReply(api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang));
 
     const collector = msg.createMessageComponentCollector({
-        filter: i => [ 'tagSearch' , 'prev' , 'next' ].includes(i.customId) && i.user.id === interaction.user.id,
+        filter: i => [ 'tagSearch' , 'removeTags' , 'prev' , 'next' ].includes(i.customId) && i.user.id === interaction.user.id,
         time: 30000
     });
     
     collector.on('collect', async i => {
-        if(i.customId === 'tagSearch') {
+        if([ 'tagSearch' , 'removeTags' ].includes(i.customId)) {
             offset = 0;
 
             searchQuery.offset = offset;
-            searchQuery.includeTags = i.values.join(',');
+            searchQuery.includeTags = i.customId === 'tagSearch' ? i.values.join(',') : null;
             const searchResult = await api.searchLevel(searchQuery, true);
             const search = searchResult.results;
             count = searchResult.count;
@@ -52,7 +52,7 @@ module.exports.commandHandler = async interaction => {
             }
             await interaction.editReply(result);
         }
-        else {
+        if([ 'prev' , 'next' ].includes(i.customId)) {
             if(i.customId === 'prev') {
                 offset -= 25;
                 if(offset < 0) offset = 0;
