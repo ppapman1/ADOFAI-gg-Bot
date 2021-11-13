@@ -195,7 +195,7 @@ module.exports.autoCompleteHandler = interaction => {
     const nameRegex = new RegExp(command, 'i');
     const features = main.getGroups().filter(f => nameRegex.test(f));
 
-    return interaction.respond(features.map(f => ({
+    return interaction.respond(features.slice(0, 25).map(f => ({
         name: f,
         value: f
     })));

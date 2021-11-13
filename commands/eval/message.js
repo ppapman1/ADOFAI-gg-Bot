@@ -51,7 +51,7 @@ module.exports.autoCompleteHandler = async interaction => {
         }
     });
 
-    return interaction.respond(evals.map(e => ({
+    return interaction.respond(evals.slice(0, 25).map(e => ({
         name: e.name,
         value: e.name
     })));

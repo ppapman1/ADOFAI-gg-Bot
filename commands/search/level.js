@@ -118,7 +118,7 @@ module.exports.autoCompleteHandler = async interaction => {
         if(complete.length >= 25) break;
     }
 
-    return interaction.respond(complete.map(a => ({
+    return interaction.respond(complete.slice(0, 25).map(a => ({
         name: a,
         value: a
     })));
