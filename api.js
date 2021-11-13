@@ -13,8 +13,9 @@ const api = axios.create({
     baseURL: setting.API
 });
 
-module.exports.searchLevel = async data => {
+module.exports.searchLevel = async (data, getFullData = false) => {
     let {
+        offset,
         query,
         minDifficulty,
         maxDifficulty,
@@ -27,12 +28,13 @@ module.exports.searchLevel = async data => {
         includeTags
     } = data;
 
+    offset = offset || 0;
     sort = sort || 'RECENT_DESC';
     amount = amount || 25;
 
     const search = await api.get('/levels', {
         params: {
-            offset: 0,
+            offset,
             amount,
             sort,
             query,
@@ -45,9 +47,10 @@ module.exports.searchLevel = async data => {
             includeTags
         },
         paramsSerializer: querystring.stringify
-    });
+    })
 
-    return search.data.results;
+    if(getFullData) return search.data;
+    else return search.data.results;
 }
 
 module.exports.getLevel = async id => {
@@ -128,7 +131,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false) =>
     }
 }
 
-module.exports.getSearchList = (search, userid, language = 'en', selectedTags = []) => {
+module.exports.getSearchList = (search, page, totalPage, userid, language = 'en', selectedTags = []) => {
     if (!userid) return null;
 
     const selectOptions = [];
@@ -157,6 +160,24 @@ module.exports.getSearchList = (search, userid, language = 'en', selectedTags = 
                     .setCustomId(`showlevel`)
                     .setPlaceholder(lang.langByLangName(language, 'SELECT_LEVEL_SELECT_MENU'))
                     .addOptions(selectOptions)
+            ),
+        new MessageActionRow()
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('prev')
+                    .setLabel(lang.langByLangName(language, 'PREV'))
+                    .setStyle('PRIMARY')
+                    .setDisabled(page <= 1),
+                new MessageButton()
+                    .setCustomId('page')
+                    .setLabel(`${page} / ${totalPage}`)
+                    .setStyle('SECONDARY')
+                    .setDisabled(),
+                new MessageButton()
+                    .setCustomId('next')
+                    .setLabel(lang.langByLangName(language, 'NEXT'))
+                    .setStyle('PRIMARY')
+                    .setDisabled(page >= totalPage)
             )
     ]
 
@@ -177,7 +198,7 @@ module.exports.getSearchList = (search, userid, language = 'en', selectedTags = 
         }
     }
 
-    components.push(
+    components.unshift(
         new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()

@@ -16,40 +16,71 @@ module.exports.commandHandler = async interaction => {
         minTiles: options.getNumber('mintiles'),
         maxTiles: options.getNumber('maxtiles')
     }
-    const search = await api.searchLevel(searchQuery);
+
+    let offset = 0;
+    let count = 0;
+
+    const searchResult = await api.searchLevel(searchQuery, true);
+    const search = searchResult.results;
+    count = searchResult.count;
 
     if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
-    if(search.length == 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
+    if(search.length === 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
 
-    const msg = await interaction.editReply(api.getSearchList(search, interaction.user.id, interaction.dbUser.lang));
+    const msg = await interaction.editReply(api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang));
 
-    const tagCollector = msg.createMessageComponentCollector({
-        filter: i => i.customId == 'tagSearch' && i.user.id == interaction.user.id,
+    const collector = msg.createMessageComponentCollector({
+        filter: i => [ 'tagSearch' , 'prev' , 'next' ].includes(i.customId) && i.user.id === interaction.user.id,
         time: 30000
     });
     
-    tagCollector.on('collect', async i => {
-        searchQuery.includeTags = i.values.join(',');
-        const search = await api.searchLevel(searchQuery);
+    collector.on('collect', async i => {
+        if(i.customId === 'tagSearch') {
+            offset = 0;
 
-        const result = api.getSearchList(search, interaction.user.id, interaction.dbUser.lang, i.values);
-        if(result.components[0].components[0].options[0].value == 'fake') {
-            result.components[0].components[0].setDisabled();
-            result.components[0].components[0].setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'CANT_FIND_LEVEL'));
+            searchQuery.offset = offset;
+            searchQuery.includeTags = i.values.join(',');
+            const searchResult = await api.searchLevel(searchQuery, true);
+            const search = searchResult.results;
+            count = searchResult.count;
+
+            const result = api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, i.values);
+            if(result.components[1].components[0].options[0].value === 'fake') {
+                result.components[1].components[0].setDisabled();
+                result.components[1].components[0].setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'CANT_FIND_LEVEL'));
+            }
+            await interaction.editReply(result);
         }
-        await interaction.editReply(result);
+        else {
+            if(i.customId === 'prev') {
+                offset -= 25;
+                if(offset < 0) offset = 0;
+            }
+            else if(i.customId === 'next') {
+                offset += 25;
+                if(offset >= count) offset = count - 25;
+            }
+
+            searchQuery.offset = offset;
+            const search = await api.searchLevel(searchQuery);
+
+            const result = api.getSearchList(search, Math.ceil(offset / 25) + 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang);
+            await interaction.editReply(result);
+        }
 
         await i.deferUpdate();
-        return tagCollector.resetTimer();
+        return collector.resetTimer();
     });
 
-    tagCollector.on('end', async () => {
+    collector.on('end', async () => {
         const checkMsg = await msg.fetch();
 
-        if(checkMsg.components.length != 2) return;
+        if(checkMsg.components.length !== 3) return;
 
-        checkMsg.components[1].components[0].setDisabled();
+        checkMsg.components[0].components[0].setDisabled();
+        checkMsg.components[2].components[0].setDisabled();
+        checkMsg.components[2].components[2].setDisabled();
         await interaction.editReply({
             components: checkMsg.components
         });
