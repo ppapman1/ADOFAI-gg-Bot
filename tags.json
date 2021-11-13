@@ -106,5 +106,13 @@
       "title": "Long",
       "description": "Levels that are over 4 minutes."
     }
+  },
+
+  "etc": {
+    "nsfw": {
+      "id": 4,
+      "title": "NSFW",
+      "description": "This level contains NSFW content."
+    }
   }
 }
