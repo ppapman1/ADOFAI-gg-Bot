@@ -36,7 +36,7 @@ module.exports = {
             },
             {
                 name: 'deletedays',
-                description: '메시지를 삭제할 일수를 입력합니다. 예) 1d 2h // Enter the days to delete message. ex) 1d 2h',
+                description: '메시지를 삭제할 일수를 입력합니다. // Enter the days to delete message.',
                 type: 'NUMBER'
             }
         ]
