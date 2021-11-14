@@ -81,6 +81,7 @@ module.exports.commandHandler = async interaction => {
         checkMsg.components[0].components[0].setDisabled();
         checkMsg.components[2].components[0].setDisabled();
         checkMsg.components[2].components[2].setDisabled();
+        checkMsg.components[2].components[3].setDisabled();
         await interaction.editReply({
             components: checkMsg.components
         });

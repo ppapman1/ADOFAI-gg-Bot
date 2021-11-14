@@ -184,6 +184,7 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
                     .setLabel(langByLangName(language, 'REMOVE_TAGS'))
                     .setStyle('SECONDARY')
                     .setEmoji('❌')
+                    .setDisabled(!selectedTags.length)
             )
     ]
 
