@@ -134,7 +134,7 @@ module.exports = client => {
             else ticketChannel = await message.client.guilds.cache.get(ticket.guild).channels.fetch(ticket.channel);
 
             try {
-                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, message.attachments, message.stickers);
+                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, message.attachments);
                 await message.react('✅');
             } catch(e) {
                 await message.react('❌');
@@ -166,13 +166,11 @@ module.exports = client => {
             try {
                 await ticketUser.send({
                     content: content ? content.substring(0, 2000) : null,
-                    files: splitContent ? [] : message.attachments,
-                    stickers: splitContent ? [] : message.stickers
+                    files: splitContent ? [] : message.attachments
                 });
                 if(splitContent) await ticketUser.send({
                     content: content.substring(2000, 4000),
-                    files: message.attachments,
-                    stickers: message.stickers
+                    files: message.attachments
                 });
                 await message.react('✅');
             } catch(e) {
@@ -182,7 +180,7 @@ module.exports = client => {
     });
 }
 
-const sendTicketMessage = async (channel, username, avatarURL, content, files, stickers) => {
+const sendTicketMessage = async (channel, username, avatarURL, content, files) => {
     let webhook;
     const webhooks = await channel.fetchWebhooks();
     if(!webhooks.size) webhook = await channel.createWebhook('ADOFAI.gg Ticket Webhook');
@@ -204,7 +202,6 @@ const sendTicketMessage = async (channel, username, avatarURL, content, files, s
         username,
         avatarURL,
         files,
-        stickers,
         allowedMentions: {
             parse: []
         }
