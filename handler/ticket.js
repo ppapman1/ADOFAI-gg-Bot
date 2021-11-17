@@ -161,9 +161,15 @@ module.exports = client => {
             let content = message.content;
             for(let r of bot_mentions_regex) content = content.replace(r, '');
 
+            const splitContent = content && content.length > 2000;
+
             try {
                 await ticketUser.send({
-                    content: content || null,
+                    content: content ? content.substring(0, 2000) : null,
+                    files: splitContent ? [] : message.attachments
+                });
+                if(splitContent) await ticketUser.send({
+                    content: content.substring(2000, 4000),
                     files: message.attachments
                 });
                 await message.react('✅');
@@ -180,8 +186,19 @@ const sendTicketMessage = async (channel, username, avatarURL, content, files) =
     if(!webhooks.size) webhook = await channel.createWebhook('ADOFAI.gg Ticket Webhook');
     else webhook = webhooks.first();
 
+    const splitContent = content && content.length > 2000;
+
     await webhook.send({
-        content: content || null,
+        content: content ? content.substring(0, 2000) : null,
+        username,
+        avatarURL,
+        files: splitContent ? [] : files,
+        allowedMentions: {
+            parse: []
+        }
+    });
+    if(splitContent) await webhook.send({
+        content: content.substring(2000, 4000),
         username,
         avatarURL,
         files,
