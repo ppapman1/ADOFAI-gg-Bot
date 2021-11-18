@@ -105,7 +105,9 @@ module.exports.autoCompleteHandler = async interaction => {
         minBpm: options.getNumber('minbpm'),
         maxBpm: options.getNumber('maxbpm'),
         minTiles: options.getNumber('mintiles'),
-        maxTiles: options.getNumber('maxtiles')
+        maxTiles: options.getNumber('maxtiles'),
+        showNotVerified: options.getBoolean('shownotverified'),
+        showCensored: options.getBoolean('showcensored')
     }
     const search = await api.searchLevel(searchQuery);
 
