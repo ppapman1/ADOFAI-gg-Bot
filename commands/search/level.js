@@ -14,7 +14,9 @@ module.exports.commandHandler = async interaction => {
         minBpm: options.getNumber('minbpm'),
         maxBpm: options.getNumber('maxbpm'),
         minTiles: options.getNumber('mintiles'),
-        maxTiles: options.getNumber('maxtiles')
+        maxTiles: options.getNumber('maxtiles'),
+        showNotVerified: options.getBoolean('shownotverified'),
+        showCensored: options.getBoolean('showcensored')
     }
 
     let offset = 0;

@@ -26,7 +26,9 @@ module.exports.searchLevel = async (data, getFullData = false) => {
         maxTiles,
         sort,
         amount,
-        includeTags
+        includeTags,
+        showNotVerified,
+        showCensored
     } = data;
 
     offset = offset || 0;
@@ -45,7 +47,9 @@ module.exports.searchLevel = async (data, getFullData = false) => {
             maxBpm,
             minTiles,
             maxTiles,
-            includeTags
+            includeTags,
+            showNotVerified,
+            showCensored
         },
         paramsSerializer: querystring.stringify
     })
@@ -149,7 +153,7 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
             description: `by ${l.creators.join(' & ')}`,
             value: `showlevel_${userid}_${l.id}`,
             emoji: {
-                id: Server.emoji[l.difficulty.toString()]
+                id: Server.emoji[l.censored ? 'minus2' : l.difficulty.toString()]
             }
         });
     }
