@@ -24,7 +24,7 @@ module.exports = {
                     .setColor('#349eeb')
                     .setTitle(nowPlaying.title)
                     .setDescription(`Requested by ${interaction.client.users.cache.get(nowPlaying.createdUser)?.username || 'Unknown User'}`)
-                    .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(nowPlaying.url)}/original.jpg`)
+                    .setImage(`https://i.ytimg.com/vi/${nowPlaying.url}/original.jpg`)
             ],
             components: [
                 new MessageActionRow()
@@ -32,7 +32,7 @@ module.exports = {
                         new MessageButton()
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WATCH_VIDEO'))
                             .setStyle('LINK')
-                            .setURL(nowPlaying.url)
+                            .setURL(`https://youtu.be/${nowPlaying.url}`)
                             .setEmoji(Server.emoji.youtube)
                     )
             ]
