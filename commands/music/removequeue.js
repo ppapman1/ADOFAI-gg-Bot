@@ -21,7 +21,7 @@ module.exports = {
 
         const target = await MusicQueue.findOne({
             guild: interaction.guild.id
-        }).skip(queueNumber - 1);
+        }).skip(queueNumber);
 
         if(!target) return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_QUEUE_NOT_FOUND'));
 
