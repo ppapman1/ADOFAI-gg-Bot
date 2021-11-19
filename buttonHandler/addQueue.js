@@ -4,9 +4,7 @@ const lang = require('../lang');
 const music = require('../music');
 
 module.exports = async interaction => {
-    await interaction.deferReply({
-        ephemeral: true
-    });
+    await interaction.deferReply();
 
     const params = interaction.customId.split('_');
     if(params.length < 2) return interaction.editReply('invalid button');
