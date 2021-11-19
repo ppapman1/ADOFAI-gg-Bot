@@ -6,7 +6,6 @@ const lang = require("../../lang");
 module.exports = {
     group: 'music',
     info: {
-        defaultPermission: false,
         name: 'queue',
         description: '음악의 대기열을 보여줍니다. // Shows the current queue.',
     },

@@ -4,7 +4,6 @@ const music = require('../../music');
 module.exports = {
     group: 'music',
     info: {
-        defaultPermission: false,
         name: 'summon',
         description: '봇을 음성 채널에 접속하게 합니다. // Let the bot access the voice channel.'
     },

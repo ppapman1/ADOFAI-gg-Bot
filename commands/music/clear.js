@@ -5,7 +5,6 @@ const MusicQueue = require('../../schemas/musicQueue');
 module.exports = {
     group: 'music',
     info: {
-        defaultPermission: false,
         name: 'clear',
         description: '음악 대기열을 비웁니다. // Clear the music queue.'
     },
