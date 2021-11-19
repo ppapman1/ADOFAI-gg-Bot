@@ -14,6 +14,7 @@ const Guild = require('./schemas/guild');
 const MusicQueue = require('./schemas/musicQueue');
 
 const Player = {};
+const PlayingResource = {};
 
 module.exports.setup = async client => {
     for(let v of client.guilds.cache.map(g => g.me.voice.channel).filter(a => a)) {
@@ -87,6 +88,7 @@ module.exports.disconnect = guild => {
 
     Player[guild.id].stop();
     delete Player[guild.id];
+    delete PlayingResource[guild.id];
 }
 
 module.exports.play = async (guild, url) => {
@@ -104,11 +106,13 @@ module.exports.play = async (guild, url) => {
 
     const resource = createAudioResource(probe.stream, {
         metadata: {
-            name: info.videoDetails.title
+            name: info.videoDetails.title,
+            length: info.videoDetails.lengthSeconds * 1000
         },
         inputType: probe.type
     });
 
+    PlayingResource[guild.id] = resource;
     Player[guild.id].play(resource);
 }
 
@@ -171,4 +175,10 @@ module.exports.getPlayer = guild => {
     if(guild.constructor.name !== 'Guild') return;
 
     return Player[guild.id];
+}
+
+module.exports.getResource = guild => {
+    if(guild.constructor.name !== 'Guild') return;
+
+    return PlayingResource[guild.id];
 }

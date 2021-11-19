@@ -128,6 +128,17 @@ module.exports.msToTime = (duration, en = false) => {
     return (/* w + */ d + h + m + s).trim();
 }
 
+module.exports.msToTimeNumber = s => {
+    const ms = s % 1000;
+    s = (s - ms) / 1000;
+    const secs = s % 60;
+    s = (s - secs) / 60;
+    const mins = s % 60;
+    const hrs = (s - mins) / 60;
+
+    return (hrs > 0 ? `${hrs}:` : '') + `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
 module.exports.parseDiscordCodeBlock = str => {
     let codeBlock = str.match(/```(.+)\n((?:.*?\r?\n?)*)\n```/);
     if(!codeBlock) codeBlock = str.match(/```((?:.*?\r?\n?)*)```/s);
