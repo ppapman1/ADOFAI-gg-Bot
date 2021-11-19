@@ -64,7 +64,7 @@ module.exports.getLevel = async id => {
     return level.data;
 }
 
-module.exports.getLevelInfoMessage = (level, language = 'en', random = false) => {
+module.exports.getLevelInfoMessage = (level, language = 'en', random = false, musicButton = false) => {
     const title = `${level.artists.join(' & ')} - ${level.title}`;
 
     if(level.workshop) level.workshop = level.workshop.trim();
@@ -83,26 +83,36 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false) =>
         ephemeral: true
     }
 
+    const levelInfoButtons = [
+        new MessageButton()
+            .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
+            .setStyle('LINK')
+            .setURL(level.download)
+            .setEmoji(Server.emoji.download),
+        new MessageButton()
+            .setLabel(lang.langByLangName(language, 'WORKSHOP'))
+            .setStyle('LINK')
+            .setURL(level.workshop || level.download)
+            .setEmoji(Server.emoji.steam)
+            .setDisabled(!level.workshop),
+        new MessageButton()
+            .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
+            .setStyle('LINK')
+            .setURL(level.video)
+            .setEmoji(Server.emoji.youtube)
+    ];
+
+    if(musicButton) levelInfoButtons.push(
+        new MessageButton()
+            .setCustomId(`addQueue_${utils.parseYouTubeLink(level.video).videoCode}`)
+            .setLabel(lang.langByLangName(language, 'PLAY_THIS_MUSIC'))
+            .setStyle('PRIMARY')
+            .setEmoji('🎵')
+    );
+
     const components = [
         new MessageActionRow()
-            .addComponents(
-                new MessageButton()
-                    .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
-                    .setStyle('LINK')
-                    .setURL(level.download)
-                    .setEmoji(Server.emoji.download),
-                new MessageButton()
-                    .setLabel(lang.langByLangName(language, 'WORKSHOP'))
-                    .setStyle('LINK')
-                    .setURL(level.workshop || level.download)
-                    .setEmoji(Server.emoji.steam)
-                    .setDisabled(!level.workshop),
-                new MessageButton()
-                    .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
-                    .setStyle('LINK')
-                    .setURL(level.video)
-                    .setEmoji(Server.emoji.youtube)
-            )
+            .addComponents(levelInfoButtons)
     ];
 
     if(random) components.push(

@@ -18,5 +18,5 @@ module.exports = async interaction => {
         components: []
     });
 
-    return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang));
+    return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
 }

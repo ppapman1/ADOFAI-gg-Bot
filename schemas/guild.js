@@ -26,6 +26,9 @@ const newSchema = new Schema({
     },
     archivedTicketCategory: {
         type: String
+    },
+    musicCommandChannel: {
+        type: String
     }
 });
 

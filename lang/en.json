@@ -28,6 +28,7 @@
   "DOWNLOAD": "Download",
   "WORKSHOP": "Workshop",
   "WATCH_VIDEO": "Watch video",
+  "PLAY_THIS_MUSIC": "Play this music",
   "REROLL": "Reroll",
 
   "PP_RANKING": "PP Ranking",
@@ -97,5 +98,32 @@
   "FOREVER_CONFIRM": "We want to punish you permanently. Press the Confirm button to continue.",
 
   "BLACKLIST_USER_ADDED": "You have registered {user} on the blacklist.",
-  "BLACKLIST_USER_REMOVED": "You have removed {user} from the blacklist."
+  "BLACKLIST_USER_REMOVED": "You have removed {user} from the blacklist.",
+
+  "MUSIC_NOT_PLAYING": "You're not currently playing music.",
+
+  "MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL": "You must join a voice channel first.",
+  "MUSIC_SUMMON_SUCCESS": "The bot has accessed the voice channel.",
+
+  "MUSIC_QUEUE_ADDED": "**{title}** has been added to the queue.",
+  "MUSIC_SELECT_MESSAGE": "Please select the track you want below.",
+  "MUSIC_SELECT_PLACEHOLDER": "Please select the track.",
+
+  "MUSIC_SKIPPED": "Skipped track : **{title}**.",
+
+  "MUSIC_STOPPED": "Stopped playing music.",
+
+  "MUSIC_QUEUE_CLEARED": "The queue has been emptied.",
+
+  "MUSIC_ALREADY_PAUSED": "The music has already been paused.",
+  "MUSIC_PAUSED": "Paused the music.",
+
+  "MUSIC_ALREADY_PLAYING": "The music is already playing.",
+  "MUSIC_RESUMED": "Resumed the music.",
+
+  "MUSIC_QUEUE_TITLE": "Music queue.",
+  "MUSIC_QUEUE_DESCRIPTION": "List of music queues on server {servername}.",
+  "MUSIC_QUEUE_NOW_PLAYING": "Now Playing.",
+  "MUSIC_QUEUE_QUEUE": "  The music is queuing.",
+  "MUSIC_QUEUE_NO_QUEUE": "No music is queuing."
 }

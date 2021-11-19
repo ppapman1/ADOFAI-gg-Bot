@@ -28,7 +28,7 @@ module.exports.commandHandler = async interaction => {
 
     if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
-    if(search.length === 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang));
+    if(search.length === 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
 
     const msg = await interaction.editReply(api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang));
 

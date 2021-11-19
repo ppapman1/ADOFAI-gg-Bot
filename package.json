@@ -4,18 +4,25 @@
   "description": "Discord bot for ADOFAI.gg",
   "main": "main.js",
   "scripts": {
-    "test": "npx nodemon --signal SIGKILL main.js --debug 886298103253200906"
+    "test": "npx nodemon --signal SIGKILL main.js --debug 860097560646516746"
   },
   "author": "HYONSU",
   "license": "UNLICENSED",
   "dependencies": {
+    "@discordjs/opus": "^0.5.3",
+    "@discordjs/voice": "^0.7.5",
     "axios": "^0.21.4",
     "discord.js": "^13.3.1",
     "dokdo": "^0.5.1",
+    "ffmpeg-static": "^4.4.0",
     "json5": "^2.2.0",
+    "libsodium-wrappers": "^0.7.9",
     "mongoose": "^6.0.6",
     "parse-duration": "^1.0.1",
-    "unique-string": "^2.0.0"
+    "stream-mime-type": "^1.0.2",
+    "unique-string": "^2.0.0",
+    "ytdl-core": "^4.9.1",
+    "ytsr": "^3.5.3"
   },
   "nodemonConfig": {
     "ignore": [

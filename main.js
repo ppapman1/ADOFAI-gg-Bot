@@ -9,6 +9,7 @@ const utils = require('./utils');
 const api = require('./api');
 const lang = require('./lang');
 const moderator = require('./moderator');
+const music = require('./music');
 
 const Server = require('./server.json');
 
@@ -22,7 +23,8 @@ const FeaturesPermission = require('./schemas/featuresPermission');
 const intents = [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.GUILD_VOICE_STATES
 ];
 
 if(process.argv[2] === '--debug') {
@@ -68,7 +70,7 @@ let groupCommands = {};
 let permissions = {};
 let groupByCommand = {};
 
-module.exports.getGroups = () => Object.keys(groupByCommand);
+module.exports.getGroups = () => [...new Set(Object.values(groupByCommand))];
 module.exports.getGroupCommands = () => groupCommands;
 
 const debug = process.argv[2] === '--debug';
@@ -97,6 +99,7 @@ const loadDokdo = () => {
         lang,
         main: module.exports,
         moderator,
+        music,
         Guild,
         Eval,
         FeaturesPermission
@@ -317,6 +320,8 @@ client.once('ready', async () => {
     cacheServer();
     registerCommands();
     loadHandler();
+
+    await music.setup(client);
 });
 
 client.on('interactionCreate', async interaction => {
