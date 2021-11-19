@@ -19,12 +19,18 @@ module.exports = {
     handler: async interaction => {
         const queueNumber = interaction.options.getNumber('number');
 
-        const removed = await MusicQueue.findOneAndRemove({
+        const target = await MusicQueue.findOne({
             guild: interaction.guild.id
         }).skip(queueNumber - 1);
 
+        if(!target) return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_QUEUE_NOT_FOUND'));
+
+        await MusicQueue.deleteOne({
+            id: target.id
+        });
+
         return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_QUEUE_REMOVED')
-            .replace('{title}', removed.title)
+            .replace('{title}', target.title)
         );
     }
 }

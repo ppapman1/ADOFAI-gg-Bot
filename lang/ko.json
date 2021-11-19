@@ -127,5 +127,6 @@
   "MUSIC_QUEUE_QUEUE": "대기 중",
   "MUSIC_QUEUE_NO_QUEUE": "대기 중인 곡 없음",
 
+  "MUSIC_QUEUE_NOT_FOUND": "해당 곡을 찾을 수 없습니다.",
   "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다."
 }

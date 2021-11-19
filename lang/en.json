@@ -127,5 +127,6 @@
   "MUSIC_QUEUE_QUEUE": "  The music is queuing.",
   "MUSIC_QUEUE_NO_QUEUE": "No music is queuing.",
 
+  "MUSIC_QUEUE_NOT_FOUND": "The song could not be found.",
   "MUSIC_QUEUE_REMOVED": "Deleted **{title}** from the queue."
 }
