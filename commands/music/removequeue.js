@@ -1,6 +1,7 @@
 const lang = require('../../lang');
 
 const MusicQueue = require('../../schemas/musicQueue');
+const main = require("../../main");
 
 module.exports = {
     group: 'music',
@@ -24,6 +25,8 @@ module.exports = {
         }).skip(queueNumber);
 
         if(!target) return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_QUEUE_NOT_FOUND'));
+        if(target.createdUser !== interaction.user.id && !main.getOwnerID().includes(interaction.user.id))
+            return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'SKIP_SELF_MUSIC_ONLY'));
 
         await MusicQueue.deleteOne({
             id: target.id
