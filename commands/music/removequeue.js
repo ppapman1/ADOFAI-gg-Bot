@@ -19,7 +19,7 @@ module.exports = {
     handler: async interaction => {
         const queueNumber = interaction.options.getNumber('number');
 
-        const removed = await MusicQueue.findOneAndReplace({
+        const removed = await MusicQueue.findOneAndRemove({
             guild: interaction.guild.id
         }).skip(queueNumber - 1);
 
