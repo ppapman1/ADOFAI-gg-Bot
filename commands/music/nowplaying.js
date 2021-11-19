@@ -25,7 +25,7 @@ module.exports = {
         const info = await ytdl.getInfo(nowPlaying.url);
 
         const progressBarSize = 16;
-        const percentage = resource.playbackDuration / info.videoDetails.lengthSeconds;
+        const percentage = resource.playbackDuration / (info.videoDetails.lengthSeconds * 1000);
         const progress = Math.round(progressBarSize * percentage);
         const emptyProgress = progressBarSize - progress;
         const progressBar = `[${'▇'.repeat(progress)}${'—'.repeat(emptyProgress)}]`;
@@ -34,9 +34,9 @@ module.exports = {
             embeds: [
                 new MessageEmbed()
                     .setColor('#349eeb')
-                    .setAuthor(info.videoDetails.author.name, info.videoDetails.author.avatar)
+                    .setAuthor(info.videoDetails.author.name, info.videoDetails.author.thumbnails[0].url)
                     .setTitle(nowPlaying.title)
-                    .setDescription(`${info.videoDetails.description.substring(0, 200)}${info.videoDetails.description.length > 2000 ? '...' : ''}\n\n${progressBar} ${utils.msToTimeNumber(resource.playbackDuration)} / ${utils.msToTimeNumber(info.videoDetails.lengthSeconds * 1000)}`)
+                    .setDescription(`${info.videoDetails.description.substring(0, 300)}${info.videoDetails.description.length > 2000 ? '...' : ''}\n\n${progressBar} ${utils.msToTimeNumber(resource.playbackDuration)} / ${utils.msToTimeNumber(info.videoDetails.lengthSeconds * 1000)}`)
                     .setImage(`https://i.ytimg.com/vi/${nowPlaying.url}/original.jpg`)
                     .setFooter(`Requested by ${interaction.client.users.cache.get(nowPlaying.createdUser)?.username || 'Unknown User'}`)
             ],
