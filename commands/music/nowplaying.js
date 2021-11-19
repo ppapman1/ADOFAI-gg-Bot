@@ -38,7 +38,7 @@ module.exports = {
                     .setTitle(nowPlaying.title)
                     .setDescription(`${info.videoDetails.description.substring(0, 300)}${info.videoDetails.description.length > 2000 ? '...' : ''}\n\n${progressBar} ${utils.msToTimeNumber(resource.playbackDuration)} / ${utils.msToTimeNumber(info.videoDetails.lengthSeconds * 1000)}`)
                     .setImage(`https://i.ytimg.com/vi/${nowPlaying.url}/original.jpg`)
-                    .setFooter(`Requested by ${interaction.client.users.cache.get(nowPlaying.createdUser)?.username || 'Unknown User'}`)
+                    .setFooter(`Requested by ${interaction.client.users.cache.get(nowPlaying.createdUser)?.username || 'Unknown User'}`, interaction.client.users.cache.get(nowPlaying.createdUser)?.avatarURL())
             ],
             components: [
                 new MessageActionRow()
