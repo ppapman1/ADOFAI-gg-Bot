@@ -4,6 +4,7 @@ const music = require('../../music');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'pause',
         description: '음악을 일시정지합니다. // Pause the music.'
     },

@@ -4,6 +4,7 @@ const music = require('../../music');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'resume',
         description: '일시정지된 음악을 다시 재생합니다. // Play the paused music again.'
     },

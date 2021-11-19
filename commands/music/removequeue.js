@@ -5,6 +5,7 @@ const MusicQueue = require('../../schemas/musicQueue');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'removequeue',
         description: '대기열 번호로 음악을 삭제합니다. // Delete the music with the queue number.',
         options: [

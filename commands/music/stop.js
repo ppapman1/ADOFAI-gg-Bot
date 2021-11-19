@@ -4,6 +4,7 @@ const music = require('../../music');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'stop',
         description: '봇을 음성 채널에서 내보냅니다. // Leave the bot from the voice channel.'
     },

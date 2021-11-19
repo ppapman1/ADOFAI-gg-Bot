@@ -7,6 +7,7 @@ const music = require('../../music');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'play',
         description: '대기열에 음악을 추가합니다. // Add music to the queue.',
         options: [

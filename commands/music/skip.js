@@ -7,6 +7,7 @@ const MusicQueue = require('../../schemas/musicQueue');
 module.exports = {
     group: 'music',
     info: {
+        defaultPermission: false,
         name: 'skip',
         description: '음악을 건너뜁니다. // Skip the music.'
     },
