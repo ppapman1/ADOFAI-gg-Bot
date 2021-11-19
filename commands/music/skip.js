@@ -1,3 +1,4 @@
+const main = require('../../main');
 const lang = require('../../lang');
 const music = require('../../music');
 
@@ -16,6 +17,9 @@ module.exports = {
         const nowPlaying = await MusicQueue.findOne({
             guild: interaction.guild.id
         });
+
+        if(nowPlaying.createdUser !== interaction.user.id && !main.getOwnerID().includes(interaction.user.id))
+            return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'SKIP_SELF_MUSIC_ONLY'));
 
         music.skip(interaction.guild);
 

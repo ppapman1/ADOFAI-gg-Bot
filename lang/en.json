@@ -109,6 +109,7 @@
   "MUSIC_SELECT_MESSAGE": "Please select the track you want below.",
   "MUSIC_SELECT_PLACEHOLDER": "Please select the track.",
 
+  "SKIP_SELF_MUSIC_ONLY": "You can skip only the music you requested.",
   "MUSIC_SKIPPED": "Skipped track : **{title}**.",
 
   "MUSIC_STOPPED": "Stopped playing music.",
