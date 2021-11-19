@@ -125,5 +125,7 @@
   "MUSIC_QUEUE_DESCRIPTION": "{servername} 서버의 음악 대기열 목록입니다.",
   "MUSIC_QUEUE_NOW_PLAYING": "현재 플레이 중",
   "MUSIC_QUEUE_QUEUE": "대기 중",
-  "MUSIC_QUEUE_NO_QUEUE": "대기 중인 곡 없음"
+  "MUSIC_QUEUE_NO_QUEUE": "대기 중인 곡 없음",
+
+  "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다."
 }
