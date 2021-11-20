@@ -22,6 +22,11 @@ const newSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    dokdoPermission: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

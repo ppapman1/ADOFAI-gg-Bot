@@ -109,6 +109,14 @@ const loadDokdo = () => {
         aliases: [ 'dokdo', 'dok' ],
         prefix: setting.DOKDO_PREFIX,
         owners: teamOwner,
+        isOwner: async user => {
+            const checkUser = await User.findOne({
+                id: user.id
+            });
+            if(!checkUser) return false;
+
+            return checkUser.dokdoPermission || false;
+        },
         secrets: [
             setting.MONGODB_HOST,
             setting.MONGODB_PORT,
