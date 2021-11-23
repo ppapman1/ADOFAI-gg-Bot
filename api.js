@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton, MessageEmbed, MessageSelectMenu} = require('discord.js');
+const { MessageActionRow , MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
 const axios = require('axios');
 const querystring = require('querystring');
 
@@ -8,7 +8,6 @@ const lang = require('./lang');
 const utils = require("./utils");
 const Server = require("./server.json");
 const tags = require('./tags.json');
-const {langByLangName} = require("./lang");
 
 const api = axios.create({
     baseURL: setting.API
@@ -195,7 +194,7 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
                     .setDisabled(page >= totalPage),
                 new MessageButton()
                     .setCustomId('removeTags')
-                    .setLabel(langByLangName(language, 'REMOVE_TAGS'))
+                    .setLabel(lang.langByLangName(language, 'REMOVE_TAGS'))
                     .setStyle('SECONDARY')
                     .setEmoji('❌')
                     .setDisabled(!selectedTags.length)
