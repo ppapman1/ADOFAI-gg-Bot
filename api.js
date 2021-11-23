@@ -140,7 +140,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
                 .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
                 .setFooter(`ID : ${level.id}`)
         ],
-            content: '\u200B',
+        content: '\u200B',
         components
     }
 }
