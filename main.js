@@ -345,7 +345,7 @@ client.on('interactionCreate', async interaction => {
         if(interaction.isCommand()) try {
             await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
-        else try {
+        else if(!interaction.isAutocomplete()) try {
             await interaction.user.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
     }
