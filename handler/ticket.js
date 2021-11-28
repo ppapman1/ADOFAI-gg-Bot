@@ -28,6 +28,8 @@ module.exports = client => {
             if(!ticket) {
                 if(stopNewTicket[message.author.id]) return;
 
+                if(message.stickers.size) return message.reply('스티커로는 티켓을 열 수 없습니다.\nTickets cannot be opened with stickers.');
+
                 if(message.content.startsWith('/')) {
                     const checkCommandMsg = 'confirm';
 
