@@ -163,7 +163,7 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
     for(let i in artist.evidences?.slice(0, 5)) {
         const e = artist.evidences[i];
 
-        const isImage = e.endsWith('.jpg') || e.endsWith('.png') || e.endsWith('.gif');
+        const isImage = e.endsWith('.jpg') || e.endsWith('.png') || e.endsWith('.gif') || e.endsWith('.jpeg');
 
         if(isImage) evidenceButtons.push(
             new MessageButton()
