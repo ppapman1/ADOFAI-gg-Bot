@@ -3,6 +3,8 @@
   "MAIN_SITE": "https://adofai.gg",
   "API": "https://api.adofai.gg:9200/api/v1",
 
+  "ADOFAI_ARTIST_DUMP": "https://7thbeat.sgp1.digitaloceanspaces.com/adofai_dump/adofai_artists.json",
+
   "DOKDO_PREFIX": ";",
 
   "BOT_PERMISSION": "280640",

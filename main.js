@@ -7,6 +7,7 @@ const setting = require('./setting.json');
 const utils = require('./utils');
 
 const api = require('./api');
+const adofaiAPI = require('./adofaiapi');
 const lang = require('./lang');
 const moderator = require('./moderator');
 const music = require('./music');
@@ -55,6 +56,7 @@ const ServerCache = {
 }
 module.exports.Server = ServerCache;
 moderator.setup(client, ServerCache);
+adofaiAPI.setup();
 
 const connect = require('./schemas');
 connect();
@@ -96,6 +98,7 @@ const loadDokdo = () => {
         setting,
         utils,
         api,
+        adofaiAPI,
         lang,
         main: module.exports,
         moderator,

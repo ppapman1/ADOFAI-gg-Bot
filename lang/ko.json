@@ -22,6 +22,10 @@
   "TAG_SEARCH_SELECT_MENU": "태그를 선택하세요.",
   "CANT_FIND_LEVEL": "레벨을 찾을 수 없음",
 
+  "SELECT_ARTIST_MESSAGE": "아래 메뉴에서 원하는 작곡가를 선택하세요.",
+  "SELECT_ARTIST_SELECT_MENU": "작곡가를 선택하세요.",
+  "CANT_FIND_ARTIST": "레벨을 찾을 수 없음",
+
   "SELF_MESSAGE_ONLY": "명령어를 입력한 본인만 선택할 수 있습니다.",
   "LEVEL_NOT_FOUND": "해당 레벨의 정보를 찾을 수 없습니다.",
 
@@ -40,6 +44,7 @@
   "ARCHIVE": "아카이브",
   "UNARCHIVE": "아카이브 해제",
   "REMOVE_TAGS": "태그 삭제",
+  "EVIDENCE": "증거",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
 

@@ -10,7 +10,7 @@ module.exports = {
             {
                 name: 'level',
                 description: 'ADOFAI.gg에서 레벨을 검색합니다. // Search for levels at ADOFAI.gg.',
-                'type': 'SUB_COMMAND',
+                type: 'SUB_COMMAND',
                 options: [
                     {
                         name: 'query',
@@ -58,6 +58,20 @@ module.exports = {
                         name: 'showcensored',
                         description: '검열된 레벨(-2레벨)을 포함해서 검색합니다. // Search, including censored levels (-2).',
                         type: 'BOOLEAN'
+                    }
+                ]
+            },
+            {
+                name: 'artist',
+                description: 'ADOFAI.gg에서 작곡가를 검색합니다. // Search for artists at ADOFAI.gg.',
+                type: 'SUB_COMMAND',
+                options: [
+                    {
+                        name: 'name',
+                        description: '검색할 작곡가의 이름을 입력하세요. // Enter the name of the artist.',
+                        type: 'STRING',
+                        required: true,
+                        autocomplete: true
                     }
                 ]
             }
