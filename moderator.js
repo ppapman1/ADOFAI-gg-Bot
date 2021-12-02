@@ -198,18 +198,21 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
-    const member = await ServerCache.adofai_gg.members.fetch(user.id);
-    if(!member.bannable) return;
+    let member;
+    try {
+        member = await ServerCache.adofai_gg.members.fetch(user.id);
+    } catch(e) {}
+    if(member && !member.bannable) return;
 
-    const checkUser = await User.findOne({ id : user.id });
+    const checkUser = await User.findOne({ id });
 
-    if(stack && checkUser.unbanAt > 0) await User.updateOne({ id : user.id }, {
+    if(stack && checkUser.unbanAt > 0) await User.updateOne({ id }, {
         $inc: { unbanAt : banLength }
     }, {
         upsert: true,
         setDefaultsOnInsert: true
     });
-    else await User.updateOne({ id : user.id }, {
+    else await User.updateOne({ id }, {
         unbanAt: banLength + Date.now()
     }, {
         upsert: true,
@@ -260,7 +263,7 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
         });
     } catch (e) {}
 
-    await member.ban({
+    await ServerCache.adofai_gg.bans.create(id, {
         reason,
         days: deleteDays
     });
