@@ -20,6 +20,8 @@ const Warn = require('./schemas/warn');
 const Guild = require('./schemas/guild');
 const Eval = require('./schemas/eval');
 const FeaturesPermission = require('./schemas/featuresPermission');
+const MusicQueue = require('./schemas/musicQueue');
+const ADOFAIArtist = require('./schemas/ADOFAIArtist');
 
 const intents = [
     Intents.FLAGS.GUILDS,
@@ -105,7 +107,9 @@ const loadDokdo = () => {
         music,
         Guild,
         Eval,
-        FeaturesPermission
+        FeaturesPermission,
+        MusicQueue,
+        ADOFAIArtist
     }
 
     DokdoHandler = new Dokdo(client, {
