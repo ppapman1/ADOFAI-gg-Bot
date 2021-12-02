@@ -17,16 +17,16 @@ module.exports.checkBatchim = word => {
     }
 
     if(!isNaN(lastLetter)) {
-        const k_number = '일이삼사오육칠팔구십'.split('');
-        for(let i = 1; i <= 10; i++) {
-            lastLetter = lastLetter.replace(new RegExp(escapeRegExp(i), 'g'), k_number[i - 1]);
+        const k_number = '영일이삼사오육칠팔구십'.split('');
+        for(let i = 0; i <= 10; i++) {
+            lastLetter = lastLetter.replace(new RegExp(escapeRegExp(i.toString()), 'g'), k_number[i]);
         }
     }
     const uni = lastLetter.charCodeAt(0);
 
     if (uni < 44032 || uni > 55203) return null;
 
-    return (uni - 44032) % 28 != 0;
+    return (uni - 44032) % 28 !== 0;
 }
 
 module.exports.getYoilString = num => {
