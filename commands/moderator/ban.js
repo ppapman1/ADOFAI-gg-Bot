@@ -46,18 +46,22 @@ module.exports = {
 
         const { options } = interaction;
 
-        const user = options.getUser('user');
+        const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
         const deleteDays = options.getNumber('deletedays') || 0;
 
-        const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         if(deleteDays < 0 || deleteDays > 7) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'DELETE_DAYS_RANGE'));
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
+
+        try {
+            await interaction.guild.bans.fetch(member.id);
+            return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'BAN_ALREADY_BANNED'));
+        } catch(e) {}
 
         const banLength = parsedDuration || Number.MAX_SAFE_INTEGER;
 
@@ -88,11 +92,11 @@ module.exports = {
             }
         }
 
-        await moderator.ban(user.id, reason, banLength, interaction.user.id, false, deleteDays);
+        await moderator.ban(member.id, reason, banLength, interaction.user.id, false, deleteDays);
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'BAN_USER_BANNED')
-                .replace('{user}', user.tag)
+                .replace('{user}', member.user.tag)
                 .replace('{duration}', utils.msToTime(parsedDuration, interaction.dbUser.lang !== 'ko')),
             components: []
         });
