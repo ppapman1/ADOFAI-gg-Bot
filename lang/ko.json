@@ -94,6 +94,7 @@
   "UNBAN_ALREADY_UNBANNED": "{user}님은 밴되지 않았습니다.",
   "UNBAN_USER_UNBANNED": "{user}님을 밴 해제했습니다.",
 
+  "KICk_ALREADY_KICKED": "이미 킥된 유저입니다.",
   "KICK_USER_KICKED": "{user}님을 킥했습니다.",
 
   "WARN_USER_WARNED": "{user}님에게 경고를 부여했습니다.",

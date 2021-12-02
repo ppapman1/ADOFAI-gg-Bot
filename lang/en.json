@@ -94,6 +94,7 @@
   "UNBAN_ALREADY_UNBANNED": "{user} has not been banned.",
   "UNBAN_USER_UNBANNED": "I unbanned {user}.",
 
+  "KICk_ALREADY_KICKED": "Already kicked user.",
   "KICK_USER_KICKED": "Kicked {user}.",
 
   "WARN_USER_WARNED": "Warned {user}.",
