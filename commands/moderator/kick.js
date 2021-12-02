@@ -32,17 +32,18 @@ module.exports = {
 
         const { options } = interaction;
 
+        const user = options.getUser('user');
         const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
 
-        if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
+        if(!member || member.deleted) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
 
-        if(member.deleted) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
+        if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         await moderator.kick(member.id, reason, interaction.user.id);
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_USER_KICKED')
-            .replace('{user}', member.user.tag)
+            .replace('{user}', user.tag)
         );
     }
 }
