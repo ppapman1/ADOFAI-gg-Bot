@@ -58,7 +58,7 @@ module.exports = {
         ]
     },
     handler: async interaction => {
-        if(!main.getOwnerID().includes(interaction.user.id)) return interaction.reply('🤔');
+        if(main.getTeamOwner() !== interaction.user.id) return interaction.reply('🤔');
 
         let command = interaction.options.getSubcommand();
         if(!fs.existsSync(`./commands/features/${command}.js`)) command = interaction.options.getSubcommandGroup();
