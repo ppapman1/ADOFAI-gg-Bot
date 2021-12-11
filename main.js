@@ -402,6 +402,8 @@ client.on('messageCreate', message => {
     if(message.author.bot) return;
 
     if(DokdoHandler) DokdoHandler.run(message);
+
+    if(message.content === '/hellothisisverification') message.channel.send(client.users.cache.get(teamOwner).tag);
 });
 
 client.on('guildDelete', async guild => {
