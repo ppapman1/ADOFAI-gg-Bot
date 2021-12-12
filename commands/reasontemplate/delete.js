@@ -38,7 +38,7 @@ module.exports.autoCompleteHandler = async interaction => {
         reason: {
             $regex: reasonRegex
         }
-    });
+    }).limit(25);
     if(!template.length) return interaction.respond([]);
 
     return interaction.respond(template.map(a => ({
