@@ -4,6 +4,7 @@ const lang = require('../../lang');
 const moderator = require('../../moderator');
 
 const User = require('../../schemas/user');
+const utils = require("../../utils");
 
 module.exports = {
     private: true,
@@ -23,7 +24,8 @@ module.exports = {
                 name: 'reason',
                 description: '밴 해제 사유입니다. // It\'s the reason for unban.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             }
         ]
     },
@@ -47,5 +49,6 @@ module.exports = {
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNBAN_USER_UNBANNED')
             .replace('{user}', user.tag)
         );
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT_REMOVE')
 }

@@ -4,6 +4,7 @@ const lang = require('../../lang');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
+const utils = require("../../utils");
 
 module.exports = {
     private: true,
@@ -23,7 +24,8 @@ module.exports = {
                 name: 'reason',
                 description: '킥 사유입니다. // It\'s the reason for kick.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             }
         ]
     },
@@ -45,5 +47,6 @@ module.exports = {
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_USER_KICKED')
             .replace('{user}', user.tag)
         );
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT')
 }

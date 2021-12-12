@@ -2,55 +2,53 @@ const fs = require('fs');
 
 const lang = require('../../lang');
 const main = require("../../main");
+const permission = require('../../permissions');
+
+const typeChoices = require('./templateType');
 
 module.exports = {
     private: true,
-
+    permissions: permission.staffOnly,
     info: {
-        name: 'features',
-        description: '서버 기능 관련 명령어입니다. // It\'s a server features related command.',
+        defaultPermission: false,
+        name: 'reasontemplate',
+        description: '서버 처벌 사유 템플릿 관련 명령어입니다. // This is an command related to the server punishment reason template.',
         options: [
             {
-                name: 'enable',
-                description: '서버의 기능을 활성화합니다. // Enable server\'s feature.',
+                name: 'create',
+                description: '서버 처벌 사유 템플릿을 생성합니다. // Create a punishment reason template.',
                 type: 'SUB_COMMAND',
                 options: [
                     {
-                        name: 'name',
-                        description: '기능의 이름입니다.',
+                        name: 'type',
+                        description: '생성할 템플릿의 종류를 선택합니다. // Select the type of template you want to create.',
                         type: 'STRING',
                         required: true,
-                        autocomplete: true
+                        choices: typeChoices
+                    },
+                    {
+                        name: 'reason',
+                        description: '생성할 템플릿의 사유를 입력합니다. // Enter the reason of the template you want to create.',
+                        type: 'STRING',
+                        required: true
                     }
                 ]
             },
             {
-                name: 'disable',
-                description: '서버의 기능을 비활성화합니다. // Disable server\'s feature.',
+                name: 'delete',
+                description: '서버 처벌 사유 템플릿을 삭제합니다. // Delete a punishment reason template.',
                 type: 'SUB_COMMAND',
                 options: [
                     {
-                        name: 'name',
-                        description: '기능의 이름입니다.',
+                        name: 'type',
+                        description: '삭제할 템플릿의 종류를 선택합니다. // Select the type of template you want to delete.',
                         type: 'STRING',
                         required: true,
-                        autocomplete: true
-                    }
-                ]
-            },
-            {
-                name: 'list',
-                description: '서버의 기능 목록을 확인합니다. // Check server\'s features list.',
-                type: 'SUB_COMMAND'
-            },
-            {
-                name: 'permission',
-                description: '서버 기능 명령어의 권한을 설정합니다.',
-                type: 'SUB_COMMAND',
-                options: [
+                        choices: typeChoices
+                    },
                     {
-                        name: 'command',
-                        description: '권한을 설정할 명령어입니다. // Command to set permissions.',
+                        name: 'reason',
+                        description: '삭제할 템플릿의 사유를 입력합니다. // Enter the reason of the template you want to delete.',
                         type: 'STRING',
                         required: true,
                         autocomplete: true
@@ -60,12 +58,10 @@ module.exports = {
         ]
     },
     handler: async interaction => {
-        if(main.getTeamOwner() !== interaction.user.id) return interaction.reply('🤔');
-
         let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/features/${command}.js`)) command = interaction.options.getSubcommandGroup();
+        if(!fs.existsSync(`./commands/reasontemplate/${command}.js`)) command = interaction.options.getSubcommandGroup();
 
-        if(fs.existsSync(`./commands/features/${command}.js`)) {
+        if(fs.existsSync(`./commands/reasontemplate/${command}.js`)) {
             const file = require.resolve(`./${command}.js`);
             if(process.argv[2] === '--debug') delete require.cache[file];
             const handler = require(file);
@@ -81,9 +77,9 @@ module.exports = {
         if(!main.getOwnerID().includes(interaction.user.id)) return interaction.respond([]);
 
         let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/features/${command}.js`)) command = interaction.options.getSubcommandGroup();
+        if(!fs.existsSync(`./commands/reasontemplate/${command}.js`)) command = interaction.options.getSubcommandGroup();
 
-        if(fs.existsSync(`./commands/features/${command}.js`)) {
+        if(fs.existsSync(`./commands/reasontemplate/${command}.js`)) {
             const file = require.resolve(`./${command}.js`);
             if(process.argv[2] === '--debug') delete require.cache[file];
             const handler = require(file);

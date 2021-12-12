@@ -3,6 +3,8 @@ const querystring = require('querystring');
 
 const tags = require('./tags.json');
 
+const ReasonTemplate = require('./schemas/reasonTemplate');
+
 const escapeRegExp = s => s.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 module.exports.escapeRegExp = escapeRegExp;
 
@@ -160,4 +162,22 @@ for(let c in tags) for(let t in tags[c]) {
 }
 module.exports.getTagByID = tag => {
     return tagByID[tag];
+}
+
+module.exports.reasonAutoCompleteHandler = type => async interaction => {
+    const reason = interaction.options.getString('reason');
+    const reasonRegex = new RegExp(module.exports.escapeRegExp(reason), 'i');
+
+    const reasons = await ReasonTemplate.find({
+        type,
+        reason: {
+            $regex: reasonRegex
+        }
+    }).limit(25);
+    if(!reasons.length) return interaction.respond([]);
+
+    return interaction.respond(reasons.map(a => ({
+        name: a.reason,
+        value: a.reason
+    })));
 }

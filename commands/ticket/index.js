@@ -7,7 +7,6 @@ const main = require("../../main");
 module.exports = {
     group: 'ticket',
     // private: true,
-    permissions: permissions.staffOnly,
     info: {
         defaultPermission: false,
         name: 'ticket',
