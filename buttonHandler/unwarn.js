@@ -9,17 +9,17 @@ module.exports = async interaction => {
 
     if(!interaction.member.roles.cache.has(Server.role.staff)) return;
 
+    interaction.message.components[0].components[0].setDisabled();
+    await interaction.update({
+        components: interaction.message.components
+    });
+
     await moderator.unwarn(params[1], interaction.user.id);
 
     const warnMsg = await interaction.channel.messages.fetch(params[2]);
     warnMsg.components[0].components[0].setDisabled();
     await warnMsg.edit({
         components: warnMsg.components
-    });
-
-    interaction.message.components[0].components[0].setDisabled();
-    await interaction.update({
-        components: interaction.message.components
     });
 
     await interaction.followUp({

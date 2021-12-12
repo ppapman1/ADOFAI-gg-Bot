@@ -6,6 +6,7 @@ const moderator = require('../../moderator');
 const Server = require('../../server.json');
 
 const User = require('../../schemas/user');
+const utils = require("../../utils");
 
 module.exports = {
     private: true,
@@ -25,7 +26,8 @@ module.exports = {
                 name: 'reason',
                 description: '뮤트 해제 사유입니다. // It\'s the reason for unmute.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             }
         ]
     },
@@ -52,5 +54,6 @@ module.exports = {
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNMUTE_USER_UNMUTED')
             .replace('{user}', user.tag)
         );
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT_REMOVE')
 }

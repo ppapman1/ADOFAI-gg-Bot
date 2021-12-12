@@ -33,7 +33,7 @@ module.exports.setup = (c, s) => {
     }, process.argv[2] === '--debug' ? 5000 : 30000);
 }
 
-module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false) => {
+module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false, silent = false) => {
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -55,7 +55,7 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
         setDefaultsOnInsert: true
     });
 
-    await ServerCache.channel.modLogs.send({
+    if(!silent) await ServerCache.channel.modLogs.send({
         embeds: [
             new MessageEmbed()
                 .setColor('#ff470f')
@@ -86,7 +86,7 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
         ]
     });
 
-    try {
+    if(!silent) try {
         if(muteLength > 0) await user.send({
             embeds: [
                 new MessageEmbed()
@@ -198,18 +198,21 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
-    const member = await ServerCache.adofai_gg.members.fetch(user.id);
-    if(!member.bannable) return;
+    let member;
+    try {
+        member = await ServerCache.adofai_gg.members.fetch(user.id);
+    } catch(e) {}
+    if(member && !member.bannable) return;
 
-    const checkUser = await User.findOne({ id : user.id });
+    const checkUser = await User.findOne({ id });
 
-    if(stack && checkUser.unbanAt > 0) await User.updateOne({ id : user.id }, {
+    if(stack && checkUser.unbanAt > 0) await User.updateOne({ id }, {
         $inc: { unbanAt : banLength }
     }, {
         upsert: true,
         setDefaultsOnInsert: true
     });
-    else await User.updateOne({ id : user.id }, {
+    else await User.updateOne({ id }, {
         unbanAt: banLength + Date.now()
     }, {
         upsert: true,
@@ -260,7 +263,7 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
         });
     } catch (e) {}
 
-    await member.ban({
+    await ServerCache.adofai_gg.bans.create(id, {
         reason,
         days: deleteDays
     });
@@ -315,7 +318,7 @@ module.exports.unban = async (id, reason = 'No Reason', moderatorId) => {
     } catch (e) {}
 }
 
-module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
+module.exports.warn = async (id, reason = 'No Reason', moderatorId, count = 1, silent = false, group) => {
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -327,6 +330,14 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
         moderator: moderatorId || client.user.id
     });
     await newWarn.save();
+
+    if(group) await Warn.updateOne({
+        id: group
+    }, {
+        $push: {
+            group: newWarn.id
+        }
+    });
 
     const embeds = [
         new MessageEmbed()
@@ -344,16 +355,20 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
                     inline: true
                 },
                 {
-                    name: 'Reason',
-                    value: reason,
+                    name: 'Amount',
+                    value: count.toString(),
                     inline: true
+                },
+                {
+                    name: 'Reason',
+                    value: reason
                 }
             )
             .setTimestamp()
             .setFooter(`ID: ${user.id}`)
     ]
 
-    await ServerCache.channel.modLogs.send({
+    if(!silent) await ServerCache.channel.modLogs.send({
         embeds,
         components: [
             new MessageActionRow()
@@ -366,7 +381,7 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
         ]
     });
 
-    try {
+    if(!silent) try {
         await user.send({
             embeds
         });
@@ -377,6 +392,8 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId) => {
         createdAt: { $gt : Date.now() - (1000 * 60 * 60 * 24 * 60) }
     });
     if(warnCount >= 3) await module.exports.mute(user.id, `${warnCount} warns`, warnCount < 10 ? 86400000 * warnCount * 2 : Number.MAX_SAFE_INTEGER, null, true);
+
+    if(count > 1) await module.exports.warn(user.id, reason, moderatorId, count - 1, true, group || newWarn.id);
 }
 
 module.exports.unwarn = async (warnId, moderatorId) => {
@@ -428,4 +445,6 @@ module.exports.unwarn = async (warnId, moderatorId) => {
     const beforeWarnCount = warnCount + 1;
 
     if(beforeWarnCount >= 3) await module.exports.mute(user.id, `Cancel warning`, (beforeWarnCount < 10 ? 86400000 * beforeWarnCount * 2 : Number.MAX_SAFE_INTEGER) * -1, null, true);
+
+    if(warn.group?.length) for(let w of warn.group) await module.exports.unwarn(w, moderatorId);
 }

@@ -20,6 +20,9 @@ const Warn = require('./schemas/warn');
 const Guild = require('./schemas/guild');
 const Eval = require('./schemas/eval');
 const FeaturesPermission = require('./schemas/featuresPermission');
+const MusicQueue = require('./schemas/musicQueue');
+const ADOFAIArtist = require('./schemas/ADOFAIArtist');
+const ReasonTemplate = require('./schemas/reasonTemplate');
 
 const intents = [
     Intents.FLAGS.GUILDS,
@@ -105,7 +108,10 @@ const loadDokdo = () => {
         music,
         Guild,
         Eval,
-        FeaturesPermission
+        FeaturesPermission,
+        MusicQueue,
+        ADOFAIArtist,
+        ReasonTemplate
     }
 
     DokdoHandler = new Dokdo(client, {
@@ -173,8 +179,7 @@ const loadSelectHandler = () => {
     fs.readdirSync('./selectHandler').forEach(c => {
         const file = require.resolve(`./selectHandler/${c}`);
         delete require.cache[file];
-        const module = require(`./selectHandler/${c}`);
-        selectHandler[c.replace('.js', '')] = module;
+        selectHandler[c.replace('.js', '')] = require(`./selectHandler/${c}`);
     });
 }
 
@@ -183,8 +188,7 @@ const loadButtonHandler = () => {
     fs.readdirSync('./buttonHandler').forEach(c => {
         const file = require.resolve(`./buttonHandler/${c}`);
         delete require.cache[file];
-        const module = require(`./buttonHandler/${c}`);
-        buttonHandler[c.replace('.js', '')] = module;
+        buttonHandler[c.replace('.js', '')] = require(`./buttonHandler/${c}`);
     });
 }
 

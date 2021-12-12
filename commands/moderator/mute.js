@@ -27,7 +27,8 @@ module.exports = {
                 name: 'reason',
                 description: '뮤트 사유입니다. // It\'s the reason for mute.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             },
             {
                 name: 'duration',
@@ -88,5 +89,6 @@ module.exports = {
                 .replace('{duration}', utils.msToTime(parsedDuration, interaction.dbUser.lang !== 'ko')),
             components: []
         });
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT')
 }

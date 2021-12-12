@@ -4,6 +4,7 @@ const lang = require('../../lang');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
+const utils = require("../../utils");
 
 module.exports = {
     private: true,
@@ -23,7 +24,8 @@ module.exports = {
                 name: 'reason',
                 description: '킥 사유입니다. // It\'s the reason for kick.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             }
         ]
     },
@@ -33,15 +35,18 @@ module.exports = {
         const { options } = interaction;
 
         const user = options.getUser('user');
+        const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
 
-        const member = await interaction.guild.members.fetch(user.id);
+        if(!member || member.deleted) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
+
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
-        await moderator.kick(user.id, reason, interaction.user.id);
+        await moderator.kick(member.id, reason, interaction.user.id);
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_USER_KICKED')
             .replace('{user}', user.tag)
         );
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT')
 }

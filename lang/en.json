@@ -88,13 +88,16 @@
   "UNMUTE_USER_UNMUTED": "I unmuted {user}.",
 
   "DELETE_DAYS_RANGE": "The message deletion period must be 0-7 days.",
+  "BAN_ALREADY_BANNED": "Already banned user.",
   "BAN_USER_BANNED": "Banned {user} for {duration}.",
 
   "UNBAN_ALREADY_UNBANNED": "{user} has not been banned.",
   "UNBAN_USER_UNBANNED": "I unbanned {user}.",
 
+  "KICK_ALREADY_KICKED": "Already kicked user.",
   "KICK_USER_KICKED": "Kicked {user}.",
 
+  "WRONG_WARN_AMOUNT": "Wrong warning count!",
   "WARN_USER_WARNED": "Warned {user}.",
 
   "CANCEL_WARN_CONFIRM": "Do you really want to cancel this warning? Press the Confirm button below to cancel.",
@@ -134,5 +137,11 @@
   "MUSIC_QUEUE_NO_QUEUE": "No music is queuing.",
 
   "MUSIC_QUEUE_NOT_FOUND": "The song could not be found.",
-  "MUSIC_QUEUE_REMOVED": "Deleted **{title}** from the queue."
+  "MUSIC_QUEUE_REMOVED": "Deleted **{title}** from the queue.",
+
+  "TEMPLATE_CREATE": "Template created",
+  "TEMPLATE_CREATED_DESCRIPTION": "A template for \"{type}\" has been created.\n\nTemplate list```\n{reasons}```",
+
+  "TEMPLATE_NOT_FOUND": "The template could not be found.",
+  "TEMPLATE_DELETED_MESSAGE": "Template \"{reason}\" for \"{type}\" has been deleted."
 }

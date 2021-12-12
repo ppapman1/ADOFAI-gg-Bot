@@ -88,13 +88,16 @@
   "UNMUTE_USER_UNMUTED": "{user}님을 뮤트 해제했습니다.",
 
   "DELETE_DAYS_RANGE": "메시지 삭제 기간은 0~7일이어야 합니다.",
+  "BAN_ALREADY_BANNED": "이미 밴된 유저입니다.",
   "BAN_USER_BANNED": "{user}님을 {duration}동안 밴했습니다.",
 
   "UNBAN_ALREADY_UNBANNED": "{user}님은 밴되지 않았습니다.",
   "UNBAN_USER_UNBANNED": "{user}님을 밴 해제했습니다.",
 
+  "KICK_ALREADY_KICKED": "이미 킥된 유저입니다.",
   "KICK_USER_KICKED": "{user}님을 킥했습니다.",
 
+  "WRONG_WARN_AMOUNT": "경고 개수가 잘못되었습니다!",
   "WARN_USER_WARNED": "{user}님에게 경고를 부여했습니다.",
 
   "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래 확인 버튼을 누르세요.",
@@ -134,5 +137,11 @@
   "MUSIC_QUEUE_NO_QUEUE": "대기 중인 곡 없음",
 
   "MUSIC_QUEUE_NOT_FOUND": "해당 곡을 찾을 수 없습니다.",
-  "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다."
+  "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다.",
+
+  "TEMPLATE_CREATE": "템플릿 생성",
+  "TEMPLATE_CREATED_DESCRIPTION": "\"{type}\"용 템플릿이 생성되었습니다.\n\n템플릿 목록```\n{reasons}```",
+
+  "TEMPLATE_NOT_FOUND": "해당 템플릿을 찾을 수 없습니다.",
+  "TEMPLATE_DELETED_MESSAGE": "\"{type}\"용 \"{reason}\" 템플릿이 삭제되었습니다."
 }

@@ -27,7 +27,8 @@ module.exports = {
                 name: 'reason',
                 description: '밴 사유입니다. // It\'s the reason for ban.',
                 type: 'STRING',
-                required: true
+                required: true,
+                autocomplete: true
             },
             {
                 name: 'duration',
@@ -47,13 +48,18 @@ module.exports = {
         const { options } = interaction;
 
         const user = options.getUser('user');
+        const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
         const deleteDays = options.getNumber('deletedays') || 0;
 
-        const member = await interaction.guild.members.fetch(user.id);
-        if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
+        try {
+            await interaction.guild.bans.fetch(user.id);
+            return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'BAN_ALREADY_BANNED'));
+        } catch(e) {}
+
+        if(member && member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         if(deleteDays < 0 || deleteDays > 7) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'DELETE_DAYS_RANGE'));
 
@@ -96,5 +102,6 @@ module.exports = {
                 .replace('{duration}', utils.msToTime(parsedDuration, interaction.dbUser.lang !== 'ko')),
             components: []
         });
-    }
+    },
+    autoCompleteHandler: utils.reasonAutoCompleteHandler('PUNISHMENT')
 }
