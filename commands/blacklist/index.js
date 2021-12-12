@@ -5,10 +5,7 @@ const lang = require('../../lang');
 const main = require("../../main");
 
 module.exports = {
-    private: true,
-    permissions: permissions.ownerOnly,
     info: {
-        defaultPermission: false,
         name: 'blacklist',
         description: '블랙리스트 관련 명령어입니다. // It\'s a blacklist related command.',
         options: [
@@ -41,6 +38,8 @@ module.exports = {
         ]
     },
     handler: async interaction => {
+        if(!main.getOwnerID().includes(interaction.user.id)) return interaction.reply('🤔');
+
         let command = interaction.options.getSubcommand();
         if(!fs.existsSync(`./commands/blacklist/${command}.js`)) command = interaction.options.getSubcommandGroup();
 
