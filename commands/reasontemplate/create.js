@@ -1,5 +1,7 @@
 const { Util , MessageEmbed } = require('discord.js');
 
+const lang = require('../../lang');
+
 const ReasonTemplate = require('../../schemas/reasonTemplate');
 
 const templateType = require('./templateType');
@@ -29,8 +31,11 @@ module.exports = async interaction => {
             new MessageEmbed()
                 .setAuthor(interaction.user.username, interaction.user.avatarURL())
                 .setColor('#349eeb')
-                .setTitle('템플릿 생성')
-                .setDescription(`"${templateType.find(a => a.value === type).name}"용 템플릿이 생성되었습니다.\n\n템플릿 목록\`\`\`\n${Util.escapeCodeBlock(reasons.join('\n'))}\`\`\``)
+                .setTitle(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATE'))
+                .setDescription(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATED_DESCRIPTION')
+                    .replace('{type}', templateType.find(a => a.value === type).name)
+                    .replace('{reasons}', Util.escapeCodeBlock(reasons.join('\n')))
+                )
                 .setTimestamp()
         ]
     });

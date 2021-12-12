@@ -136,5 +136,11 @@
   "MUSIC_QUEUE_NO_QUEUE": "대기 중인 곡 없음",
 
   "MUSIC_QUEUE_NOT_FOUND": "해당 곡을 찾을 수 없습니다.",
-  "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다."
+  "MUSIC_QUEUE_REMOVED": "대기열에서 **{title}**을(를) 삭제했습니다.",
+
+  "TEMPLATE_CREATE": "템플릿 생성",
+  "TEMPLATE_CREATED_DESCRIPTION": "\"{type}\"용 템플릿이 생성되었습니다.\n\n템플릿 목록```\n{reasons}```",
+
+  "TEMPLATE_NOT_FOUND": "해당 템플릿을 찾을 수 없습니다.",
+  "TEMPLATE_DELETED_MESSAGE": "\"{type}\"용 \"{reason}\" 템플릿이 삭제되었습니다."
 }

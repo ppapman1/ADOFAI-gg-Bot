@@ -1,4 +1,5 @@
 const utils = require('../../utils');
+const lang = require('../../lang');
 
 const ReasonTemplate = require('../../schemas/reasonTemplate');
 
@@ -17,9 +18,12 @@ module.exports.commandHandler = async interaction => {
             $regex: reasonRegex
         }
     });
-    if(!deleted) return interaction.reply('해당 템플릿을 찾을 수 없습니다.');
+    if(!deleted) return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_NOT_FOUND'));
 
-    return interaction.reply(`"${templateType.find(a => a.value === type).name}"용 "${deleted.reason}" 템플릿이 삭제되었습니다.`);
+    return interaction.reply(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_DELETED_MESSAGE')
+        .replace('{type}', templateType.find(a => a.value === type).name)
+        .replace('{reason}', deleted.reason)
+    );
 }
 
 module.exports.autoCompleteHandler = async interaction => {
