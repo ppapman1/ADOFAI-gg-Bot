@@ -97,6 +97,7 @@
   "KICK_ALREADY_KICKED": "Already kicked user.",
   "KICK_USER_KICKED": "Kicked {user}.",
 
+  "WRONG_WARN_AMOUNT": "Wrong warning count!",
   "WARN_USER_WARNED": "Warned {user}.",
 
   "CANCEL_WARN_CONFIRM": "Do you really want to cancel this warning? Press the Confirm button below to cancel.",

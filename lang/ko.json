@@ -97,6 +97,7 @@
   "KICK_ALREADY_KICKED": "이미 킥된 유저입니다.",
   "KICK_USER_KICKED": "{user}님을 킥했습니다.",
 
+  "WRONG_WARN_AMOUNT": "경고 개수가 잘못되었습니다!",
   "WARN_USER_WARNED": "{user}님에게 경고를 부여했습니다.",
 
   "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래 확인 버튼을 누르세요.",

@@ -26,6 +26,12 @@ module.exports = {
                 type: 'STRING',
                 required: true,
                 autocomplete: true
+            },
+            {
+                name: 'amount',
+                description: '지급할 경고의 갯수입니다. // Amount of warn.',
+                type: 'INTEGER',
+                required: true
             }
         ]
     },
@@ -36,11 +42,14 @@ module.exports = {
 
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
+        const amount = options.getInteger('amount');
+
+        if(amount < 1 || amount > 10) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'WRONG_WARN_AMOUNT'));
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
-        await moderator.warn(user.id, reason, interaction.user.id);
+        await moderator.warn(user.id, reason, interaction.user.id, amount);
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'WARN_USER_WARNED')
             .replace('{user}', user.tag)

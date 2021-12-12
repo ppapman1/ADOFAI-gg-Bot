@@ -22,6 +22,11 @@ const newSchema = new Schema({
     moderator: {
         type: String,
         required: true
+    },
+    group: {
+        type: Array,
+        required: true,
+        default: []
     }
 });
 
