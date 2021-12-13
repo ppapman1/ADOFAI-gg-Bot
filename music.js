@@ -162,7 +162,7 @@ module.exports.addQueue = async (guild, user, url) => {
     const count = await MusicQueue.countDocuments({
         guild: guild.id
     });
-    if(count === 1) return module.exports.start(guild);
+    if(count <= 1) return module.exports.start(guild);
 }
 
 module.exports.skip = guild => {
