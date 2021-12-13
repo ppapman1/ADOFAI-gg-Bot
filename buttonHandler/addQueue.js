@@ -16,12 +16,12 @@ module.exports = async interaction => {
         if(!voiceChannel) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL'));
 
         await music.connect(voiceChannel, interaction.channel);
+        await music.start(interaction.guild);
     }
     
     try {
         const videoInfo = await ytdl.getInfo(videoID);
 
-        await music.start(interaction.guild);
         await music.addQueue(interaction.guild, interaction.user, videoID);
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_QUEUE_ADDED')
