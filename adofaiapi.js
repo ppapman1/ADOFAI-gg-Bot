@@ -172,13 +172,18 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
                 .setStyle('SECONDARY')
                 .setEmoji('🖼️')
         );
-        else evidenceButtons.push(
-            new MessageButton()
-                .setLabel(`${lang.langByLangName(language, 'EVIDENCE')} ${Number(i) + 1}`)
-                .setStyle('LINK')
-                .setURL(e)
-                .setEmoji('🔗')
-        );
+        else {
+            const url = Url.parse(e);
+            const isDiscord = url.hostname.endsWith('discord.com') || url.hostname.endsWith('discordapp.com');
+
+            evidenceButtons.push(
+                new MessageButton()
+                    .setLabel(`${lang.langByLangName(language, 'EVIDENCE')} ${Number(i) + 1}`)
+                    .setStyle('LINK')
+                    .setURL(e)
+                    .setEmoji(isDiscord ? main.Server.emoji.discord.toString() : '🔗')
+            );
+        }
     }
 
     const components = [];
