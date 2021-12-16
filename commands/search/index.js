@@ -53,11 +53,11 @@ module.exports = {
                         description: '책정되지 않은 레벨(0레벨)을 포함해서 검색합니다. // Search including an undetermined level (level 0).',
                         type: 'BOOLEAN'
                     },
-                    {
-                        name: 'showcensored',
-                        description: '검열된 레벨(-2레벨)을 포함해서 검색합니다. // Search, including censored levels (-2).',
-                        type: 'BOOLEAN'
-                    }
+                    // {
+                    //     name: 'showcensored',
+                    //     description: '검열된 레벨(-2레벨)을 포함해서 검색합니다. // Search, including censored levels (-2).',
+                    //     type: 'BOOLEAN'
+                    // }
                 ]
             },
             {

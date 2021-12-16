@@ -16,7 +16,7 @@ module.exports.commandHandler = async interaction => {
         minTiles: options.getNumber('mintiles'),
         maxTiles: options.getNumber('maxtiles'),
         showNotVerified: options.getBoolean('shownotverified'),
-        showCensored: options.getBoolean('showcensored')
+        // showCensored: options.getBoolean('showcensored')
     }
 
     let offset = 0;
@@ -107,7 +107,7 @@ module.exports.autoCompleteHandler = async interaction => {
         minTiles: options.getNumber('mintiles'),
         maxTiles: options.getNumber('maxtiles'),
         showNotVerified: options.getBoolean('shownotverified'),
-        showCensored: options.getBoolean('showcensored')
+        // showCensored: options.getBoolean('showcensored')
     }
     const search = await api.searchLevel(searchQuery);
 
