@@ -23,6 +23,8 @@ const FeaturesPermission = require('./schemas/featuresPermission');
 const MusicQueue = require('./schemas/musicQueue');
 const ADOFAIArtist = require('./schemas/ADOFAIArtist');
 const ReasonTemplate = require('./schemas/reasonTemplate');
+const Vote = require('./schemas/vote');
+const VoteOption = require('./schemas/voteOption');
 
 const intents = [
     Intents.FLAGS.GUILDS,
@@ -60,6 +62,7 @@ const ServerCache = {
 module.exports.Server = ServerCache;
 moderator.setup(client, ServerCache);
 adofaiAPI.setup();
+utils.setup(client);
 
 const connect = require('./schemas');
 connect();
@@ -111,7 +114,9 @@ const loadDokdo = () => {
         FeaturesPermission,
         MusicQueue,
         ADOFAIArtist,
-        ReasonTemplate
+        ReasonTemplate,
+        Vote,
+        VoteOption
     }
 
     DokdoHandler = new Dokdo(client, {

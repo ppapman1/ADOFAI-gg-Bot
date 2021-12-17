@@ -143,5 +143,13 @@
   "TEMPLATE_CREATED_DESCRIPTION": "A template for \"{type}\" has been created.\n\nTemplate list```\n{reasons}```",
 
   "TEMPLATE_NOT_FOUND": "The template could not be found.",
-  "TEMPLATE_DELETED_MESSAGE": "Template \"{reason}\" for \"{type}\" has been deleted."
+  "TEMPLATE_DELETED_MESSAGE": "Template \"{reason}\" for \"{type}\" has been deleted.",
+
+  "VOTE_TOO_MARY_OPTIONS": "There are too many voting items. There are up to {maximum} voting entries.",
+  "VOTE_OPTION_TOO_LONG": "The length of the voting item is too long. The maximum length of the voting item is {maximum} characters.",
+  "VOTE_NOT_FOUND": "The voting information was not found.",
+  "VOTE_CANCELED": "You have canceled the select for \"{option}\".",
+  "VOTE_VOTED": "You voted for \"{option}\"!",
+  "VOTE_CHANGED": "You have changed from \"{beforeoption}\" to \"{option}\"!",
+  "VOTE_STOPPED": "Vote has been stopped!"
 }

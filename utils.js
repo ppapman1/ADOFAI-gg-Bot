@@ -1,9 +1,18 @@
+const { MessageEmbed , Util } = require('discord.js');
 const Url = require('url');
 const querystring = require('querystring');
 
 const tags = require('./tags.json');
 
 const ReasonTemplate = require('./schemas/reasonTemplate');
+const Vote = require('./schemas/vote');
+const VoteOption = require('./schemas/voteOption');
+
+let client;
+
+module.exports.setup = c => {
+    client = c;
+}
 
 const escapeRegExp = s => s.toString().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 module.exports.escapeRegExp = escapeRegExp;
@@ -180,4 +189,45 @@ module.exports.reasonAutoCompleteHandler = type => async interaction => {
         name: a.reason,
         value: a.reason
     })));
+}
+
+module.exports.textProgressBar = (percentage, size) => {
+    percentage /= 100;
+
+    const progress = Math.round(size * percentage);
+    const emptyProgress = size - progress;
+
+    return `${'▇'.repeat(progress)}${' '.repeat(emptyProgress)}`;
+}
+
+module.exports.realtimeVoteEmbed = async message => {
+    const vote = await Vote.findOne({
+        message
+    });
+    if(!vote) return;
+
+    const voteOptions = await VoteOption.find({
+        message
+    });
+    if(!voteOptions.length) return;
+
+    const totalVotes = voteOptions.reduce((a, b) => a + b.users.length, 0);
+
+    let user;
+    try {
+        user = await client.users.fetch(vote.startedBy);
+    } catch(e) {}
+
+    const fields = voteOptions.map(a => ({
+        name: Util.escapeMarkdown(a.name),
+        value: `[${module.exports.textProgressBar((a.users.length / totalVotes || 0) * 100, 16)}] ${((a.users.length / totalVotes || 0) * 100).toFixed(2)}% (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`
+    }));
+
+    return new MessageEmbed()
+        .setColor('#349eeb')
+        .setAuthor(user?.username || 'Unknown User', user?.avatarURL())
+        .setTitle(Util.escapeMarkdown(vote.question))
+        .setDescription(`Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
+        .addFields(fields)
+        .setTimestamp();
 }
