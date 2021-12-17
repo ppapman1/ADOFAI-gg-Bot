@@ -76,6 +76,8 @@ module.exports = {
                 });
             }
 
+            await i.deferUpdate();
+
             await music.addQueue(interaction.guild, interaction.user, i.values[0]);
 
             const videoInfo = await ytdl.getInfo(i.values[0]);
