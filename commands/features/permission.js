@@ -193,9 +193,9 @@ module.exports.autoCompleteHandler = interaction => {
     const command = interaction.options.getString('command');
 
     const nameRegex = new RegExp(command, 'i');
-    const features = main.getGroups().filter(f => nameRegex.test(f));
+    const commands = interaction.guild.commands.cache.map(c => c.name).filter(f => nameRegex.test(f));
 
-    return interaction.respond(features.slice(0, 25).map(f => ({
+    return interaction.respond(commands.slice(0, 25).map(f => ({
         name: f,
         value: f
     })));
