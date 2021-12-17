@@ -1,3 +1,4 @@
+const main = require('../main');
 const lang = require('../lang');
 const utils = require('../utils');
 
@@ -14,6 +15,11 @@ module.exports = async interaction => {
         message: message.id
     });
 
+    if(vote.role && !interaction.member.roles.cache.has(vote.role) && !main.getOwnerID().includes(interaction.user.id)) return interaction.reply({
+        content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_NO_PERMISSION'),
+        ephemeral: true
+    });
+
     const beforeVote = await VoteOption.findOneAndUpdate({
         message: message.id,
         users: interaction.user.id
@@ -24,7 +30,7 @@ module.exports = async interaction => {
     });
     if(beforeVote && beforeVote.id === params[1]) {
         if(vote.realtime) {
-            const realtimeEmbed = await utils.realtimeVoteEmbed(message.id);
+            const realtimeEmbed = await utils.realtimeVoteEmbed(message);
             return interaction.update({
                 embeds: [realtimeEmbed]
             });
@@ -49,7 +55,7 @@ module.exports = async interaction => {
     });
 
     if(vote.realtime) {
-        const realtimeEmbed = await utils.realtimeVoteEmbed(message.id);
+        const realtimeEmbed = await utils.realtimeVoteEmbed(message);
         return interaction.update({
             embeds: [realtimeEmbed]
         });

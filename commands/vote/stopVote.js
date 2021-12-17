@@ -14,7 +14,7 @@ module.exports = {
     handler: async interaction => {
         const message = await interaction.options.getMessage('message').fetch();
 
-        const resultEmbed = await utils.realtimeVoteEmbed(message.id);
+        const resultEmbed = await utils.realtimeVoteEmbed(message);
         if(!resultEmbed) return interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_NOT_FOUND'),
             ephemeral: true

@@ -201,13 +201,15 @@ module.exports.textProgressBar = (percentage, size) => {
 }
 
 module.exports.realtimeVoteEmbed = async message => {
+    const messageID = message.id;
+
     const vote = await Vote.findOne({
-        message
+        message: messageID
     });
     if(!vote) return;
 
     const voteOptions = await VoteOption.find({
-        message
+        message: messageID
     });
     if(!voteOptions.length) return;
 
@@ -227,7 +229,7 @@ module.exports.realtimeVoteEmbed = async message => {
         .setColor('#349eeb')
         .setAuthor(user?.username || 'Unknown User', user?.avatarURL())
         .setTitle(Util.escapeMarkdown(vote.question))
-        .setDescription(`Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
+        .setDescription(`${vote.role ? `For : ${message.guild.roles.cache.get(vote.role)}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
         .addFields(fields)
         .setTimestamp();
 }

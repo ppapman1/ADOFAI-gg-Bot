@@ -30,6 +30,11 @@ module.exports = {
                 description: '실시간으로 투표 결과를 보여줍니다. // Show the realtime result of the vote.',
                 type: 'BOOLEAN',
                 required: true
+            },
+            {
+                name: 'role',
+                description: '투표에 참여할 수 있는 역할을 지정합니다. // The role that can participate in the vote.',
+                type: 'ROLE'
             }
         ]
     },
@@ -39,6 +44,7 @@ module.exports = {
         const question = options.getString('question');
         const voteOptions = options.getString('options').split(',').map(a => a.trim());
         const realtimeResult = options.getBoolean('realtimeresult');
+        const role = options.getRole('role');
 
         if(voteOptions.length > 25) return interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_TOO_MARY_OPTIONS')
@@ -60,7 +66,8 @@ module.exports = {
             message: message.id,
             question,
             startedBy: interaction.user.id,
-            realtime: realtimeResult
+            realtime: realtimeResult,
+            role: role ? role.id : null
         });
 
         const components = [];
@@ -94,7 +101,7 @@ module.exports = {
         );
 
         if(realtimeResult) {
-            const realtimeEmbed = await utils.realtimeVoteEmbed(message.id);
+            const realtimeEmbed = await utils.realtimeVoteEmbed(message);
             return interaction.editReply({
                 embeds: [realtimeEmbed],
                 components

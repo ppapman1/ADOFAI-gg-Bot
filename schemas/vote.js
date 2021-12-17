@@ -18,6 +18,9 @@ const newSchema = new Schema({
     realtime: {
         type: Boolean,
         required: true
+    },
+    role: {
+        type: String
     }
 });
 
