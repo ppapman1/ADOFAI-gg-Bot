@@ -40,7 +40,7 @@ module.exports = {
             .setTitle(vote.question)
             .addFields(await Promise.all(voteOptions.map(async a => ({
                 name: `${a.name} (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`,
-                value: a.users.length ? (await Promise.all(a.users.map(u => interaction.client.users.fetch(u)))).map(u => u.tag).join('\n') : 'Nobody Voted',
+                value: a.users.length ? (await Promise.all(a.users.map(u => interaction.client.users.fetch(u)))).map(u => u.tag).join('\n').substring(0, 1024) : 'Nobody Voted',
                 inline: true
             }))))
             .setTimestamp();
