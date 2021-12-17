@@ -45,6 +45,7 @@
   "UNARCHIVE": "아카이브 해제",
   "REMOVE_TAGS": "태그 삭제",
   "EVIDENCE": "증거",
+  "PUBLIC": "공개",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
 

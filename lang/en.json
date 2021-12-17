@@ -45,6 +45,7 @@
   "UNARCHIVE": "Unarchive",
   "REMOVE_TAGS": "Remove Tags",
   "EVIDENCE": "Evidence",
+  "PUBLIC": "Public",
 
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
 
