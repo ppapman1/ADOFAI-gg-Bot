@@ -8,6 +8,7 @@ const lang = require('./lang');
 const utils = require("./utils");
 const Server = require("./server.json");
 const tags = require('./tags.json');
+const sorts = require('./sort.json');
 
 const api = axios.create({
     baseURL: setting.API
@@ -145,7 +146,7 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
     }
 }
 
-module.exports.getSearchList = (search, page, totalPage, userid, language = 'en', selectedTags = []) => {
+module.exports.getSearchList = (search, page, totalPage, userid, language = 'en', selectedTags = [], sort = 'RECENT_DESC') => {
     if (!userid) return null;
 
     const selectOptions = [];
@@ -226,6 +227,26 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
                     .setPlaceholder(lang.langByLangName(language, 'TAG_SEARCH_SELECT_MENU'))
                     .addOptions(tagOptions)
                     .setMinValues(1)
+            )
+    );
+
+    const sortOptions = [];
+
+    for(let sortSubject in sorts) sortOptions.push({
+        label: sorts[sortSubject].name[language],
+        value: sortSubject,
+        emoji: {
+            id: Server.emoji[sortSubject]
+        },
+        default: sort === sortSubject
+    });
+
+    components.unshift(
+        new MessageActionRow()
+            .addComponents(
+                new MessageSelectMenu()
+                    .setCustomId('sort')
+                    .addOptions(sortOptions)
             )
     );
 
