@@ -31,7 +31,7 @@ module.exports.commandHandler = async interaction => {
 
     if(search.length === 1) return interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
 
-    const msg = await interaction.editReply(api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, searchQuery.includeTags || [], searchQuery.sort));
+    const msg = await interaction.editReply(api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, searchQuery.includeTags?.split(',') || [], searchQuery.sort));
 
     const collector = msg.createMessageComponentCollector({
         filter: i => [ 'sort' , 'tagSearch' , 'removeTags' , 'prev' , 'next' ].includes(i.customId) && i.user.id === interaction.user.id,
@@ -77,7 +77,7 @@ module.exports.commandHandler = async interaction => {
             searchQuery.offset = offset;
             const search = await api.searchLevel(searchQuery);
 
-            const result = api.getSearchList(search, Math.ceil(offset / 25) + 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, searchQuery.includeTags || [], searchQuery.sort);
+            const result = api.getSearchList(search, Math.ceil(offset / 25) + 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, searchQuery.includeTags?.split(',') || [], searchQuery.sort);
             await interaction.editReply(result);
         }
 
