@@ -1,25 +1,25 @@
 {
   "DIFFICULTY_DESC": {
     "name": {
-      "ko": "내림차순 난이도",
+      "ko": "난이도 내림차순",
       "en": "Difficulty Desc"
     }
   },
   "DIFFICULTY_ASC": {
     "name": {
-      "ko": "오름차순 난이도",
+      "ko": "난이도 오름차순",
       "en": "Difficulty Asc"
     }
   },
   "RECENT_DESC": {
     "name": {
-      "ko": "내림차순 등록순",
+      "ko": "등록 내림차순",
       "en": "Created At Desc"
     }
   },
   "RECENT_ASC": {
     "name": {
-      "ko": "오름차순 등록순",
+      "ko": "등록 오름차순",
       "en": "Created At Asc"
     }
   }
