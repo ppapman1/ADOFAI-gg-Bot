@@ -111,94 +111,94 @@
       "description": {
         "ko": "하나의 박자를 5배수 등분 한 박자가 포함된 맵",
         "en": "This level contains quintuplets."
+      }
+    },
+    "septuplet": {
+      "id": 9,
+      "title": {
+        "ko": "일곱잇단",
+        "en": "Septuplet"
       },
-      "septuplet": {
-        "id": 9,
-        "title": {
-          "ko": "일곱잇단",
-          "en": "Septuplet"
-        },
-        "description": {
-          "ko": "하나의 박자를 7배수 등분 한 박자가 포함된 맵",
-          "en": "This level contains septuplets."
-        }
+      "description": {
+        "ko": "하나의 박자를 7배수 등분 한 박자가 포함된 맵",
+        "en": "This level contains septuplets."
+      }
+    },
+    "polyrhythm": {
+      "id": 18,
+      "title": {
+        "ko": "폴리리듬",
+        "en": "Polyrhythm"
       },
-      "polyrhythm": {
-        "id": 18,
-        "title": {
-          "ko": "폴리리듬",
-          "en": "Polyrhythm"
-        },
-        "description": {
-          "ko": "폴리리듬(2개 이상의 대조되는 리듬이 합쳐진 리듬)이 포함된 맵 (겹박자는 포함하지 않습니다.)",
-          "en": "This level contains polyrhythms."
-        }
+      "description": {
+        "ko": "폴리리듬(2개 이상의 대조되는 리듬이 합쳐진 리듬)이 포함된 맵 (겹박자는 포함하지 않습니다.)",
+        "en": "This level contains polyrhythms."
+      }
+    },
+    "swing": {
+      "id": 16,
+      "title": {
+        "ko": "스윙",
+        "en": "Swing"
       },
-      "swing": {
-        "id": 16,
-        "title": {
-          "ko": "스윙",
-          "en": "Swing"
-        },
-        "description": {
-          "ko": "스트레이트 비트에서 벗어나 셔플(2/3박 - 1/3박 등)의 성향을 띠는 박자",
-          "en": "This level contains swing rhythms."
-        }
+      "description": {
+        "ko": "스트레이트 비트에서 벗어나 셔플(2/3박 - 1/3박 등)의 성향을 띠는 박자",
+        "en": "This level contains swing rhythms."
+      }
+    },
+    "tresillo": {
+      "id": 21,
+      "title": {
+        "ko": "트레실로",
+        "en": "Tresillo"
       },
-      "tresillo": {
-        "id": 21,
-        "title": {
-          "ko": "트레실로",
-          "en": "Tresillo"
-        },
-        "description": {
-          "ko": "두개의 박자를 3-3-2로 나눈 박자가 포함된 맵",
-          "en": "This level contains tresillos."
-        }
+      "description": {
+        "ko": "두개의 박자를 3-3-2로 나눈 박자가 포함된 맵",
+        "en": "This level contains tresillos."
+      }
+    },
+    "funkybeat": {
+      "id": 12,
+      "title": {
+        "ko": "개박",
+        "en": "Funky Beat"
       },
-      "funkybeat": {
-        "id": 12,
-        "title": {
-          "ko": "개박",
-          "en": "Funky Beat"
-        },
-        "description": {
-          "ko": "일반적인 박자 구성이 아닌 불규칙적인 박자의 타일이 포함된 맵",
-          "en": "This level contains funky beats."
-        }
+      "description": {
+        "ko": "일반적인 박자 구성이 아닌 불규칙적인 박자의 타일이 포함된 맵",
+        "en": "This level contains funky beats."
+      }
+    },
+    "64beat": {
+      "id": 10,
+      "title": {
+        "ko": "64+비트",
+        "en": "64+ Beat"
       },
-      "64beat": {
-        "id": 10,
-        "title": {
-          "ko": "64+비트",
-          "en": "64+ Beat"
-        },
-        "description": {
-          "ko": "64 이상의 비트(64분음표 이상)가 포함된 맵",
-          "en": "This level contains beats higher than 64."
-        }
+      "description": {
+        "ko": "64 이상의 비트(64분음표 이상)가 포함된 맵",
+        "en": "This level contains beats higher than 64."
+      }
+    },
+    "acceldecel": {
+      "id": 7,
+      "title": {
+        "ko": "가감속",
+        "en": "Acceleration / Deceleration"
       },
-      "acceldecel": {
-        "id": 7,
-        "title": {
-          "ko": "가감속",
-          "en": "Acceleration / Deceleration"
-        },
-        "description": {
-          "ko": "기본 BPM의 정수배가 아닌 BPM이 포함된 맵 (기본 BPM이 변화하는 경우 포함)",
-          "en": "This level uses a song that changes BPM."
-        }
+      "description": {
+        "ko": "기본 BPM의 정수배가 아닌 BPM이 포함된 맵 (기본 BPM이 변화하는 경우 포함)",
+        "en": "This level uses a song that changes BPM."
+      }
+    },
+    "slow": {
+      "id": 17,
+      "title": {
+        "ko": "흰토끼",
+        "en": "Slow"
       },
-      "slow": {
-        "id": 17,
-        "title": {
-          "ko": "흰토끼",
-          "en": "Slow"
-        },
-        "description": {
-          "ko": "최고 BPM이 300 미만인 맵",
-          "en": "This level's BPM is under 300."
-        }
+      "description": {
+        "ko": "최고 BPM이 300 미만인 맵",
+        "en": "This level's BPM is under 300."
       }
     }
   },
