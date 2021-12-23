@@ -208,8 +208,8 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
         for(let tagName in tags[tagSubject]) {
             const tag = tags[tagSubject][tagName];
             tagOptions.push({
-                label: tag.title,
-                description: tag.description,
+                label: tag.title[language],
+                description: tag.description[language],
                 value: tag.id.toString(),
                 emoji: {
                     id: Server.emoji[tagName]
