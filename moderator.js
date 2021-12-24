@@ -21,15 +21,20 @@ module.exports.setup = (c, s) => {
     ServerCache = s;
 
     setInterval(async () => {
-        const unmuteUsers = await User.find({
-            unmuteAt: { $lt : Date.now() }
-        });
         const unbanUsers = await User.find({
             unbanAt: { $lt : Date.now() }
         });
 
-        for(let u of unmuteUsers) await module.exports.unmute(u.id, '뮤트 기간 만료 / Automatic timer action');
         for(let u of unbanUsers) await module.exports.unban(u.id, '차단 기간 만료 / Automatic timer action');
+
+        const moreMuteUsers = await User.find({
+            unmuteAt: { $gte : Date.now() + 1000 * 60 * 60 * 24 * 28 }
+        });
+
+        for(let u of moreMuteUsers) {
+            const member = await ServerCache.adofai_gg.members.fetch(u.id);
+            if(member.moderatable) await member.timeout(Math.min(u.unmuteAt - Date.now(), 1000 * 60 * 60 * 24 * 28));
+        }
     }, process.argv[2] === '--debug' ? 5000 : 30000);
 }
 
@@ -38,7 +43,9 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
     const member = await ServerCache.adofai_gg.members.fetch(user.id);
-    member.roles.add(ServerCache.role.mute);
+    if(member && !member.moderatable) return;
+
+    await member.timeout(Math.min(muteLength, 1000 * 60 * 60 * 24 * 28), reason);
 
     const checkUser = await User.findOne({ id : user.id });
 
@@ -105,7 +112,7 @@ module.exports.unmute = async (id, reason = 'No Reason', moderatorId) => {
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
     const member = await ServerCache.adofai_gg.members.fetch(user.id);
-    member.roles.remove(ServerCache.role.mute);
+    await member.timeout(0);
 
     await User.updateOne({ id : user.id }, {
         unmuteAt: null
