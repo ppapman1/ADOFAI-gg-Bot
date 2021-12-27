@@ -15,7 +15,7 @@ module.exports = async interaction => {
         message: message.id
     });
 
-    if(!Array.from(interaction.member.roles.cache.keys()).some(r => vote.roles.includes(r)) && !main.getOwnerID().includes(interaction.user.id)) return interaction.reply({
+    if(vote.roles.length && !Array.from(interaction.member.roles.cache.keys()).some(r => vote.roles.includes(r)) && !main.getOwnerID().includes(interaction.user.id)) return interaction.reply({
         content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_NO_PERMISSION'),
         ephemeral: true
     });
