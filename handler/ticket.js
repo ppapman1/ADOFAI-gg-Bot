@@ -136,9 +136,11 @@ module.exports = client => {
             else ticketChannel = await message.client.guilds.cache.get(ticket.guild).channels.fetch(ticket.channel);
 
             try {
-                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, message.attachments);
+                console.log(message.attachments);
+                await sendTicketMessage(ticketChannel, message.author.username, message.author.avatarURL(), message.content, [...message.attachments.values()]);
                 await message.react('✅');
             } catch(e) {
+                console.log(e);
                 await message.react('❌');
             }
         }
