@@ -41,7 +41,8 @@ if(process.argv[2] === '--debug') {
 const client = new Client({
     intents,
     partials: [
-        'CHANNEL'
+        'CHANNEL',
+        'MESSAGE'
     ]
 });
 let DokdoHandler;
@@ -411,6 +412,16 @@ client.on('messageCreate', message => {
     if(message.author.bot) return;
 
     if(DokdoHandler) DokdoHandler.run(message);
+});
+
+client.on('messageDelete', async message => {
+    const vote = await Vote.deleteMany({
+        message: message.id
+    });
+
+    await VoteOption.deleteMany({
+        message: message.id
+    });
 });
 
 client.on('guildDelete', async guild => {
