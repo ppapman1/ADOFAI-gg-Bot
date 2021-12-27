@@ -229,7 +229,7 @@ module.exports.realtimeVoteEmbed = async message => {
         .setColor('#349eeb')
         .setAuthor(user?.username || 'Unknown User', user?.avatarURL())
         .setTitle(Util.escapeMarkdown(vote.question))
-        .setDescription(`${vote.role ? `For : ${message.guild.roles.cache.get(vote.role)}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
+        .setDescription(`${vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
         .addFields(fields)
         .setTimestamp();
 }

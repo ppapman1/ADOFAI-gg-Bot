@@ -19,8 +19,10 @@ const newSchema = new Schema({
         type: Boolean,
         required: true
     },
-    role: {
-        type: String
+    roles: {
+        type: Array,
+        required: true,
+        default: []
     }
 });
 

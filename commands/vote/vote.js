@@ -35,6 +35,11 @@ module.exports = {
                 name: 'role',
                 description: '투표에 참여할 수 있는 역할을 지정합니다. // The role that can participate in the vote.',
                 type: 'ROLE'
+            },
+            {
+                name: 'roles',
+                description: '투표할 역할 ID를 쉼표로 구분하여 지정합니다. // The role IDs that can participate in the vote, separated by commas.',
+                type: 'STRING'
             }
         ]
     },
@@ -45,6 +50,9 @@ module.exports = {
         const voteOptions = options.getString('options').split(',').map(a => a.trim());
         const realtimeResult = options.getBoolean('realtimeresult');
         const role = options.getRole('role');
+        let roles = options.getString('roles');
+        roles = roles ? roles.split(',').map(a => a.trim()) : [];
+        if(role) roles.push(role.id);
 
         if(voteOptions.length > 25) return interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_TOO_MARY_OPTIONS')
@@ -67,7 +75,7 @@ module.exports = {
             question,
             startedBy: interaction.user.id,
             realtime: realtimeResult,
-            role: role ? role.id : null
+            roles
         });
 
         const components = [];
@@ -113,7 +121,7 @@ module.exports = {
                     .setColor('#349eeb')
                     .setAuthor(interaction.user.username, interaction.user.avatarURL())
                     .setTitle(question)
-                    .setDescription(voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
+                    .setDescription((vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
                     .setTimestamp()
             ],
             components
