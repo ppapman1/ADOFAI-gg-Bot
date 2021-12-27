@@ -121,7 +121,7 @@ module.exports = {
                     .setColor('#349eeb')
                     .setAuthor(interaction.user.username, interaction.user.avatarURL())
                     .setTitle(question)
-                    .setDescription((vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
+                    .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
                     .setTimestamp()
             ],
             components
