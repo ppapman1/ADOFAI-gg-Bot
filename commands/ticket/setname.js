@@ -11,9 +11,7 @@ module.exports = async interaction => {
         channel: interaction.channel.id
     });
 
-    await interaction.channel.setName(name, {
-        reason: `${interaction.user.username} changed ticket name`
-    });
+    await interaction.channel.setName(name, `${interaction.user.username} changed ticket name`);
 
     // const ticketUser = await interaction.client.users.fetch(ticket.user);
     // if(ticketUser) try {
