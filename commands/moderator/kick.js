@@ -38,7 +38,7 @@ module.exports = {
         const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
 
-        if(!member || member.deleted) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
+        if(!member) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
 
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
