@@ -118,7 +118,10 @@ module.exports = client => {
                             .setTitle('새로운 티켓 생성 / New Ticket')
                             .setDescription(`새로운 티켓 ${channelName}${utils.checkBatchim(channelName) ? '이' : '가'} 생성되었습니다. 이곳에 ${message.client.user}를 멘션하고 말하면 메시지가 전달됩니다.\nA new ticket ${channelName} has been created. If you mention ${message.client.user} here, the message will be delivered.`)
                             .setTimestamp()
-                            .setFooter(message.author.username, message.author.avatarURL())
+                            .setFooter({
+                                text: message.author.username,
+                                iconURL: message.author.avatarURL()
+                            })
                     ]
                 });
 
@@ -129,7 +132,10 @@ module.exports = client => {
                             .setTitle('새로운 티켓 생성 / New Ticket')
                             .setDescription('새로운 티켓이 생성되었습니다. 이곳에 메시지를 적으면 관리자에게 메시지를 더 전달할 수 있습니다.\nA new ticket has been created. If you write a message here, you can deliver more messages to the administrator.')
                             .setTimestamp()
-                            .setFooter(message.author.username, message.author.avatarURL())
+                            .setFooter({
+                                text: message.author.username,
+                                iconURL: message.author.avatarURL()
+                            })
                     ]
                 });
             }

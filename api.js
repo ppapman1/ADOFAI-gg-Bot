@@ -139,7 +139,9 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
                 .addField('Tags', level.tags.length ? level.tags.map(t => main.Server.emoji[utils.getTagByID(t.id).emojiName].toString()).join(' ') : 'No Tags')
                 .addField('Description', level.description || `There's no description for this level.`)
                 .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
-                .setFooter(`ID : ${level.id}`)
+                .setFooter({
+                    text: `ID : ${level.id}`
+                })
         ],
         content: '\u200B',
         components

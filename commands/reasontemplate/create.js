@@ -29,7 +29,10 @@ module.exports = async interaction => {
     return interaction.reply({
         embeds: [
             new MessageEmbed()
-                .setAuthor(interaction.user.username, interaction.user.avatarURL())
+                .setAuthor({
+                    name: interaction.user.username,
+                    iconURL: interaction.user.avatarURL()
+                })
                 .setColor('#349eeb')
                 .setTitle(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATE'))
                 .setDescription(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATED_DESCRIPTION')

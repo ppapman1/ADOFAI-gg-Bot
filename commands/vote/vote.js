@@ -119,7 +119,10 @@ module.exports = {
             embeds: [
                 new MessageEmbed()
                     .setColor('#349eeb')
-                    .setAuthor(interaction.user.username, interaction.user.avatarURL())
+                    .setAuthor({
+                        name: interaction.user.username,
+                        iconURL: interaction.user.avatarURL()
+                    })
                     .setTitle(question)
                     .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
                     .setTimestamp()

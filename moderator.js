@@ -67,7 +67,10 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
         embeds: [
             new MessageEmbed()
                 .setColor('#ff470f')
-                .setAuthor(`Mute | ${user.tag}`, user.avatarURL())
+                .setAuthor({
+                    name: `Mute | ${user.tag}`,
+                    iconURL: user.avatarURL()
+                })
                 .addFields(
                     {
                         name: 'User',
@@ -90,7 +93,9 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
                     }
                 )
                 .setTimestamp()
-                .setFooter(`ID: ${user.id}`)
+                .setFooter({
+                    text: `ID: ${user.id}`
+                })
         ]
     });
 
@@ -125,7 +130,10 @@ module.exports.unmute = async (id, reason = 'No Reason', moderatorId) => {
     const embeds = [
         new MessageEmbed()
             .setColor('#43b581')
-            .setAuthor(`Unmute | ${user.tag}`, user.avatarURL())
+            .setAuthor({
+                name: `Unmute | ${user.tag}`,
+                iconURL: user.avatarURL()
+            })
             .addFields(
                 {
                     name: 'User',
@@ -144,7 +152,9 @@ module.exports.unmute = async (id, reason = 'No Reason', moderatorId) => {
                 }
             )
             .setTimestamp()
-            .setFooter(`ID: ${user.id}`)
+            .setFooter({
+                text: `ID: ${user.id}`
+            })
     ]
 
     await ServerCache.channel.modLogs.send({
@@ -168,7 +178,10 @@ module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
     const embeds = [
         new MessageEmbed()
             .setColor('#f04947')
-            .setAuthor(`Kick | ${user.tag}`, user.avatarURL())
+            .setAuthor({
+                name: `Kick | ${user.tag}`,
+                iconURL: user.avatarURL()
+            })
             .addFields(
                 {
                     name: 'User',
@@ -186,7 +199,9 @@ module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
                 }
             )
             .setTimestamp()
-            .setFooter(`ID: ${user.id}`)
+            .setFooter({
+                text: `ID: ${user.id}`
+            })
     ]
 
     await ServerCache.channel.modLogs.send({
@@ -231,7 +246,10 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
         embeds: [
             new MessageEmbed()
                 .setColor('#f04947')
-                .setAuthor(`Ban | ${user.tag}`, user.avatarURL())
+                .setAuthor({
+                    name: `Ban | ${user.tag}`,
+                    iconURL: user.avatarURL()
+                })
                 .addFields(
                     {
                         name: 'User',
@@ -254,7 +272,9 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
                     }
                 )
                 .setTimestamp()
-                .setFooter(`ID: ${user.id}`)
+                .setFooter({
+                    text: `ID: ${user.id}`
+                })
         ]
     });
 
@@ -293,7 +313,10 @@ module.exports.unban = async (id, reason = 'No Reason', moderatorId) => {
     const embeds = [
         new MessageEmbed()
             .setColor('#fada5e')
-            .setAuthor(`Unban | ${user.tag}`, user.avatarURL())
+            .setAuthor({
+                name: `Unban | ${user.tag}`,
+                iconURL: user.avatarURL()
+            })
             .addFields(
                 {
                     name: 'User',
@@ -312,7 +335,9 @@ module.exports.unban = async (id, reason = 'No Reason', moderatorId) => {
                 }
             )
             .setTimestamp()
-            .setFooter(`ID: ${user.id}`)
+            .setFooter({
+                text: `ID: ${user.id}`
+            })
     ]
 
     await ServerCache.channel.modLogs.send({
@@ -350,7 +375,10 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId, count = 1, s
     const embeds = [
         new MessageEmbed()
             .setColor('#fada5e')
-            .setAuthor(`Warn | ${user.tag}`, user.avatarURL())
+            .setAuthor({
+                name: `Warn | ${user.tag}`,
+                iconURL: user.avatarURL()
+            })
             .addFields(
                 {
                     name: 'User',
@@ -373,7 +401,9 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId, count = 1, s
                 }
             )
             .setTimestamp()
-            .setFooter(`ID: ${user.id}`)
+            .setFooter({
+                text: `ID: ${user.id}`
+            })
     ]
 
     if(!silent) await ServerCache.channel.modLogs.send({
@@ -414,7 +444,10 @@ module.exports.unwarn = async (warnId, moderatorId) => {
     const embeds = [
         new MessageEmbed()
             .setColor('#43b581')
-            .setAuthor(`Unwarn | ${user.tag}`, user.avatarURL())
+            .setAuthor({
+                name: `Unwarn | ${user.tag}`,
+                iconURL: user.avatarURL()
+            })
             .addFields(
                 {
                     name: 'User',
@@ -433,7 +466,9 @@ module.exports.unwarn = async (warnId, moderatorId) => {
                 }
             )
             .setTimestamp()
-            .setFooter(`ID: ${user.id}`)
+            .setFooter({
+                text: `ID: ${user.id}`
+            })
     ]
 
     await ServerCache.channel.modLogs.send({

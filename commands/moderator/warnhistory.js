@@ -44,7 +44,10 @@ module.exports = {
             embeds: [
                 new MessageEmbed()
                     .setColor('#e86b6b')
-                    .setAuthor(`${warns.length} Warnings for ${user.tag} (${user.id})`, user.avatarURL())
+                    .setAuthor({
+                        name: `${warns.length} Warnings for ${user.tag} (${user.id})`,
+                        iconURL: user.avatarURL()
+                    })
                     .addFields((await Promise.all(warns.map(async a => ({
                         name: `ID: ${a.id} | Moderator: ${(await interaction.client.users.fetch(a.moderator)).tag}`,
                         value: `${a.reason} - <t:${Math.floor(a.createdAt / 1000)}:R>`

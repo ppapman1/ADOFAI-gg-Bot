@@ -200,11 +200,15 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
         embeds: [
             new MessageEmbed()
                 .setColor(artistStatus[artist.status].color)
-                .setAuthor(artistStatus[artist.status][language])
+                .setAuthor({
+                    name: artistStatus[artist.status][language]
+                })
                 .setTitle(artist.name)
                 .setURL(Url.resolve(setting.WEBSITE_7BG, `verified-artists/adofai/artist/${artist.id}`))
                 .setDescription(artist[`${language}_desc`] || artist.en_desc || 'No Description')
-                .setFooter(`ID : ${artist.id}`)
+                .setFooter({
+                    text: `ID : ${artist.id}`
+                })
         ],
         components
     }

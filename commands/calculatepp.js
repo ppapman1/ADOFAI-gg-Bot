@@ -104,7 +104,9 @@ module.exports = {
                     .addField('Speed', "`×" + (pitch/100).toFixed(2) + "`", true)
                     .addField('Accuracy', "`" + ((accuracy === -1) ? maxAccuracy : accuracy).toFixed(2) + "%`", true)
                     // .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
-                    .setFooter(`ID : ${level.id}`)
+                    .setFooter({
+                        text: `ID : ${level.id}`
+                    })
             ],
             content: accuracy === -1 ? lang.langByLangName(interaction.dbUser.lang, 'ACCURACY_CANNOT_EXCEED').replace("{accuracy}", maxAccuracy.toFixed(2)) : null
         });

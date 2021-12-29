@@ -227,7 +227,10 @@ module.exports.realtimeVoteEmbed = async message => {
 
     return new MessageEmbed()
         .setColor('#349eeb')
-        .setAuthor(user?.username || 'Unknown User', user?.avatarURL())
+        .setAuthor({
+            name: user?.username || 'Unknown User',
+            iconURL: user?.avatarURL()
+        })
         .setTitle(Util.escapeMarkdown(vote.question))
         .setDescription(`${vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
         .addFields(fields)
