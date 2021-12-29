@@ -19,7 +19,6 @@
     "mongoose": "^6.0.6",
     "opusscript": "^0.0.8",
     "parse-duration": "^1.0.1",
-    "stream-mime-type": "^1.0.2",
     "unique-string": "^2.0.0",
     "ytdl-core": "^4.9.1",
     "ytsr": "^3.5.3"
