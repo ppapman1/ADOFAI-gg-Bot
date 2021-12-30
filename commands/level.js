@@ -9,15 +9,16 @@ module.exports = {
             {
                 name: 'id',
                 description: '정보를 볼 레벨 ID입니다. // This is the level ID to view information.',
-                type: 'NUMBER',
-                required: true
+                type: 'INTEGER',
+                required: true,
+                min_value: 1
             }
         ]
     },
     handler: async interaction => {
         await interaction.deferReply();
 
-        const levelID = interaction.options.getNumber('id');
+        const levelID = interaction.options.getInteger('id');
         const level = await api.getLevel(levelID);
 
         if(!level) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'));

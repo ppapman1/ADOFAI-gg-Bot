@@ -12,13 +12,14 @@ module.exports = {
             {
                 name: 'number',
                 description: '대기열 번호입니다. // Enter the queue number.',
-                type: 'NUMBER',
-                required: true
+                type: 'INTEGER',
+                required: true,
+                min_value: 1
             }
         ]
     },
     handler: async interaction => {
-        const queueNumber = interaction.options.getNumber('number');
+        const queueNumber = interaction.options.getInteger('number');
 
         const target = await MusicQueue.findOne({
             guild: interaction.guild.id

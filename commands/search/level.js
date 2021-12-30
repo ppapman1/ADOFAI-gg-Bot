@@ -14,8 +14,8 @@ module.exports.commandHandler = async interaction => {
         maxDifficulty: options.getNumber('maxdifficulty'),
         minBpm: options.getNumber('minbpm'),
         maxBpm: options.getNumber('maxbpm'),
-        minTiles: options.getNumber('mintiles'),
-        maxTiles: options.getNumber('maxtiles'),
+        minTiles: options.getInteger('mintiles'),
+        maxTiles: options.getInteger('maxtiles'),
         showNotVerified: options.getBoolean('shownotverified'),
         // showCensored: options.getBoolean('showcensored')
     }

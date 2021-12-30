@@ -21,32 +21,40 @@ module.exports = {
                     {
                         name: 'mindifficulty',
                         description: '최소 레벨을 입력합니다. // Enter the minimum level.',
-                        type: 'NUMBER'
+                        type: 'NUMBER',
+                        min_value: 0,
+                        max_value: 22
                     },
                     {
                         name: 'maxdifficulty',
                         description: '최대 레벨을 입력합니다. // Enter the maximum level.',
-                        type: 'NUMBER'
+                        type: 'NUMBER',
+                        min_value: 0,
+                        max_value: 22
                     },
                     {
                         name: 'minbpm',
                         description: '최소 BPM을 입력합니다. // Enter the minimum BPM.',
-                        type: 'NUMBER'
+                        type: 'NUMBER',
+                        min_value: 0
                     },
                     {
                         name: 'maxbpm',
                         description: '최대 BPM을 입력합니다. // Enter the maximum BPM.',
-                        type: 'NUMBER'
+                        type: 'NUMBER',
+                        min_value: 0
                     },
                     {
                         name: 'mintiles',
                         description: '최소 타일 수를 입력합니다. // Enter the minimum number of tiles.',
-                        type: 'NUMBER'
+                        type: 'INTEGER',
+                        min_value: 0
                     },
                     {
                         name: 'maxtiles',
                         description: '최대 타일 수를 입력합니다. // Enter the maximum number of tiles.',
-                        type: 'NUMBER'
+                        type: 'INTEGER',
+                        min_value: 0
                     },
                     {
                         name: 'shownotverified',

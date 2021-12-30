@@ -11,25 +11,28 @@ module.exports = {
             {
                 name: 'id',
                 description: '레벨 ID입니다. // This is the level ID.',
-                type: 'NUMBER', 
-                required: true
+                type: 'INTEGER',
+                required: true,
+                min_value: 1
             },
             {
                 name: 'accuracy',
                 description: '정확도입니다. // This is accuracy.',
-                type: 'NUMBER'
+                type: 'NUMBER',
+                min_value: 1
             },
             {
                 name: 'pitch',
                 description: '피치입니다. // This is pitch.',
-                type: 'NUMBER'
+                type: 'NUMBER',
+                min_value: 1
             }
         ]
     },
     handler: async interaction => {
         await interaction.deferReply();
 
-        const levelID = interaction.options.getNumber('id');
+        const levelID = interaction.options.getInteger('id');
         const level = await api.getLevel(levelID);
         let accuracy = interaction.options.getNumber('accuracy');
         const maxAccuracy = (100+(level.tiles*0.01));

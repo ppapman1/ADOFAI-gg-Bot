@@ -31,7 +31,9 @@ module.exports = {
                 name: 'amount',
                 description: '지급할 경고의 갯수입니다. // Amount of warn.',
                 type: 'INTEGER',
-                required: true
+                required: true,
+                min_value: 1,
+                max_value: 10
             }
         ]
     },
