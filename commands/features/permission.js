@@ -55,6 +55,11 @@ module.exports.commandHandler = async interaction => {
                         .setStyle('PRIMARY')
                         .setDisabled(permissions.permissions.length >= 10),
                     new MessageButton()
+                        .setCustomId('addme')
+                        .setLabel('Add me')
+                        .setStyle('PRIMARY')
+                        .setDisabled(permissions.permissions.length >= 10),
+                    new MessageButton()
                         .setCustomId('apply')
                         .setLabel('Apply')
                         .setStyle('SUCCESS')
@@ -114,6 +119,35 @@ module.exports.commandHandler = async interaction => {
 
             await sendComponents();
             return i.channel.send('added');
+        } else if(action === 'addme') {
+            const json = {
+                type: 'USER',
+                id: interaction.user.id,
+                permission: true
+            };
+
+            const check = permissions.permissions.find(p => p.type === json.type && p.id === json.id);
+            if(check) return i.reply({
+                content: 'permission already exists',
+                ephemeral: true
+            });
+
+            permissions = await FeaturesPermission.findOneAndUpdate({
+                guild: interaction.guild.id,
+                command
+            }, {
+                $push: {
+                    permissions: json
+                }
+            }, {
+                new: true
+            });
+
+            await sendComponents();
+            return i.reply({
+                content: 'added',
+                ephemeral: true
+            });
         } else if(action === 'apply') {
             await i.deferUpdate();
 
