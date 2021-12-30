@@ -40,7 +40,7 @@ module.exports = {
             },
             {
                 name: 'message',
-                description: '간단한 eval 메시지를 전송합니다.',
+                description: '간단한 eval 메시지를 전송합니다. 여러 버튼을 넣을 경우 ;로 구분합니다.',
                 type: 'SUB_COMMAND',
                 options: [
                     {
@@ -89,6 +89,11 @@ module.exports = {
                     {
                         name: 'params',
                         description: '버튼에 들어갈 추가 파라미터입니다.',
+                        type: 'STRING'
+                    },
+                    {
+                        name: 'buttoncolors',
+                        description: '여러 버튼을 넣을 경우 버튼의 색을 ;로 구분합니다. 1~4 숫자로 입력하며, 파란색+보라색, 회색, 초록색, 빨간색 순입니다.',
                         type: 'STRING'
                     }
                 ]
