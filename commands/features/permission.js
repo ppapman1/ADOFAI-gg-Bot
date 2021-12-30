@@ -91,20 +91,39 @@ module.exports.commandHandler = async interaction => {
                 max: 1,
                 time: 30000
             });
-            if(!response.first()) return i.channel.send('time out');
+            await msg.delete();
+            if(!response.first()) return i.followUp({
+                content: 'time out',
+                ephemeral: true
+            });
+            try {
+                await response.first().delete();
+            } catch(e) {}
             response = response.first().content;
 
             let json = utils.parseDiscordCodeBlock(response);
-            if(!json) return i.channel.send('invalid code block message');
+            if(!json) return i.followUp({
+                content: 'invalid code block message',
+                ephemeral: true
+            });
             try {
                 json = JSON5.parse(json.code);
             } catch(e) {
-                return i.channel.send('invalid json');
+                return i.followUp({
+                    content: 'invalid json',
+                    ephemeral: true
+                });
             }
-            if(!json.type || !json.id || (!json.permission && json.permission !== false)) return interaction.channel.send('invalid permission');
+            if(!json.type || !json.id || (!json.permission && json.permission !== false)) return interaction.followUp({
+                content: 'invalid permission',
+                ephemeral: true
+            });
 
             const check = permissions.permissions.find(p => p.type === json.type && p.id === json.id);
-            if(check) return i.channel.send('permission already exists');
+            if(check) return i.followUp({
+                content: 'permission already exists',
+                ephemeral: true
+            });
 
             permissions = await FeaturesPermission.findOneAndUpdate({
                 guild: interaction.guild.id,
@@ -117,8 +136,7 @@ module.exports.commandHandler = async interaction => {
                 new: true
             });
 
-            await sendComponents();
-            return i.channel.send('added');
+            return sendComponents();
         } else if(action === 'addme') {
             const json = {
                 type: 'USER',
@@ -143,11 +161,7 @@ module.exports.commandHandler = async interaction => {
                 new: true
             });
 
-            await sendComponents();
-            return i.reply({
-                content: 'added',
-                ephemeral: true
-            });
+            return sendComponents();
         } else if(action === 'apply') {
             await i.deferUpdate();
 
@@ -157,7 +171,10 @@ module.exports.commandHandler = async interaction => {
                 permissions: p[1]
             }));
             const guildCommandInfo = await interaction.guild.commands.fetch();
-            if(!guildCommandInfo.find(c => c.name === command)) return interaction.channel.send('command not enabled yet');
+            if(!guildCommandInfo.find(c => c.name === command)) return i.follorUp({
+                content: 'command not enabled yet',
+                ephemeral: true
+            });
 
             for (let c of guildCommandInfo) {
                 // if (permissions[c[1].name] != null) await c[1].permissions.set({
@@ -186,7 +203,10 @@ module.exports.commandHandler = async interaction => {
                 fullPermissions
             });
 
-            return i.followUp('permission applied');
+            return i.followUp({
+                content: 'permission applied',
+                ephemeral: true
+            });
         } else if(action === 'permission') {
             const params = i.values[0].split('_');
             const permission = permissions.permissions.find(p => p.type === params[0] && p.id === params[1]);
@@ -207,8 +227,7 @@ module.exports.commandHandler = async interaction => {
             });
 
             await i.deferUpdate();
-            await sendComponents();
-            return i.channel.send('deleted');
+            return sendComponents();
         }
     });
 
