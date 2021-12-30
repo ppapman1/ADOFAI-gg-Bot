@@ -216,6 +216,7 @@ module.exports.commandHandler = async interaction => {
         msg.components[0].components[0].setDisabled();
         msg.components[1].components[0].setDisabled();
         msg.components[1].components[1].setDisabled();
+        msg.components[1].components[2].setDisabled();
 
         return interaction.editReply({
             components: msg.components
