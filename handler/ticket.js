@@ -176,11 +176,11 @@ module.exports = client => {
             try {
                 await ticketUser.send({
                     content: content ? content.substring(0, 2000) : null,
-                    files: splitContent ? [] : message.attachments
+                    files: splitContent ? [] : [...message.attachments.values()]
                 });
                 if(splitContent) await ticketUser.send({
                     content: content.substring(2000, 4000),
-                    files: message.attachments
+                    files: [...message.attachments.values()]
                 });
                 await message.react('✅');
             } catch(e) {
