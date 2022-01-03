@@ -2,8 +2,7 @@
   "adofai_gg": "serverid",
 
   "role": {
-    "staff": "roleid",
-    "mute": "roleid"
+    "staff": "roleid"
   },
 
   "channel": {
