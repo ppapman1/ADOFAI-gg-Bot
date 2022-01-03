@@ -5,6 +5,7 @@ const utils = require('./utils');
 
 const User = require('./schemas/user');
 const Warn = require('./schemas/warn');
+const {Server} = require('./main');
 
 let client, ServerCache;
 
@@ -32,7 +33,11 @@ module.exports.setup = (c, s) => {
         });
 
         for(let u of moreMuteUsers) {
-            const member = await ServerCache.adofai_gg.members.fetch(u.id);
+            let member = await ServerCache.adofai_gg.members.fetch(u.id);
+            if(!member.communicationDisabledUntilTimestamp) member = await ServerCache.adofai_gg.members.fetch({
+                user: u.id,
+                force: true
+            });
             if(member.moderatable
                 && member.communicationDisabledUntilTimestamp - Date.now() <= 1000 * 60 * 60 * 24 * 21) await member.timeout(Math.min(u.unmuteAt - Date.now(), 1000 * 60 * 60 * 24 * 28));
         }
