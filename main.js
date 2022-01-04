@@ -25,6 +25,8 @@ const ADOFAIArtist = require('./schemas/ADOFAIArtist');
 const ReasonTemplate = require('./schemas/reasonTemplate');
 const Vote = require('./schemas/vote');
 const VoteOption = require('./schemas/voteOption');
+const CommandHistory = require('./schemas/commandHistory');
+const InteractionHistory = require('./schemas/interactionHistory');
 
 const intents = [
     Intents.FLAGS.GUILDS,
@@ -117,7 +119,9 @@ const loadDokdo = () => {
         ADOFAIArtist,
         ReasonTemplate,
         Vote,
-        VoteOption
+        VoteOption,
+        CommandHistory,
+        InteractionHistory
     }
 
     DokdoHandler = new Dokdo(client, {
@@ -382,23 +386,44 @@ client.on('interactionCreate', async interaction => {
         );
 
         if(commandHandler[interaction.commandName] != null) commandHandler[interaction.commandName](interaction);
+
+        await CommandHistory.create({
+            guild: interaction.guild.id,
+            channel: interaction.channel.id,
+            user: interaction.user.id,
+            command: interaction.toString(),
+            commandName: interaction.commandName,
+            options: interaction.options._hoistedOptions
+        });
     }
 
     if(interaction.isSelectMenu()) {
-        if(!interaction.values[0]) return;
         const params = interaction.values[0].split('_');
         const handler = selectHandler[params[0]];
-        if(!handler) return;
+        if(handler) handler(interaction);
 
-        handler(interaction);
+        await InteractionHistory.create({
+            type: 'SELECT_MENU',
+            guild: interaction.guild.id,
+            channel: interaction.channel.id,
+            user: interaction.user.id,
+            customId: interaction.customId,
+            values: interaction.values
+        });
     }
 
     if(interaction.isButton()) {
         const params = interaction.customId.split('_');
         const handler = buttonHandler[params[0]];
-        if(!handler) return;
+        if(handler) handler(interaction);
 
-        handler(interaction);
+        await InteractionHistory.create({
+            type: 'BUTTON',
+            guild: interaction.guild.id,
+            channel: interaction.channel.id,
+            user: interaction.user.id,
+            customId: interaction.customId
+        });
     }
 
     if(interaction.isAutocomplete()) {
