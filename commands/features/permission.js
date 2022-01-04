@@ -161,7 +161,8 @@ module.exports.commandHandler = async interaction => {
                 new: true
             });
 
-            return sendComponents();
+            await sendComponents();
+            return i.deferUpdate();
         } else if(action === 'apply') {
             await i.deferUpdate();
 
