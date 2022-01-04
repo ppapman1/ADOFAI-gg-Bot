@@ -58,7 +58,7 @@ module.exports.commandHandler = async interaction => {
 
             const result = api.getSearchList(search, 1, Math.ceil(count / 25), interaction.user.id, interaction.dbUser.lang, i.values, searchQuery.sort);
             if(result.components[2].components[0].options[0].value === 'fake') {
-                result.components[1].components[0].setDisabled();
+                result.components[0].components[0].setDisabled();
                 result.components[2].components[0].setDisabled();
                 result.components[2].components[0].setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'CANT_FIND_LEVEL'));
             }
