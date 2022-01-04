@@ -18,6 +18,12 @@ const newSchema = new Schema({
         type: String,
         required: true
     },
+    subCommandGroup: {
+        type: String
+    },
+    subCommand: {
+        type: String
+    },
     commandName: {
         type: String,
         required: true

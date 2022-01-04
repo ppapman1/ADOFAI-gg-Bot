@@ -393,7 +393,9 @@ client.on('interactionCreate', async interaction => {
             user: interaction.user.id,
             command: interaction.toString(),
             commandName: interaction.commandName,
-            options: interaction.options._hoistedOptions
+            options: interaction.options._hoistedOptions,
+            subCommand: interaction.options.getSubcommand(),
+            subCommandGroup: interaction.options.getSubcommandGroup()
         });
     }
 
