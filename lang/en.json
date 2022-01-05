@@ -1,40 +1,29 @@
 {
   "DISPLAY_NAME": "English",
-
   "SERVER_ONLY": "This function is only available on the server.",
-
   "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command and invite the bot using the `/invite` command.",
   "LANGUAGE_CHANGED": "Language changed to english!",
-
   "TEST": "Wa Sans",
-
   "ERROR": "Error Encountered.",
-
   "UNKNOWN_RELOAD_TARGET": "Unknown reload target.",
   "RELOADED": "Reloaded {target}.",
-
   "SEARCH_NOT_FOUND": "No search results found.",
   "UNSUPPORTED_LEVEL": "This level is not currently supported.",
   "DOWNLOAD_LINK_MISSING": "There is no download link for this level.",
-
   "SELECT_LEVEL_MESSAGE": "Select the desired level from the menu below or select a tag to search in detail.",
   "SELECT_LEVEL_SELECT_MENU": "Select a level.",
   "TAG_SEARCH_SELECT_MENU": "Select tags.",
   "CANT_FIND_LEVEL": "Can't find level.",
-
   "SELECT_ARTIST_MESSAGE": "Select the desired artist from the menu below.",
   "SELECT_ARTIST_SELECT_MENU": "Select an artist.",
-  "CANT_FIND_ARTIST": "Can't find artist.",
-
+  "CANT_FIND_ARTIST": "Can't find artist",
   "SELF_MESSAGE_ONLY": "You can only select options for command entered by you.",
   "LEVEL_NOT_FOUND": "Cannot find information of the level.",
-
   "DOWNLOAD": "Download",
   "WORKSHOP": "Workshop",
   "WATCH_VIDEO": "Watch video",
   "PLAY_THIS_MUSIC": "Play this music",
   "REROLL": "Reroll",
-
   "PP_RANKING": "PP Ranking",
   "PREV": "Prev",
   "NEXT": "Next",
@@ -46,17 +35,13 @@
   "REMOVE_TAGS": "Remove Tags",
   "EVIDENCE": "Evidence",
   "PUBLIC": "Public",
-
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
-
   "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions.",
-
   "EXPECTED_PP": "Expected PP is `{pp}`.",
   "ACCURACY_IS_TOO_LOW": "Accuracy cannot be less than zero.",
   "ACCURACY_CANNOT_EXCEED": "※ Accuracy cannot exceed {accuracy}%, which is the maximum accuracy of this level.",
   "PITCH_IS_TOO_LOW": "Pitch cannot be less than zero.",
   "PITCH_IS_TOO_HIGH": "Pitch cannot be greater than 100000.",
-  
   "TICKET_CHANNEL_ONLY": "This command is only available on the ticket channel.",
   "TICKET_NAME_CHANGED": "The ticket has been renamed {name}.",
   "TICKET_NOT_FOUND": "No information was found on this ticket.",
@@ -78,74 +63,51 @@
   "TICKET_ALREADY_UNARCHIVED": "This ticket has already been unarchived.",
   "TICKET_ALREADY_UNARCHIVING": "Ticket unarchive is already in progress. Please press \"Unarchive\".",
   "TICKET_UNARCHIVED": "I Unarchived the ticket.",
-
   "TOO_SHORT_LENGTH": "Length too short!",
   "CANNOT_MANAGE_STAFF": "You can't manage staff.",
-
   "MUTE_ROLE_SETUP_FINISH": "The mute role setting is over.",
   "MUTE_USER_MUTED": "Muted {user} for {duration}.",
-
   "UNMUTE_ALREADY_UNMUTED": "{user} has not been muted.",
   "UNMUTE_USER_UNMUTED": "I unmuted {user}.",
-
   "DELETE_DAYS_RANGE": "The message deletion period must be 0-7 days.",
   "BAN_ALREADY_BANNED": "Already banned user.",
   "BAN_USER_BANNED": "Banned {user} for {duration}.",
-
   "UNBAN_ALREADY_UNBANNED": "{user} has not been banned.",
   "UNBAN_USER_UNBANNED": "I unbanned {user}.",
-
   "KICK_ALREADY_KICKED": "Already kicked user.",
   "KICK_USER_KICKED": "Kicked {user}.",
-
   "WRONG_WARN_AMOUNT": "Wrong warning count!",
   "WARN_USER_WARNED": "Warned {user}.",
-
   "CANCEL_WARN_CONFIRM": "Do you really want to cancel this warning? Press the Confirm button below to cancel.",
   "CANCEL_WARN_BUTTON_SUCCESS": "Canceled warn.",
-
   "FOREVER_CONFIRM": "We want to punish you permanently. Press the Confirm button to continue.",
-
   "BLACKLIST_USER_ADDED": "You have registered {user} on the blacklist.",
   "BLACKLIST_USER_REMOVED": "You have removed {user} from the blacklist.",
-
   "MUSIC_NOT_PLAYING": "You're not currently playing music.",
-
   "MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL": "You must join a voice channel first.",
   "MUSIC_SUMMON_SUCCESS": "The bot has accessed the voice channel.",
-
   "MUSIC_QUEUE_ADDED": "**{title}** has been added to the queue.",
   "MUSIC_SELECT_MESSAGE": "Please select the track you want below.",
   "MUSIC_SELECT_PLACEHOLDER": "Please select the track.",
-
   "SKIP_SELF_MUSIC_ONLY": "You can skip only the music you requested.",
   "MUSIC_SKIPPED": "Skipped track : **{title}**.",
-
   "MUSIC_STOPPED": "Stopped playing music.",
-
   "MUSIC_QUEUE_CLEARED": "The queue has been emptied.",
-
   "MUSIC_ALREADY_PAUSED": "The music has already been paused.",
   "MUSIC_PAUSED": "Paused the music.",
-
   "MUSIC_ALREADY_PLAYING": "The music is already playing.",
   "MUSIC_RESUMED": "Resumed the music.",
-
   "MUSIC_QUEUE_TITLE": "Music queue.",
   "MUSIC_QUEUE_DESCRIPTION": "List of music queues on server {servername}.",
   "MUSIC_QUEUE_NOW_PLAYING": "Now Playing.",
   "MUSIC_QUEUE_QUEUE": "  The music is queuing.",
   "MUSIC_QUEUE_NO_QUEUE": "No music is queuing.",
-
   "MUSIC_QUEUE_NOT_FOUND": "The song could not be found.",
   "MUSIC_QUEUE_REMOVED": "Deleted **{title}** from the queue.",
-
   "TEMPLATE_CREATE": "Template created",
   "TEMPLATE_CREATED_DESCRIPTION": "A template for \"{type}\" has been created.\n\nTemplate list```\n{reasons}```",
-
   "TEMPLATE_NOT_FOUND": "The template could not be found.",
   "TEMPLATE_DELETED_MESSAGE": "Template \"{reason}\" for \"{type}\" has been deleted.",
-
   "VOTE_TOO_MARY_OPTIONS": "There are too many voting items. There are up to {maximum} voting entries.",
   "VOTE_OPTION_TOO_LONG": "The length of the voting item is too long. The maximum length of the voting item is {maximum} characters.",
   "VOTE_NOT_FOUND": "The voting information was not found.",
