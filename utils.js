@@ -1,6 +1,8 @@
 const { MessageEmbed , Util } = require('discord.js');
 const Url = require('url');
 const querystring = require('querystring');
+const fs = require('fs');
+const lang = require('./lang');
 
 const tags = require('./tags.json');
 
@@ -171,6 +173,35 @@ for(let c in tags) for(let t in tags[c]) {
 }
 module.exports.getTagByID = tag => {
     return tagByID[tag];
+}
+
+module.exports.subCommandHandler = directory => async interaction => {
+    let command = interaction.options.getSubcommand();
+    if(!fs.existsSync(`./commands/${directory}/${command}.js`)) command = interaction.options.getSubcommandGroup();
+
+    if(fs.existsSync(`./commands/${directory}/${command}.js`)) {
+        const file = require.resolve(`./commands/${directory}/${command}.js`);
+        if(process.argv[2] === '--debug') delete require.cache[file];
+        const handler = require(file);
+        if(handler.commandHandler) handler.commandHandler(interaction);
+        else handler(interaction);
+    }
+    else interaction.reply({
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
+        ephemeral: true
+    });
+}
+
+module.exports.autoCompleteHandler = directory => async interaction => {
+    let command = interaction.options.getSubcommand();
+    if(!fs.existsSync(`./commands/${directory}/${command}.js`)) command = interaction.options.getSubcommandGroup();
+
+    if(fs.existsSync(`./commands/${directory}/${command}.js`)) {
+        const file = require.resolve(`./commands/${directory}/${command}.js`);
+        if(process.argv[2] === '--debug') delete require.cache[file];
+        const handler = require(file);
+        if(handler.autoCompleteHandler) handler.autoCompleteHandler(interaction);
+    }
 }
 
 module.exports.reasonAutoCompleteHandler = type => async interaction => {
