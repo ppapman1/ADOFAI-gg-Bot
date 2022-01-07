@@ -51,7 +51,10 @@ module.exports.getFirstTimeString = () => {
     if(!loaded) load();
 
     const result = [];
-    for(let l in lang) result.push(lang[l].FIRST_TIME_BOT);
+    for(let l in lang) {
+        const str = lang[l].FIRST_TIME_BOT;
+        if(str) result.push(str);
+    }
 
     return result.join('\n');
 }
