@@ -166,6 +166,7 @@ const loadCommands = () => {
             const module = require(file);
             commandHandler[module.info.name] = module.handler;
             if(module.autoCompleteHandler) autoCompleteHandler[module.info.name] = module.autoCompleteHandler;
+            if(module.setup) module.setup(client);
             if(module.private) {
                 privateCommands.push(module.info);
                 permissions[module.info.name] = module.permissions;
