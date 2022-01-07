@@ -114,5 +114,20 @@
   "VOTE_CANCELED": "You have canceled the select for \"{option}\".",
   "VOTE_VOTED": "You voted for \"{option}\"!",
   "VOTE_CHANGED": "You have changed from \"{beforeoption}\" to \"{option}\"!",
-  "VOTE_STOPPED": "Vote has been stopped!"
+  "VOTE_STOPPED": "Vote has been stopped!",
+  "COMMAND_TODO_DESCRIPTION": "정기회의 논의사항 관련 명령어입니다.",
+  "COMMAND_TODO_CREATE_DESCRIPTION": "정기회의 논의사항을 생성합니다.",
+  "COMMAND_TODO_CREATE_TARGET_DESCRIPTION": "대상 정기회의입니다.",
+  "COMMAND_TODO_CREATE_TODO_DESCRIPTION": "정기회의에서 논의할 내용입니다.",
+  "COMMAND_TODO_DELETE_NUM_DESCRIPTION": "삭제할 논의사항의 번호입니다.",
+  "COMMAND_TODO_DELETE_DESCRIPTION": "정기회의 논의사항을 삭제합니다.",
+  "COMMAND_TODO_LIST_DESCRIPTION": "정기회의 논의사항 목록을 확인합니다.",
+  "COMMAND_TODO_SETCHANNEL_DESCRIPTION": "정기회의 알림 채널을 설정합니다.",
+  "COMMAND_TODO_SETCHANNEL_CHANNEL_DESCRIPTION": "정기회의 알림을 보낼 채널입니다.",
+  "EVENT_NOT_FOUND": "이벤트를 찾을 수 없습니다.",
+  "TODO_NOT_FOUND": "논의사항을 찾을 수 없습니다.",
+  "TODO_CREATED": "\"{event}\" 이벤트에 \"{todo}\" 논의사항을 추가하였습니다.",
+  "TODO_DELETED": "\"{event}\" 의 \"{todo}\" 논의사항을 삭제하였습니다.",
+  "TODO_LIST_TITLE": "논의사항 목록",
+  "TODO_LIST_EMPTY": "논의사항 없음"
 }
