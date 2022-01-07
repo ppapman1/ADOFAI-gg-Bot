@@ -53,7 +53,7 @@ module.exports.getFirstTimeString = () => {
     const result = [];
     for(let l in lang) {
         const str = lang[l].FIRST_TIME_BOT;
-        if(str) result.push(str);
+        if(str) result.unshift(str);
     }
 
     return result.join('\n');
@@ -65,7 +65,7 @@ module.exports.getCommandDescription = key => {
     const result = [];
     for(let l in lang) {
         const str = lang[l][`COMMAND_${key}`];
-        if(str) result.push(str);
+        if(str) result.unshift(str);
     }
 
     return result.join(' // ').substring(0, 100);
