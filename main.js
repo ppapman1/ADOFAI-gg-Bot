@@ -27,12 +27,14 @@ const Vote = require('./schemas/vote');
 const VoteOption = require('./schemas/voteOption');
 const CommandHistory = require('./schemas/commandHistory');
 const InteractionHistory = require('./schemas/interactionHistory');
+const Todo = require('./schemas/todo');
 
 const intents = [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.GUILD_SCHEDULED_EVENTS
 ];
 
 if(process.argv[2] === '--debug') {
@@ -121,7 +123,8 @@ const loadDokdo = () => {
         Vote,
         VoteOption,
         CommandHistory,
-        InteractionHistory
+        InteractionHistory,
+        Todo
     }
 
     DokdoHandler = new Dokdo(client, {

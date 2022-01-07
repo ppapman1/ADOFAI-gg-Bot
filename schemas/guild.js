@@ -29,6 +29,9 @@ const newSchema = new Schema({
     },
     musicCommandChannel: {
         type: String
+    },
+    todoNoticeChannel: {
+        type: String
     }
 });
 
