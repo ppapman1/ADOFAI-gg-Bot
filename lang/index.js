@@ -55,3 +55,15 @@ module.exports.getFirstTimeString = () => {
 
     return result.join('\n');
 }
+
+module.exports.getCommandDescription = key => {
+    if(!loaded) load();
+
+    const result = [];
+    for(let l in lang) {
+        const str = lang[l][`COMMAND_${key}`];
+        if(str) result.push(str);
+    }
+
+    return result.join(' // ').substring(0, 100);
+}
