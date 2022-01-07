@@ -39,7 +39,7 @@ module.exports.getLangChoices = () => {
     if(!loaded) load();
 
     const result = [];
-    for(let i in lang) result.push({
+    for(let i in lang) result.unshift({
         name: lang[i].DISPLAY_NAME,
         value: i
     });
