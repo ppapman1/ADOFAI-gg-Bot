@@ -151,7 +151,7 @@ module.exports = client => {
             }
         }
 
-        if(message.channel.type == 'GUILD_TEXT') {
+        if(message.channel.type === 'GUILD_TEXT') {
             const ticket = await Ticket.findOne({
                 channel: message.channel.id,
                 open: true

@@ -45,7 +45,7 @@ module.exports = async interaction => {
         openProcessing[interaction.channel.id] = true;
 
         const confirmInteraction = await msg.awaitMessageComponent({
-            filter: i => i.customId == 'ticketOpenConfirm',
+            filter: i => i.customId === 'ticketOpenConfirm',
             time: 10000
         });
 

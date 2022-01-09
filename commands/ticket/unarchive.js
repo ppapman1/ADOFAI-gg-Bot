@@ -39,7 +39,7 @@ module.exports = async interaction => {
         unarchiveProcessing[interaction.channel.id] = true;
 
         const confirmInteraction = await msg.awaitMessageComponent({
-            filter: i => i.customId == 'ticketUnarchiveConfirm',
+            filter: i => i.customId === 'ticketUnarchiveConfirm',
             time: 10000
         });
 

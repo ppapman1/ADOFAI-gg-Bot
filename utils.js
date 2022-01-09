@@ -96,7 +96,7 @@ module.exports.parseYouTubeLink = link => {
 module.exports.increaseBrightness = (hex, percent) => {
     hex = hex.replace(/^\s*#|\s*$/g, '');
 
-    if(hex.length == 3) {
+    if(hex.length === 3) {
         hex = hex.replace(/(.)/g, '$1$1');
     }
 

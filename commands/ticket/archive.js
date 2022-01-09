@@ -39,7 +39,7 @@ module.exports = async interaction => {
         archiveProcessing[interaction.channel.id] = true;
 
         const confirmInteraction = await msg.awaitMessageComponent({
-            filter: i => i.customId == 'ticketArchiveConfirm',
+            filter: i => i.customId === 'ticketArchiveConfirm',
             time: 10000
         });
 

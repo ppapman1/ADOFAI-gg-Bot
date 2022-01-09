@@ -312,7 +312,7 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                             .setCustomId(`rankingpage_${interaction.user.id}_${offset - amount}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PREV'))
                             .setStyle('PRIMARY')
-                            .setDisabled(offset == 0),
+                            .setDisabled(offset === 0),
                         new MessageButton()
                             .setCustomId('fake')
                             .setLabel(`${Math.ceil(offset / 5) + 1} / ${Math.ceil(ranking.count / 5)}`)
@@ -322,7 +322,7 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                             .setCustomId(`rankingpage_${interaction.user.id}_${rank - 1}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
                             .setStyle('PRIMARY')
-                            .setDisabled(leftCount == 0)
+                            .setDisabled(leftCount === 0)
                     )
             ]
         }

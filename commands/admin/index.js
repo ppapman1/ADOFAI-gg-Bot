@@ -24,7 +24,7 @@ module.exports = {
 
         if(fs.existsSync(`./commands/admin/${command}.js`)) {
             const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] == '--debug') delete require.cache[file];
+            if(process.argv[2] === '--debug') delete require.cache[file];
             require(file)(interaction);
         }
         else interaction.reply({

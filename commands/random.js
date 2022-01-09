@@ -93,7 +93,7 @@ module.exports = {
         await pickLevel();
 
         const rerollCollector = msg.createMessageComponentCollector({
-            filter: i => i.customId == 'reroll' && i.user.id == interaction.user.id,
+            filter: i => i.customId === 'reroll' && i.user.id === interaction.user.id,
             time: 30000
         });
 

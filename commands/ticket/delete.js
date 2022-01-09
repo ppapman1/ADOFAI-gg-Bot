@@ -39,7 +39,7 @@ module.exports = async interaction => {
         deleteProcessing[interaction.channel.id] = true;
 
         const confirmInteraction = await msg.awaitMessageComponent({
-            filter: i => i.customId == 'ticketDeleteConfirm',
+            filter: i => i.customId === 'ticketDeleteConfirm',
             time: 10000
         });
 
