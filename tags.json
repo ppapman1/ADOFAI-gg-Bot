@@ -179,17 +179,6 @@
         "en": "This level contains beats higher than 64."
       }
     },
-    "acceldecel": {
-      "id": 7,
-      "title": {
-        "ko": "가감속",
-        "en": "Acceleration / Deceleration"
-      },
-      "description": {
-        "ko": "기본 BPM의 정수배가 아닌 BPM이 포함된 맵 (기본 BPM이 변화하는 경우 포함)",
-        "en": "This level uses a song that changes BPM."
-      }
-    },
     "slow": {
       "id": 17,
       "title": {
@@ -199,6 +188,17 @@
       "description": {
         "ko": "최고 BPM이 300 미만인 맵",
         "en": "This level's BPM is under 300."
+      }
+    },
+    "speedchange": {
+      "id": 23,
+      "title": {
+        "ko": "변속",
+        "en": "Speed Change"
+      },
+      "description": {
+        "ko": "기본 BPM의 정수배가 아닌 BPM이 포함된 맵 (기본 BPM이 변화하는 경우 포함)",
+        "en": "This level uses a song that changes BPM."
       }
     }
   },
