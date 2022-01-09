@@ -1,5 +1,6 @@
 const lang = require('../lang');
 const api = require("../api");
+const utils = require('../utils');
 
 module.exports = {
     info: {
@@ -9,7 +10,8 @@ module.exports = {
             {
                 name: 'query',
                 description: '검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요. // Enter the name, or creator, or artist.',
-                type: 'STRING'
+                type: 'STRING',
+                autocomplete: true
             },
             {
                 name: 'mindifficulty',
@@ -109,5 +111,6 @@ module.exports = {
                 components: msg.components
             });
         });
-    }
+    },
+    autoCompleteHandler: utils.levelAutoCompleteHandler
 }

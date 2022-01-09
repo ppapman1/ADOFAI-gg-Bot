@@ -101,41 +101,4 @@ module.exports.commandHandler = async interaction => {
     });
 }
 
-module.exports.autoCompleteHandler = async interaction => {
-    const { options } = interaction;
-
-    const query = options.getString('query');
-
-    if(!query) return interaction.respond([]);
-
-    const queryRegex = new RegExp(utils.escapeRegExp(query), 'i');
-    const searchQuery = {
-        query,
-        minDifficulty: options.getNumber('mindifficulty'),
-        maxDifficulty: options.getNumber('maxdifficulty'),
-        minBpm: options.getNumber('minbpm'),
-        maxBpm: options.getNumber('maxbpm'),
-        minTiles: options.getNumber('mintiles'),
-        maxTiles: options.getNumber('maxtiles'),
-        showNotVerified: options.getBoolean('shownotverified'),
-        // showCensored: options.getBoolean('showcensored')
-    }
-    const search = await api.searchLevel(searchQuery);
-
-    if(!search.length) return interaction.respond([]);
-
-    const complete = [];
-
-    for(let level of search) {
-        if(complete.length < 25 && !complete.includes(level.title) && queryRegex.test(level.title)) complete.push(level.title);
-        for(let artist of level.artists) if(!complete.includes(artist) && queryRegex.test(artist)) complete.push(artist);
-        for(let creator of level.creators) if(!complete.includes(creator) && queryRegex.test(creator)) complete.push(creator);
-
-        if(complete.length >= 25) break;
-    }
-
-    return interaction.respond(complete.slice(0, 25).map(a => ({
-        name: a,
-        value: a
-    })));
-}
+module.exports.autoCompleteHandler = utils.levelAutoCompleteHandler;
