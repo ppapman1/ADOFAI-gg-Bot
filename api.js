@@ -162,7 +162,7 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
 
         selectOptions.push({
             label: title.substring(0, 100),
-            description: `by ${l.creators.join(' & ')}`,
+            description: `by ${l.creators.join(' & ')} | ID : ${l.id}`,
             value: `showlevel_${userid}_${l.id}`,
             emoji: {
                 id: Server.emoji[l.censored ? 'minus2' : l.difficulty.toString()]
