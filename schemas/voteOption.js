@@ -18,6 +18,9 @@ const newSchema = new Schema({
         required: true,
         maxlength: 80
     },
+    description: {
+        type: String
+    },
     users: {
         type: Array,
         required: true,

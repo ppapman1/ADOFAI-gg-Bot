@@ -253,7 +253,7 @@ module.exports.realtimeVoteEmbed = async message => {
 
     const fields = voteOptions.map(a => ({
         name: Util.escapeMarkdown(a.name),
-        value: `[${module.exports.textProgressBar((a.users.length / totalVotes || 0) * 100, 16)}] ${((a.users.length / totalVotes || 0) * 100).toFixed(2)}% (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`
+        value: `${a.description ? `${a.description}\n` : ''}[${module.exports.textProgressBar((a.users.length / totalVotes || 0) * 100, 16)}] ${((a.users.length / totalVotes || 0) * 100).toFixed(2)}% (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`
     }));
 
     return new MessageEmbed()

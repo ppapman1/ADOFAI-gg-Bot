@@ -21,7 +21,7 @@ module.exports = {
             },
             {
                 name: 'options',
-                description: '투표할 항목들을 쉼표(,)로 구분하여 입력합니다. // The options of the vote, separated by commas.',
+                description: '투표할 항목들을 쉼표(,)로, 설명을 :로 구분하여 입력합니다. // Options of the vote separated by commas, description by :.',
                 type: 'STRING',
                 required: true
             },
@@ -81,9 +81,14 @@ module.exports = {
         const components = [];
         let buttons = [];
         for(let o of voteOptions) {
+            const params = o.split(':');
+            const name = params[0].trim();
+            const description = params.length >= 2 ? params.slice(1).join(':').trim() : null;
+
             const option = new VoteOption({
                 message: message.id,
-                name: o
+                name,
+                description
             });
             await option.save();
 
@@ -98,7 +103,7 @@ module.exports = {
             buttons.push(
                 new MessageButton()
                     .setCustomId(`vote_${option.id}`)
-                    .setLabel(o)
+                    .setLabel(name)
                     .setStyle('PRIMARY')
             );
         }
@@ -124,7 +129,7 @@ module.exports = {
                         iconURL: interaction.user.avatarURL()
                     })
                     .setTitle(question)
-                    .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
+                    .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a.split(':')[0]}\n${a.split(':').slice(1).join(':') || ''}`.trim()).join('\n\n'))
                     .setTimestamp()
             ],
             components
