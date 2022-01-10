@@ -1,7 +1,8 @@
-const { Client , Intents , Team } = require('discord.js');
+const { Client , Intents , Team , MessageEmbed , Util } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
 const path = require('path');
+const util = require('util');
 
 const setting = require('./setting.json');
 const utils = require('./utils');
@@ -463,6 +464,44 @@ client.on('guildDelete', async guild => {
 
 client.on('debug', d => {
     if(debug) console.log(d);
+});
+
+process.on('uncaughtException', async e => {
+    console.error(e);
+
+    let err = util.inspect(e, {
+        depth: 1,
+        colors: true
+    });
+    if(err.length > 4000) err = util.inspect(e, {
+        depth: 1
+    });
+    const errMessage = {
+        embeds: [
+            new MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle('오류 발생')
+                .setDescription(`${err.length > 4000 ? '첨부파일 확인' : `\`\`\`ansi\n${err}\n\`\`\``}`)
+                .setTimestamp()
+        ]
+    }
+    if(err.length > 4000) errMessage.files = [{
+        attachment: Buffer.from(err),
+        name: 'error.log'
+    }];
+
+    const users = await User.find({
+        trackError: true
+    });
+
+    for(let u of users) {
+        try {
+            const user = await client.users.fetch(u.id);
+            await user.send(errMessage);
+        } catch(e) {
+            console.log(e);
+        }
+    }
 });
 
 client.login(setting.TOKEN);
