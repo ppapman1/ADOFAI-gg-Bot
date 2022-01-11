@@ -5,7 +5,6 @@ const utils = require('./utils');
 
 const User = require('./schemas/user');
 const Warn = require('./schemas/warn');
-const {Server} = require('./main');
 
 let client, ServerCache;
 
@@ -39,7 +38,7 @@ module.exports.setup = (c, s) => {
                 force: true
             });
             if(member.moderatable
-                && member.communicationDisabledUntilTimestamp - Date.now() <= 1000 * 60 * 60 * 24 * 21) await member.timeout(Math.min(u.unmuteAt - Date.now(), 1000 * 60 * 60 * 24 * 28));
+                && (member.communicationDisabledUntilTimestamp - Date.now() || 0) <= 1000 * 60 * 60 * 24 * 21) await member.timeout(Math.min(u.unmuteAt - Date.now(), 1000 * 60 * 60 * 24 * 28));
         }
     }, process.argv[2] === '--debug' ? 5000 : 30000);
 }
