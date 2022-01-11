@@ -469,6 +469,9 @@ client.on('debug', d => {
 process.on('uncaughtException', async e => {
     console.error(e);
 
+    const recentCommands = await CommandHistory.find().sort({
+        _id: -1
+    }).limit(3);
     let err = util.inspect(e, {
         depth: 1,
         colors: true
@@ -482,6 +485,7 @@ process.on('uncaughtException', async e => {
                 .setColor('#ff0000')
                 .setTitle('오류 발생')
                 .setDescription(`${err.length > 4000 ? '첨부파일 확인' : `\`\`\`ansi\n${err}\n\`\`\``}`)
+                .addField('최근 명령어(최신순)', `\`\`\`\n${recentCommands.map(a => a.command.substring(0, 330)).join('\n')}\n\`\`\``)
                 .setTimestamp()
         ]
     }
