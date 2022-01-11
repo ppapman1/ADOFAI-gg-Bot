@@ -315,7 +315,7 @@ const cacheServer = async () => {
         ServerCache.channel[c] = await client.channels.fetch(Server.channel[c]);
     console.log('channel cached');
     for(let e in Server.emoji)
-        ServerCache.emoji[e] = await guild.emojis.fetch(Server.emoji[e]);
+        ServerCache.emoji[e] = client.emojis.cache.get(Server.emoji[e]) || await guild.emojis.fetch(Server.emoji[e]);
     console.log('emoji cached');
 
     console.log('cache finish');
