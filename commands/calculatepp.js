@@ -51,11 +51,11 @@ module.exports = {
         let difficultyString = level.difficulty.toString();
         if(level.censored) difficultyString = 'minus2';
 
-        const levelEmoji = main.Server.emoji[difficultyString];
-        if(!levelEmoji) return interaction.editReply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'UNSUPPORTED_LEVEL'),
-            ephemeral: true
-        });
+        const levelEmoji = main.Server.emoji[difficultyString] || difficultyString;
+        // if(!levelEmoji) return interaction.editReply({
+        //     content: lang.langByLangName(interaction.dbUser.lang, 'UNSUPPORTED_LEVEL'),
+        //     ephemeral: true
+        // });
 
 
         // Calculate PP
