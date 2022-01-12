@@ -66,6 +66,17 @@
         "en": "This level requires memorization."
       }
     },
+    "gimmick": {
+      "id": 22,
+      "title": {
+        "ko": "기믹",
+        "en": "Gimmick"
+      },
+      "description": {
+        "ko": "통상적인 얼불춤의 형식이 아닌 독특한 플레이 시스템이 포함된 맵",
+        "en": "A map that contains a unique play system, not a typical adofai."
+      }
+    },
     "nospeedchange": {
       "id": 3,
       "title": {
