@@ -169,5 +169,7 @@
   "TODO_CREATED": "\"{event}\" 이벤트에 \"{todo}\" 논의사항을 추가하였습니다.",
   "TODO_DELETED": "\"{event}\" 의 \"{todo}\" 논의사항을 삭제하였습니다.",
   "TODO_LIST_TITLE": "논의사항 목록",
-  "TODO_LIST_EMPTY": "논의사항 없음"
+  "TODO_LIST_EMPTY": "논의사항 없음",
+
+  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 /language 명령어를 사용하세요."
 }
