@@ -358,9 +358,14 @@ client.on('interactionCreate', async interaction => {
     let user = await User.findOne({ id : interaction.user.id });
     let guild;
     if(interaction.guild) guild = await Guild.findOne({ id : interaction.guild.id });
+
+    let locale = interaction.locale.substring(0, 2);
+    if(!lang.getLangList().includes(locale)) locale = 'en';
+
     if(!user) {
         user = new User({
-            id: interaction.user.id
+            id: interaction.user.id,
+            lang: locale
         });
         await user.save();
 
@@ -370,6 +375,20 @@ client.on('interactionCreate', async interaction => {
         else if(!interaction.isAutocomplete()) try {
             await interaction.user.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
+    }
+    if(!user.localeUpdated) {
+        const changed = user.lang !== locale;
+
+        user = await User.findOneAndUpdate({
+            id: interaction.user.id
+        }, {
+            lang: locale,
+            localeUpdated: true
+        }, {
+            new: true
+        });
+
+        if(changed) await interaction.user.send(lang.langByLangName(user.lang, 'LOCALE_CHANGED'));
     }
     if(!guild && interaction.guild) {
         guild = new Guild({

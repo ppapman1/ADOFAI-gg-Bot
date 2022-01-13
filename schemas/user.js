@@ -12,6 +12,11 @@ const newSchema = new Schema({
         required: true,
         default: 'en'
     },
+    localeUpdated: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     unmuteAt: {
         type: Number
     },

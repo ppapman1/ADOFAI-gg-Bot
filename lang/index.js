@@ -47,6 +47,10 @@ module.exports.getLangChoices = () => {
     return result;
 }
 
+module.exports.getLangList = () => {
+    return Object.keys(lang);
+}
+
 module.exports.getFirstTimeString = () => {
     if(!loaded) load();
 
