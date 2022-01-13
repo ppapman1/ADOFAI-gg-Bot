@@ -430,7 +430,7 @@ client.on('interactionCreate', async interaction => {
 
         await InteractionHistory.create({
             type: 'SELECT_MENU',
-            guild: interaction.guild.id,
+            guild: interaction.guild?.id,
             channel: interaction.channel.id,
             user: interaction.user.id,
             customId: interaction.customId,

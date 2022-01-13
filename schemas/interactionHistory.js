@@ -7,8 +7,7 @@ const newSchema = new Schema({
         required: true
     },
     guild: {
-        type: String,
-        required: true
+        type: String
     },
     channel: {
         type: String,
