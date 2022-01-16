@@ -60,9 +60,15 @@ module.exports = {
             ephemeral: true
         });
 
-        if(voteOptions.some(a => a.length > 80)) return interaction.reply({
+        if(voteOptions.some(a => a.split(':')[0].length > 80)) return interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_OPTION_TOO_LONG')
                 .replace('{maximum}', 80),
+            ephemeral: true
+        });
+
+        if(voteOptions.some(a => a.split(':')[1].length > 200)) return interaction.reply({
+            content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_OPTION_DESCRIPTION_TOO_LONG')
+                .replace('{maximum}', 200),
             ephemeral: true
         });
 
