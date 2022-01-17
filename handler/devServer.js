@@ -4,6 +4,8 @@ const Guild = require('../schemas/guild');
 
 module.exports = client => {
     client.on('voiceStateUpdate', async (before, state) => {
+        if(before.channel?.id === state.channel?.id) return;
+
         const guild = await Guild.findOne({
             id: state.guild.id
         });
