@@ -1,6 +1,4 @@
-const fs = require('fs');
-
-const lang = require('../../lang');
+const utils = require('../../utils');
 
 module.exports = {
     info: {
@@ -84,31 +82,6 @@ module.exports = {
             }
         ]
     },
-    handler: async interaction => {
-        let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/search/${command}.js`)) command = interaction.options.getSubcommandGroup();
-
-        if(fs.existsSync(`./commands/search/${command}.js`)) {
-            const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] === '--debug') delete require.cache[file];
-            const handler = require(file);
-            if(handler.commandHandler) handler.commandHandler(interaction);
-            else handler(interaction);
-        }
-        else interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
-    },
-    autoCompleteHandler: async interaction => {
-        let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/search/${command}.js`)) command = interaction.options.getSubcommandGroup();
-
-        if(fs.existsSync(`./commands/search/${command}.js`)) {
-            const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] === '--debug') delete require.cache[file];
-            const handler = require(file);
-            if(handler.autoCompleteHandler) handler.autoCompleteHandler(interaction);
-        }
-    }
+    handler: utils.subCommandHandler('search'),
+    autoCompleteHandler: utils.autoCompleteHandler('search')
 }

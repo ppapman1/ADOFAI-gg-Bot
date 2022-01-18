@@ -73,6 +73,7 @@ utils.setup(client);
 const connect = require('./schemas');
 connect();
 
+let permissionHandler = {};
 let commandHandler = {};
 let autoCompleteHandler = {};
 let selectHandler = {};
@@ -154,6 +155,7 @@ const loadDokdo = () => {
 }
 
 const loadCommands = () => {
+    permissionHandler = {};
     commandHandler = {};
     commands = [];
     allCommands = [];
@@ -168,6 +170,7 @@ const loadCommands = () => {
             const file = require.resolve('./' + path.join('commands', sub || '', c));
             delete require.cache[file];
             const module = require(file);
+            if(module.checkPermission) permissionHandler[module.info.name] = module.checkPermission;
             commandHandler[module.info.name] = module.handler;
             if(module.autoCompleteHandler) autoCompleteHandler[module.info.name] = module.autoCompleteHandler;
             if(module.setup) module.setup(client);
@@ -409,7 +412,14 @@ client.on('interactionCreate', async interaction => {
             lang.langByLangName(interaction.dbUser.lang, 'SERVER_ONLY')
         );
 
-        if(commandHandler[interaction.commandName] != null) commandHandler[interaction.commandName](interaction);
+        if(commandHandler[interaction.commandName] != null) {
+            const checkPermission = permissionHandler[interaction.commandName];
+            if(checkPermission) {
+                const check = await permissionHandler[interaction.commandName](interaction);
+                if(!check) return;
+            }
+            commandHandler[interaction.commandName](interaction);
+        }
 
         await CommandHistory.create({
             guild: interaction.guild.id,

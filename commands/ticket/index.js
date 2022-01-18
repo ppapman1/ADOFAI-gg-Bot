@@ -1,12 +1,8 @@
-const fs = require('fs');
-
-const permissions = require('../../permissions');
 const lang = require('../../lang');
-const main = require("../../main");
+const utils = require('../../utils');
 
 module.exports = {
     group: 'ticket',
-    // private: true,
     info: {
         defaultPermission: false,
         name: 'ticket',
@@ -99,27 +95,19 @@ module.exports = {
             }
         ]
     },
-    handler: async interaction => {
+    checkPermission: async interaction => {
         if(interaction.channel.parentId !== interaction.dbGuild.openTicketCategory
             && interaction.channel.parentId !== interaction.dbGuild.closedTicketCategory
-        && interaction.channel.parentId !== interaction.dbGuild.archivedTicketCategory
-        && ![ 'category' , 'description' ].includes(interaction.options.getSubcommand()))
-            return interaction.reply({
+            && interaction.channel.parentId !== interaction.dbGuild.archivedTicketCategory
+            && ![ 'category' , 'description' ].includes(interaction.options.getSubcommand())) {
+            await interaction.reply({
                 content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_CHANNEL_ONLY'),
                 ephemeral: true
             });
-
-        let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/ticket/${command}.js`)) command = interaction.options.getSubcommandGroup();
-
-        if(fs.existsSync(`./commands/ticket/${command}.js`)) {
-            const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] === '--debug') delete require.cache[file];
-            require(file)(interaction);
+            return false;
         }
-        else interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
-    }
+
+        return true;
+    },
+    handler: utils.subCommandHandler('ticket')
 }

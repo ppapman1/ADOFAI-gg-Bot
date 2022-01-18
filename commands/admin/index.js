@@ -3,6 +3,7 @@ const fs = require('fs');
 const permissions = require('../../permissions');
 const lang = require('../../lang');
 const main = require('../../main');
+const utils = require('../../utils');
 
 module.exports = {
     info: {
@@ -21,20 +22,13 @@ module.exports = {
             }
         ]
     },
-    handler: async interaction => {
-        if(!main.getOwnerID().includes(interaction.user.id)) return interaction.reply('🤔');
-
-        let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/admin/${command}.js`)) command = interaction.options.getSubcommandGroup();
-
-        if(fs.existsSync(`./commands/admin/${command}.js`)) {
-            const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] === '--debug') delete require.cache[file];
-            require(file)(interaction);
+    checkPermission: async interaction => {
+        if(main.getTeamOwner() !== interaction.user.id) {
+            await interaction.reply('🤔');
+            return false;
         }
-        else interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
-    }
+
+        return true;
+    },
+    handler: utils.subCommandHandler('admin')
 }
