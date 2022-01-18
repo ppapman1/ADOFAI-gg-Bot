@@ -23,6 +23,11 @@ const newSchema = new Schema({
     },
     values: {
         type: Array
+    },
+    createdAt: {
+        type: Number,
+        required: true,
+        default: Date.now
     }
 });
 
