@@ -1,8 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 
-const permissions = require('../../permissions');
-const lang = require('../../lang');
-
+const { getCommandDescription } = require('../../lang');
 const Server = require('../../server.json');
 
 const Warn = require('../../schemas/warn');
@@ -11,16 +9,16 @@ module.exports = {
     private: true,
     info: {
         name: 'warnhistory',
-        description: '경고 기록을 확인합니다. // Warn the user.',
+        description: getCommandDescription('WARNHISTORY_DESCRIPTION'),
         options: [
             {
                 name: 'all',
-                description: '적용되지 않는 모든 경고를 표시합니다. // Displays all warns that do not apply.',
+                description: getCommandDescription('WARNHISTORY_ALL_DESCRIPTION'),
                 type: 'BOOLEAN'
             },
             {
                 name: 'user',
-                description: '경고를 확인할 유저입니다. // User to check warn.',
+                description: getCommandDescription('WARNHISTORY_USER_DESCRIPTION'),
                 type: 'USER'
             }
         ]

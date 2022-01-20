@@ -1,19 +1,20 @@
 const main = require("../../main");
 const utils = require('../../utils');
+const { getCommandDescription } = require('../../lang');
 
 module.exports = {
     info: {
         name: 'blacklist',
-        description: '블랙리스트 관련 명령어입니다. // It\'s a blacklist related command.',
+        description: getCommandDescription('BLACKLIST_DESCRIPTION'),
         options: [
             {
                 name: 'add',
-                description: '블랙리스트에 유저를 추가합니다. // Add a user to the blacklist.',
+                description: getCommandDescription('BLACKLIST_ADD_DESCRIPTION'),
                 type: 'SUB_COMMAND',
                 options: [
                     {
                         name: 'user',
-                        description: '추가할 유저입니다. // It\'s a user to add.',
+                        description: getCommandDescription('BLACKLIST_ADD_USER_DESCRIPTION'),
                         type: 'USER',
                         required: true
                     }
@@ -21,12 +22,12 @@ module.exports = {
             },
             {
                 name: 'remove',
-                description: '블랙리스트에서 유저를 제거합니다. // Remove the user from the blacklist.',
+                description: getCommandDescription('BLACKLIST_REMOVE_DESCRIPTION'),
                 type: 'SUB_COMMAND',
                 options: [
                     {
                         name: 'user',
-                        description: '제거할 유저입니다. // It\'s a user to remove.',
+                        description: getCommandDescription('BLACKLIST_REMOVE_USER_DESCRIPTION'),
                         type: 'USER',
                         required: true
                     }

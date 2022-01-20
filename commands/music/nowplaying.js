@@ -2,6 +2,7 @@ const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js'
 const ytdl = require('ytdl-core');
 
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const music = require('../../music');
 const utils = require('../../utils');
 const Server = require('../../server.json');
@@ -12,7 +13,7 @@ module.exports = {
     group: 'music',
     info: {
         name: 'nowplaying',
-        description: '현재 재생중인 곡 정보를 보여줍니다. // Shows the current song playing.'
+        description: getCommandDescription('NOWPLAYING_DESCRIPTION')
     },
     handler: async interaction => {
         const nowPlaying = await MusicQueue.findOne({

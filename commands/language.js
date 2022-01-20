@@ -1,15 +1,16 @@
 const lang = require('../lang');
+const { getCommandDescription } = require('../lang');
 
 const User = require('../schemas/user');
 
 module.exports = {
     info: {
         name: 'language',
-        description: '봇의 언어를 설정합니다. // Set bot\'s language.',
+        description: getCommandDescription('LANGUAGE_DESCRIPTION'),
         options: [
             {
                 name: 'lang',
-                description: '원하는 언어를 선택합니다. // Select language you want.',
+                description: getCommandDescription('LANGUAGE_LANG_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 choices: lang.getLangChoices()

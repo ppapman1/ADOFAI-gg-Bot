@@ -72,5 +72,6 @@ module.exports.getCommandDescription = key => {
         if(str) result.unshift(str);
     }
 
+    if(!result.length) return `missing key "${key}"`;
     return result.join(' // ').substring(0, 100);
 }

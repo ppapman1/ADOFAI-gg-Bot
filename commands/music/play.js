@@ -2,17 +2,18 @@ const { MessageActionRow , MessageSelectMenu } = require('discord.js');
 const ytdl = require('ytdl-core');
 
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const music = require('../../music');
 
 module.exports = {
     group: 'music',
     info: {
         name: 'play',
-        description: '대기열에 음악을 추가합니다. // Add music to the queue.',
+        description: getCommandDescription('PLAY_DESCRIPTION'),
         options: [
             {
                 name: 'music',
-                description: '추가할 음악입니다. // This is the music I\'m going to add.',
+                description: getCommandDescription('PLAY_MUSIC_DESCRIPTION'),
                 type: 'STRING',
                 required: true
             }

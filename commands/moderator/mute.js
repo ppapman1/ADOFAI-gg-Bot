@@ -1,13 +1,14 @@
+const { MessageActionRow , MessageButton } = require("discord.js");
 const parseDuration = require('parse-duration');
 
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
-const {MessageActionRow, MessageButton} = require("discord.js");
 
 module.exports = {
     private: true,
@@ -15,24 +16,24 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'mute',
-        description: '유저를 뮤트합니다. // Mute the user.',
+        description: getCommandDescription('MUTE_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '뮤트할 유저입니다. // User to mute.',
+                description: getCommandDescription('MUTE_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '뮤트 사유입니다. // It\'s the reason for mute.',
+                description: getCommandDescription('MUTE_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'duration',
-                description: '뮤트할 기간을 입력합니다. 예) 1d 2h // Enter the period to mute. ex) 1d 2h',
+                description: getCommandDescription('MUTE_DURATION_DESCRIPTION'),
                 type: 'STRING'
             }
         ]

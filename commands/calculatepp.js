@@ -1,29 +1,30 @@
 const { MessageEmbed } = require('discord.js');
 const api = require('../api');
 const lang = require("../lang");
+const { getCommandDescription } = require('../lang');
 const main = require('../main');
 
 module.exports = {
     info: {
         name: 'calculatepp',
-        description: '예상 PP를 계산합니다. // Calculate the expected pp',
+        description: getCommandDescription('CALCULATEPP_DESCRIPTION'),
         options: [
             {
                 name: 'id',
-                description: '레벨 ID입니다. // This is the level ID.',
+                description: getCommandDescription('CALCULATEPP_ID_DESCRIPTION'),
                 type: 'INTEGER',
                 required: true,
                 min_value: 1
             },
             {
                 name: 'accuracy',
-                description: '정확도입니다. // This is accuracy.',
+                description: getCommandDescription('CALCULATEPP_ACCURACY_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 1
             },
             {
                 name: 'pitch',
-                description: '피치입니다. // This is pitch.',
+                description: getCommandDescription('CALCULATEPP_PITCH_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 1
             }

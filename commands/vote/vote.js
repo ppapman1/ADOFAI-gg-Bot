@@ -1,6 +1,7 @@
 const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
 
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 
 const Vote = require('../../schemas/vote');
@@ -11,34 +12,34 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'vote',
-        description: '투표를 시작합니다. // Start a vote.',
+        description: getCommandDescription('VOTE_DESCRIPTION'),
         options: [
             {
                 name: 'question',
-                description: '투표의 질문입니다. // The question of the vote.',
+                description: getCommandDescription('VOTE_QUESTION_DESCRIPTION'),
                 type: 'STRING',
                 required: true
             },
             {
                 name: 'options',
-                description: '투표할 항목들을 쉼표(,)로, 설명을 :로 구분하여 입력합니다. // Options of the vote separated by commas, description by :.',
+                description: getCommandDescription('VOTE_OPTIONS_DESCRIPTION'),
                 type: 'STRING',
                 required: true
             },
             {
                 name: 'realtimeresult',
-                description: '실시간으로 투표 결과를 보여줍니다. // Show the realtime result of the vote.',
+                description: getCommandDescription('VOTE_REALTIMERESULT_DESCRIPTION'),
                 type: 'BOOLEAN',
                 required: true
             },
             {
                 name: 'role',
-                description: '투표에 참여할 수 있는 역할을 지정합니다. // The role that can participate in the vote.',
+                description: getCommandDescription('VOTE_ROLE_DESCRIPTION'),
                 type: 'ROLE'
             },
             {
                 name: 'roles',
-                description: '투표할 역할 ID를 쉼표로 구분하여 지정합니다. // The role IDs that can participate in the vote, separated by commas.',
+                description: getCommandDescription('VOTE_ROLES_DESCRIPTION'),
                 type: 'STRING'
             }
         ]

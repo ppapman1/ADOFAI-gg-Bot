@@ -1,13 +1,14 @@
 const api = require('../api');
+const { getCommandDescription } = require('../lang');
 
 module.exports = {
     info: {
         name: 'ranking',
-        description: 'PP 랭킹을 표시합니다. // Show PP ranking.',
+        description: getCommandDescription('RANKING_DESCRIPTION'),
         options: [
             {
                 name: 'page',
-                description: '볼 랭킹의 페이지입니다. // This is the ranking page.',
+                description: getCommandDescription('RANKING_PAGE_DESCRIPTION'),
                 type: 'NUMBER'
             }
         ]

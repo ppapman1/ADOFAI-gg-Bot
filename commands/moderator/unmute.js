@@ -1,6 +1,7 @@
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
@@ -14,17 +15,17 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'unmute',
-        description: '유저를 뮤트 해제합니다. // Unmute the user.',
+        description: getCommandDescription('UNMUTE_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '뮤트를 해제할 유저입니다. // User to unmute.',
+                description: getCommandDescription('UNMUTE_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '뮤트 해제 사유입니다. // It\'s the reason for unmute.',
+                description: getCommandDescription('UNMUTE_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true

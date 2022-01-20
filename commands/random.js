@@ -1,64 +1,65 @@
 const lang = require('../lang');
+const { getCommandDescription } = require('../lang');
 const api = require("../api");
 const utils = require('../utils');
 
 module.exports = {
     info: {
         name: 'random',
-        description: '조건에 맞는 랜덤한 레벨을 골라 추천합니다. // I recommend you to choose a random level that meets the conditions.',
+        description: getCommandDescription('RANDOM_DESCRIPTION'),
         options: [
             {
                 name: 'query',
-                description: '검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요. // Enter the name, or creator, or artist.',
+                description: getCommandDescription('SEARCH_LEVEL_QUERY_DESCRIPTION'),
                 type: 'STRING',
                 autocomplete: true
             },
             {
                 name: 'mindifficulty',
-                description: '최소 레벨을 입력합니다. // Enter the minimum level.',
+                description: getCommandDescription('SEARCH_LEVEL_MINDIFFICULTY_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 0,
                 max_value: 22
             },
             {
                 name: 'maxdifficulty',
-                description: '최대 레벨을 입력합니다. // Enter the maximum level.',
+                description: getCommandDescription('SEARCH_LEVEL_MAXDIFFICULTY_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 0,
                 max_value: 22
             },
             {
                 name: 'minbpm',
-                description: '최소 BPM을 입력합니다. // Enter the minimum BPM.',
+                description: getCommandDescription('SEARCH_LEVEL_MINBPM_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 0
             },
             {
                 name: 'maxbpm',
-                description: '최대 BPM을 입력합니다. // Enter the maximum BPM.',
+                description: getCommandDescription('SEARCH_LEVEL_MAXBPM_DESCRIPTION'),
                 type: 'NUMBER',
                 min_value: 0
             },
             {
                 name: 'mintiles',
-                description: '최소 타일 수를 입력합니다. // Enter the minimum number of tiles.',
+                description: getCommandDescription('SEARCH_LEVEL_MINTILES_DESCRIPTION'),
                 type: 'INTEGER',
                 min_value: 0
             },
             {
                 name: 'maxtiles',
-                description: '최대 타일 수를 입력합니다. // Enter the maximum number of tiles.',
+                description: getCommandDescription('SEARCH_LEVEL_MAXTILES_DESCRIPTION'),
                 type: 'INTEGER',
                 min_value: 0
             },
             {
                 name: 'shownotverified',
-                description: '책정되지 않은 레벨(0레벨)을 포함해서 검색합니다. // Search including an undetermined level (level 0).',
+                description: getCommandDescription('SEARCH_LEVEL_SHOWNOTVERIFIED_DESCRIPTION'),
                 type: 'BOOLEAN'
             },
             // {
             //     name: 'showcensored',
-            //     description: '검열된 레벨(-2레벨)을 포함해서 검색합니다. // Search, including censored levels (-2).',
+            //     description: getCommandDescription('SEARCH_LEVEL_SHOWCENSORED_DESCRIPTION'),
             //     type: 'BOOLEAN'
             // }
         ]

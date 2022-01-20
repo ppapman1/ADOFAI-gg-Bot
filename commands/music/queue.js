@@ -2,12 +2,13 @@ const { MessageEmbed } = require('discord.js');
 
 const MusicQueue = require('../../schemas/musicQueue');
 const lang = require("../../lang");
+const { getCommandDescription } = require('../../lang');
 
 module.exports = {
     group: 'music',
     info: {
         name: 'queue',
-        description: '음악의 대기열을 보여줍니다. // Shows the current queue.',
+        description: getCommandDescription('QUEUE_DESCRIPTION'),
     },
     handler: async interaction => {
         const queue = await MusicQueue.find({

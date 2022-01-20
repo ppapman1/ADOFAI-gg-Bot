@@ -1,11 +1,12 @@
 const lang = require('../lang');
+const { getCommandDescription } = require('../lang');
 
 const setting = require('../setting.json');
 
 module.exports = {
     info: {
         name: 'invite',
-        description: '봇을 초대하는 링크를 표시합니다. // Show bot invite link.'
+        description: getCommandDescription('INVITE_DESCRIPTION')
     },
     handler: async interaction => {
         return interaction.reply(

@@ -1,6 +1,7 @@
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
@@ -12,17 +13,17 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'kick',
-        description: '유저를 킥합니다. // Kick the user.',
+        description: getCommandDescription('KICK_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '킥할 유저입니다. // User to kick.',
+                description: getCommandDescription('KICK_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '킥 사유입니다. // It\'s the reason for kick.',
+                description: getCommandDescription('KICK_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true

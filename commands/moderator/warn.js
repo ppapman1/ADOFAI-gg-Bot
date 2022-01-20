@@ -1,6 +1,7 @@
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
@@ -12,24 +13,24 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'warn',
-        description: '유저에게 경고를 부여합니다. // Warn the user.',
+        description: getCommandDescription('WARN_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '경고할 유저입니다. // User to warn.',
+                description: getCommandDescription('WARN_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '경고 사유입니다. // It\'s the reason for warn.',
+                description: getCommandDescription('WARN_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'amount',
-                description: '지급할 경고의 갯수입니다. // Amount of warn.',
+                description: getCommandDescription('WARN_AMOUNT_DESCRIPTION'),
                 type: 'INTEGER',
                 required: true,
                 min_value: 1,

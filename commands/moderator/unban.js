@@ -1,5 +1,6 @@
 const permissions = require('../../permissions');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 
 const moderator = require('../../moderator');
 
@@ -12,17 +13,17 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'unban',
-        description: '유저를 밴 해제합니다. // unban the user.',
+        description: getCommandDescription('UNBAN_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '밴를 해제할 유저입니다. // User to unban.',
+                description: getCommandDescription('UNBAN_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '밴 해제 사유입니다. // It\'s the reason for unban.',
+                description: getCommandDescription('UNBAN_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true

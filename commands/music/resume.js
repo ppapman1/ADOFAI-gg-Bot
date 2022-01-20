@@ -1,11 +1,12 @@
 const lang = require('../../lang');
 const music = require('../../music');
+const { getCommandDescription } = require('../../lang');
 
 module.exports = {
     group: 'music',
     info: {
         name: 'resume',
-        description: '일시정지된 음악을 다시 재생합니다. // Play the paused music again.'
+        description: getCommandDescription('RESUME_DESCRIPTION')
     },
     handler: async interaction => {
         const player = music.getPlayer(interaction.guild);

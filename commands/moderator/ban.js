@@ -4,6 +4,7 @@ const parseDuration = require('parse-duration');
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 const moderator = require('../../moderator');
 
@@ -15,29 +16,29 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'ban',
-        description: '유저를 밴합니다. // Ban the user.',
+        description: getCommandDescription('BAN_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '밴할 유저입니다. // User to ban.',
+                description: getCommandDescription('BAN_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '밴 사유입니다. // It\'s the reason for ban.',
+                description: getCommandDescription('BAN_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'duration',
-                description: '밴할 기간을 입력합니다. 예) 1d 2h // Enter the period to ban. ex) 1d 2h',
+                description: getCommandDescription('BAN_DURATION_DESCRIPTION'),
                 type: 'STRING'
             },
             {
                 name: 'deletedays',
-                description: '메시지를 삭제할 일수를 입력합니다. // Enter the days to delete message.',
+                description: getCommandDescription('BAN_DELETEDAYS_DESCRIPTION'),
                 type: 'NUMBER'
             }
         ]
