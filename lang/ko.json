@@ -172,5 +172,184 @@
   "TODO_LIST_TITLE": "논의사항 목록",
   "TODO_LIST_EMPTY": "논의사항 없음",
 
-  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 /language 명령어를 사용하세요."
+  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 /language 명령어를 사용하세요.",
+
+  "COMMAND_CALCULATEPP_DESCRIPTION": "예상 PP를 계산합니다.",
+  "COMMAND_CALCULATEPP_ID_DESCRIPTION": "레벨 ID입니다.",
+  "COMMAND_CALCULATEPP_ACCURACY_DESCRIPTION": "정확도입니다.",
+  "COMMAND_CALCULATEPP_PITCH_DESCRIPTION": "피치입니다.",
+
+  "COMMAND_INVITE_DESCRIPTION": "봇을 초대하는 링크를 표시합니다.",
+
+  "COMMAND_LANGUAGE_DESCRIPTION": "봇의 언어를 설정합니다.",
+  "COMMAND_LANGUAGE_LANG_DESCRIPTION": "원하는 언어를 선택합니다.",
+
+  "COMMAND_LEVEL_DESCRIPTION": "ID로 레벨을 찾아 표시합니다.",
+  "COMMAND_LEVEL_ID_DESCRIPTION": "정보를 볼 레벨 ID입니다.",
+
+  "COMMAND_RANDOM_DESCRIPTION": "조건에 맞는 랜덤한 레벨을 골라 추천합니다.",
+
+  "COMMAND_RANKING_DESCRIPTION": "PP 랭킹을 표시합니다.",
+  "COMMAND_RANKING_PAGE_DESCRIPTION": "볼 랭킹의 페이지입니다.",
+
+  "COMMAND_RELOAD_DESCRIPTION": "봇의 기능들을 리로드합니다.",
+  "COMMAND_RELOAD_OWNERS_DESCRIPTION": "디스코드 애플리케이션 소유자 정보를 다시 가져옵니다.",
+  "COMMAND_RELOAD_DOKDO_DESCRIPTION": "dokdo를 재설정합니다.",
+  "COMMAND_RELOAD_COMMANDS_DESCRIPTION": "슬래시 커맨드를 다시 등록합니다.",
+  "COMMAND_RELOAD_MODULES_DESCRIPTION": "슬래시 커맨드 모듈을 다시 불러옵니다.",
+  "COMMAND_RELOAD_LANG_DESCRIPTION": "언어 파일을 다시 불러옵니다.",
+  "COMMAND_RELOAD_SELECT_DESCRIPTION": "셀렉트 메뉴 핸들러를 다시 불러옵니다.",
+  "COMMAND_RELOAD_BUTTON_DESCRIPTION": "버튼 핸들러를 다시 불러옵니다.",
+  "COMMAND_RELOAD_HANDLER_DESCRIPTION": "기타 이벤트 핸들러를 다시 불러옵니다.",
+
+  "COMMAND_SERVERCOUNT_DESCRIPTION": "현재 봇이 있는 서버 개수를 보여줍니다.",
+
+  "COMMAND_ADMIN_DESCRIPTION": "봇 관리자 전용 명령어입니다.",
+  "COMMAND_ADMIN_CLEARCOMMAND_DESCRIPTION": "디스코드 애플리케이션에 등록된 슬래시 커맨드를 모두 삭제합니다. 봇 재시작이 필요합니다.",
+  "COMMAND_ADMIN_TRACKERROR_DESCRIPTION": "봇의 오류 트래킹 DM을 토글합니다.",
+
+  "COMMAND_BLACKLIST_DESCRIPTION": "블랙리스트 관련 명령어입니다.",
+
+  "COMMAND_BLACKLIST_ADD_DESCRIPTION": "블랙리스트에 유저를 추가합니다.",
+  "COMMAND_BLACKLIST_ADD_USER_DESCRIPTION": "추가할 유저입니다.",
+
+  "COMMAND_BLACKLIST_REMOVE_DESCRIPTION": "블랙리스트에서 유저를 제거합니다.",
+  "COMMAND_BLACKLIST_REMOVE_USER_DESCRIPTION": "제거할 유저입니다.",
+
+  "COMMAND_EVAL_DESCRIPTION": "eval 관련 명령어들입니다.",
+
+  "COMMAND_EVAL_CREATE_DESCRIPTION": "eval 명령 설정을 생성합니다.",
+  "COMMAND_EVAL_CREATE_NAME_DESCRIPTION": "eval의 이름입니다.",
+
+  "COMMAND_EVAL_INFO_DESCRIPTION": "eval의 정보를 확인합니다.",
+
+  "COMMAND_EVAL_MESSAGE_DESCRIPTION": "간단한 eval 메시지를 전송합니다. 여러 버튼을 넣을 경우 ;로 구분합니다.",
+  "COMMAND_EVAL_MESSAGE_MESSAGE_DESCRIPTION": "eval 메시지 내용입니다.",
+  "COMMAND_EVAL_MESSAGE_BUTTONTEXT_DESCRIPTION": "버튼에 들어갈 글자입니다.",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLOR_DESCRIPTION": "버튼의 색입니다.",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLOR_CHOICES_PRIMARY": "파란색+보라색",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLOR_CHOICES_SECONDARY": "회색",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLOR_CHOICES_SUCCESS": "초록색",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLOR_CHOICES_DANGER": "빨간색",
+  "COMMAND_EVAL_MESSAGE_PARAMS_DESCRIPTION": "버튼에 들어갈 추가 파라미터입니다.",
+  "COMMAND_EVAL_MESSAGE_BUTTONCOLORS_DESCRIPTION": "여러 버튼을 넣을 경우 버튼의 색을 ;로 구분합니다. 1~4 숫자로 입력하며, 파란색+보라색, 회색, 초록색, 빨간색 순입니다.",
+
+  "COMMAND_FEATURES_DESCRIPTION": "서버 기능 관련 명령어입니다.",
+
+  "COMMAND_FEATURES_ENABLE_DESCRIPTION": "서버의 기능을 활성화합니다.",
+  "COMMAND_FEATURES_ENABLE_NAME_DESCRIPTION": "기능의 이름입니다.",
+
+  "COMMAND_FEATURES_DISABLE_DESCRIPTION": "서버의 기능을 비활성화합니다.",
+
+  "COMMAND_FEATURES_LIST_DESCRIPTION": "서버의 기능 목록을 확인합니다.",
+
+  "COMMAND_FEATURES_PERMISSION_DESCRIPTION": "서버 기능 명령어의 권한을 설정합니다.",
+  "COMMAND_FEATURES_PERMISSION_COMMAND_DESCRIPTION": "권한을 설정할 명령어입니다.",
+
+  "COMMAND_BAN_DESCRIPTION": "유저를 밴합니다.",
+  "COMMAND_BAN_USER_DESCRIPTION": "밴할 유저입니다.",
+  "COMMAND_BAN_REASON_DESCRIPTION": "밴 사유입니다.",
+  "COMMAND_BAN_DURATION_DESCRIPTION": "밴할 기간을 입력합니다. 예) 1d 2h",
+  "COMMAND_BAN_DELETEDAYS_DESCRIPTION": "메시지를 삭제할 일수를 입력합니다.",
+
+  "COMMAND_KICK_DESCRIPTION": "유저를 킥합니다.",
+  "COMMAND_KICK_USER_DESCRIPTION": "킥할 유저입니다.",
+  "COMMAND_KICK_REASON_DESCRIPTION": "킥 사유입니다.",
+
+  "COMMAND_MUTE_DESCRIPTION": "유저를 뮤트합니다.",
+  "COMMAND_MUTE_USER_DESCRIPTION": "뮤트할 유저입니다.",
+  "COMMAND_MUTE_REASON_DESCRIPTION": "뮤트 사유입니다.",
+  "COMMAND_MUTE_DURATION_DESCRIPTION": "뮤트할 기간을 입력합니다. 예) 1d 2h",
+
+  "COMMAND_UNBAN_DESCRIPTION": "유저를 밴 해제합니다.",
+  "COMMAND_UNBAN_USER_DESCRIPTION": "밴를 해제할 유저입니다.",
+  "COMMAND_UNBAN_REASON_DESCRIPTION": "밴 해제 사유입니다.",
+
+  "COMMAND_UNMUTE_DESCRIPTION": "유저를 뮤트 해제합니다.",
+  "COMMAND_UNMUTE_USER_DESCRIPTION": "뮤트를 해제할 유저입니다.",
+  "COMMAND_UNMUTE_REASON_DESCRIPTION": "뮤트 해제 사유입니다.",
+
+  "COMMAND_WARN_DESCRIPTION": "유저에게 경고를 부여합니다.",
+  "COMMAND_WARN_USER_DESCRIPTION": "경고할 유저입니다.",
+  "COMMAND_WARN_REASON_DESCRIPTION": "경고 사유입니다.",
+  "COMMAND_WARN_AMOUNT_DESCRIPTION": "지급할 경고의 갯수입니다.",
+
+  "COMMAND_WARNHISTORY_DESCRIPTION": "경고 기록을 확인합니다.",
+  "COMMAND_WARNHISTORY_ALL_DESCRIPTION": "적용되지 않는 모든 경고를 표시합니다.",
+  "COMMAND_WARNHISTORY_USER_DESCRIPTION": "경고를 확인할 유저입니다.",
+
+  "COMMAND_CLEAR_DESCRIPTION": "음악 대기열을 비웁니다.",
+
+  "COMMAND_NOWPLAYING_DESCRIPTION": "현재 재생중인 곡 정보를 보여줍니다.",
+
+  "COMMAND_PAUSE_DESCRIPTION": "음악을 일시정지합니다.",
+
+  "COMMAND_PLAY_DESCRIPTION": "대기열에 음악을 추가합니다.",
+  "COMMAND_PLAY_MUSIC_DESCRIPTION": "추가할 음악입니다.",
+
+  "COMMAND_QUEUE_DESCRIPTION": "음악의 대기열을 보여줍니다.",
+
+  "COMMAND_REMOVEQUEUE_DESCRIPTION": "대기열 번호로 음악을 삭제합니다.",
+  "COMMAND_REMOVEQUEUE_NUMBER_DESCRIPTION": "대기열 번호입니다.",
+
+  "COMMAND_RESUME_DESCRIPTION": "일시정지된 음악을 다시 재생합니다.",
+
+  "COMMAND_SKIP_DESCRIPTION": "음악을 건너뜁니다.",
+
+  "COMMAND_STOP_DESCRIPTION": "봇을 음성 채널에서 내보냅니다.",
+
+  "COMMAND_SUMMON_DESCRIPTION": "봇을 음성 채널에 접속하게 합니다.",
+
+  "COMMAND_REASONTEMPLATE_DESCRIPTION": "서버 처벌 사유 템플릿 관련 명령어입니다.",
+
+  "COMMAND_REASONTEMPLATE_CREATE_DESCRIPTION": "서버 처벌 사유 템플릿을 생성합니다.",
+  "COMMAND_REASONTEMPLATE_CREATE_TYPE_DESCRIPTION": "생성할 템플릿의 종류를 선택합니다.",
+  "COMMAND_REASONTEMPLATE_CREATE_REASON_DESCRIPTION": "생성할 템플릿의 사유를 입력합니다.",
+
+  "COMMAND_REASONTEMPLATE_DELETE_DESCRIPTION": "서버 처벌 사유 템플릿을 삭제합니다.",
+  "COMMAND_REASONTEMPLATE_DELETE_TYPE_DESCRIPTION": "삭제할 템플릿의 종류를 선택합니다.",
+  "COMMAND_REASONTEMPLATE_DELETE_REASON_DESCRIPTION": "삭제할 템플릿의 사유를 입력합니다.",
+
+  "COMMAND_SEARCH_DESCRIPTION": "검색 관련 명령어들입니다.",
+
+  "COMMAND_SEARCH_LEVEL_DESCRIPTION": "ADOFAI.gg에서 레벨을 검색합니다.",
+  "COMMAND_SEARCH_LEVEL_QUERY_DESCRIPTION": "검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요.",
+  "COMMAND_SEARCH_LEVEL_MINDIFFICULTY_DESCRIPTION": "최소 레벨을 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_MAXDIFFICULTY_DESCRIPTION": "최대 레벨을 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_MINBPM_DESCRIPTION": "최소 BPM을 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_MAXBPM_DESCRIPTION": "최대 BPM을 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_MINTILES_DESCRIPTION": "최소 타일 수를 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_MAXTILES_DESCRIPTION": "최대 타일 수를 입력합니다.",
+  "COMMAND_SEARCH_LEVEL_SHOWNOTVERIFIED_DESCRIPTION": "책정되지 않은 레벨(0레벨)을 포함해서 검색합니다.",
+
+  "COMMAND_SEARCH_ARTIST_DESCRIPTION": "ADOFAI.gg에서 작곡가를 검색합니다.",
+  "COMMAND_SEARCH_ARTIST_NAME_DESCRIPTION": "검색할 작곡가의 이름을 입력하세요.",
+
+  "COMMAND_TICKET_DESCRIPTION": "티켓 관리 관련 명령어입니다.",
+  "COMMAND_TICKET_SETNAME_DESCRIPTION": "티켓의 이름을 설정합니다.",
+  "COMMAND_TICKET_SETNAME_NAME_DESCRIPTION": "티켓의 이름입니다.",
+
+  "COMMAND_TICKET_OPEN_DESCRIPTION": "닫힌 티켓을 다시 엽니다.",
+
+  "COMMAND_TICKET_CLOSE_DESCRIPTION": "티켓을 닫습니다.",
+
+  "COMMAND_TICKET_DELETE_DESCRIPTION": "티켓을 삭제합니다.",
+
+  "COMMAND_TICKET_ARCHIVE_DESCRIPTION": "티켓을 아카이브합니다.",
+
+  "COMMAND_TICKET_UNARCHIVE_DESCRIPTION": "티켓을 아카이브 해제합니다.",
+
+  "COMMAND_TICKET_CATEGORY_DESCRIPTION": "티켓 카테고리를 설정합니다.",
+  "COMMAND_TICKET_CATEGORY_TYPE_DESCRIPTION": "카테고리 종류입니다.",
+  "COMMAND_TICKET_CATEGORY_CATEGORY_DESCRIPTION": "설정할 카테고리입니다.",
+
+  "COMMAND_TICKET_DESCRIPTION_DESCRIPTION": "티켓의 설명을 설정합니다.",
+  "COMMAND_TICKET_DESCRIPTION_DESCRIPTION_DESCRIPTION": "티켓의 설명입니다.",
+
+  "COMMAND_VOTE_DESCRIPTION": "투표를 시작합니다.",
+  "COMMAND_VOTE_QUESTION_DESCRIPTION": "투표의 질문입니다.",
+  "COMMAND_VOTE_OPTIONS_DESCRIPTION": "투표할 항목들을 쉼표(,)로, 설명을 :로 구분하여 입력합니다.",
+  "COMMAND_VOTE_REALTIMERESULT_DESCRIPTION": "실시간으로 투표 결과를 보여줍니다.",
+  "COMMAND_VOTE_ROLE_DESCRIPTION": "투표에 참여할 수 있는 역할을 지정합니다.",
+  "COMMAND_VOTE_ROLES_DESCRIPTION": "투표할 역할 ID를 쉼표로 구분하여 지정합니다."
 }
