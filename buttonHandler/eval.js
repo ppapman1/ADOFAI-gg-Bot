@@ -6,7 +6,11 @@ module.exports = async interaction => {
     const params = interaction.customId.split('_');
     if(params.length < 3) return;
 
-    if(params[1] === 'run') {
+    if(params[1].startsWith('run')) {
+        const role = params[1].split(':')[1];
+        console.log(role);
+        if(role && !interaction.member.roles.cache.has(role) && !main.getOwnerID().includes(interaction.user.id)) return;
+
         const evalData = await Eval.findOne({ id : params[2] });
         if(!evalData) return interaction.reply({
             content: `eval data not found\nID : \`${params[2]}\``,

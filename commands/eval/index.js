@@ -93,6 +93,11 @@ module.exports = {
                         name: 'buttoncolors',
                         description: getCommandDescription('EVAL_MESSAGE_BUTTONCOLORS_DESCRIPTION'),
                         type: 'STRING'
+                    },
+                    {
+                        name: 'role',
+                        description: getCommandDescription('EVAL_MESSAGE_ROLE_DESCRIPTION'),
+                        type: 'ROLE'
                     }
                 ]
             }

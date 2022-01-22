@@ -14,6 +14,7 @@ module.exports.commandHandler = async interaction => {
     const buttonColor = options.getString('buttoncolor');
     const customParams = options.getString('params')?.split(';') || [];
     const buttonColors = options.getString('buttoncolors')?.split(';') || [];
+    const role = options.getRole('role');
 
     const buttonColorMap = [
         'PRIMARY',
@@ -52,7 +53,7 @@ module.exports.commandHandler = async interaction => {
         const buttonColorNum = Number(buttonColors[Math.min(i, buttonColors.length - 1)]);
         buttons.push(
             new MessageButton()
-                .setCustomId(`eval_run_${eval.id}${customParam ? `_${customParam}` : ''}`)
+                .setCustomId(`eval_run${role ? `:${role.id}` : ''}_${eval.id}${customParam ? `_${customParam}` : ''}`)
                 .setLabel(buttonText[i])
                 .setStyle(buttonColorMap[buttonColorNum - 1] || buttonColor)
         );
