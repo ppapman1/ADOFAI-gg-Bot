@@ -2,7 +2,8 @@
   "adofai_gg": "serverid",
 
   "role": {
-    "staff": "roleid"
+    "staff": "roleid",
+    "forumadmin": "roleid"
   },
 
   "channel": {

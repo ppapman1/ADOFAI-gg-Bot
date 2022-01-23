@@ -226,7 +226,7 @@ module.exports.reasonAutoCompleteHandler = type => async interaction => {
 module.exports.levelAutoCompleteHandler = async interaction => {
     const { options } = interaction;
 
-    const query = options.getString('query');
+    const query = options.getString('query').replace('{showcensored}', '');
 
     if(!query) return interaction.respond([]);
 

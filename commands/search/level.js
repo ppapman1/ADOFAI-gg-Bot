@@ -1,14 +1,21 @@
+const main = require('../../main');
 const lang = require('../../lang');
 const api = require('../../api');
 const utils = require('../../utils');
+const Server = require('../../server.json');
 
 module.exports.commandHandler = async interaction => {
     await interaction.deferReply();
 
     const { options } = interaction;
 
+    const query = options.getString('query');
+    const showCensored = (main.getOwnerID().includes(interaction.user.id)
+        || interaction.member.roles.cache.has(Server.role.forumadmin))
+        && query?.includes('{showcensored}');
+
     const searchQuery = {
-        query: options.getString('query'),
+        query: query?.replace('{showcensored}', ''),
         sort: 'RECENT_DESC',
         minDifficulty: options.getNumber('mindifficulty'),
         maxDifficulty: options.getNumber('maxdifficulty'),
@@ -17,6 +24,7 @@ module.exports.commandHandler = async interaction => {
         minTiles: options.getInteger('mintiles'),
         maxTiles: options.getInteger('maxtiles'),
         showNotVerified: options.getBoolean('shownotverified'),
+        showCensored
         // showCensored: options.getBoolean('showcensored')
     }
 
