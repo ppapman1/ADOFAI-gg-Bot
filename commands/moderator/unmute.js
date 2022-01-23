@@ -50,7 +50,11 @@ module.exports = {
             .replace('{user}', user.tag)
         );
 
-        await moderator.unmute(user.id, reason, interaction.user.id);
+        await moderator.unmute({
+            user: user.id,
+            reason,
+            moderator: interaction.user.id
+        })
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNMUTE_USER_UNMUTED')
             .replace('{user}', user.tag)

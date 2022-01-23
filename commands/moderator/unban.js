@@ -45,7 +45,11 @@ module.exports = {
             .replace('{user}', user.tag)
         );
 
-        await moderator.unban(user.id, reason, interaction.user.id);
+        await moderator.unban({
+            user: user.id,
+            reason,
+            moderator: interaction.user.id
+        });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNBAN_USER_UNBANNED')
             .replace('{user}', user.tag)

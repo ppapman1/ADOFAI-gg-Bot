@@ -70,7 +70,8 @@ module.exports = {
 
         if(banLength >= Number.MAX_SAFE_INTEGER) {
             const replyMsg = await interaction.editReply({
-                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM'),
+                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM')
+                    .replace('{user}', user.username),
                 components: [
                     new MessageActionRow()
                         .addComponents(
@@ -95,7 +96,13 @@ module.exports = {
             }
         }
 
-        await moderator.ban(user.id, reason, banLength, interaction.user.id, false, deleteDays);
+        await moderator.ban({
+            user: user.id,
+            reason,
+            duration: banLength,
+            moderator: interaction.user.id,
+            deleteDays
+        });
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'BAN_USER_BANNED')

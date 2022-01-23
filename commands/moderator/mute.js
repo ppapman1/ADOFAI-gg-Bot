@@ -53,11 +53,12 @@ module.exports = {
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
 
-        const muteLength = parsedDuration || Number.MAX_SAFE_INTEGER;
+        const length = parsedDuration || Number.MAX_SAFE_INTEGER;
 
-        if(muteLength >= Number.MAX_SAFE_INTEGER) {
+        if(length >= Number.MAX_SAFE_INTEGER) {
             const replyMsg = await interaction.editReply({
-                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM'),
+                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM')
+                    .replace('{user}', user.username),
                 components: [
                     new MessageActionRow()
                         .addComponents(
@@ -82,7 +83,12 @@ module.exports = {
             }
         }
 
-        await moderator.mute(user.id, reason, muteLength, interaction.user.id);
+        await moderator.mute({
+            user: user.id,
+            reason,
+            duration: length,
+            moderator: interaction.user.id
+        });
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'MUTE_USER_MUTED')

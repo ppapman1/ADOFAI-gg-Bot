@@ -52,7 +52,12 @@ module.exports = {
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
-        await moderator.warn(user.id, reason, interaction.user.id, amount);
+        await moderator.warn({
+            user: user.id,
+            reason,
+            moderator: interaction.user.id,
+            amount
+        });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'WARN_USER_WARNED')
             .replace('{user}', user.tag)

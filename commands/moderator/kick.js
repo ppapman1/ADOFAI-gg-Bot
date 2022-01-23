@@ -43,7 +43,11 @@ module.exports = {
 
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
-        await moderator.kick(member.id, reason, interaction.user.id);
+        await moderator.kick({
+            user: member.id,
+            reason,
+            moderator: interaction.user.id
+        });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_USER_KICKED')
             .replace('{user}', user.tag)

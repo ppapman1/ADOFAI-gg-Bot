@@ -1,7 +1,7 @@
-const lang = require("../lang");
+const lang = require('../lang');
 const moderator = require('../moderator');
 
-const Server = require("../server.json");
+const Server = require('../server.json');
 
 module.exports = async interaction => {
     const params = interaction.customId.split('_');
@@ -14,7 +14,10 @@ module.exports = async interaction => {
         components: interaction.message.components
     });
 
-    await moderator.unwarn(params[1], interaction.user.id);
+    await moderator.unwarn({
+        warn: params[1],
+        moderator: interaction.user.id
+    });
 
     const warnMsg = await interaction.channel.messages.fetch(params[2]);
     warnMsg.components[0].components[0].setDisabled();

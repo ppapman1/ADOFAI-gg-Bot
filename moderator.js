@@ -25,7 +25,10 @@ module.exports.setup = (c, s) => {
             unbanAt: { $lt : Date.now() }
         });
 
-        for(let u of unbanUsers) await module.exports.unban(u.id, '차단 기간 만료 / Automatic timer action');
+        for(let u of unbanUsers) await module.exports.unban({
+            user: u.id,
+            reason: '차단 기간 만료 / Automatic timer action'
+        });
 
         const moreMuteUsers = await User.find({
             unmuteAt: { $gte : Date.now() + 1000 * 60 * 60 * 24 * 28 }
@@ -43,7 +46,23 @@ module.exports.setup = (c, s) => {
     }, process.argv[2] === '--debug' ? 5000 : 30000);
 }
 
-module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false, silent = false) => {
+module.exports.mute = async (options = {
+    user,
+    reason: 'No Reason',
+    duration: Number.MAX_SAFE_INTEGER,
+    moderator,
+    stack: false,
+    silent: false
+}) => {
+    const {
+        user: id,
+        reason,
+        duration: muteLength,
+        moderator: moderatorId,
+        stack,
+        silent
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -117,7 +136,17 @@ module.exports.mute = async (id, reason = 'No Reason', muteLength = Number.MAX_S
     } catch (e) {}
 }
 
-module.exports.unmute = async (id, reason = 'No Reason', moderatorId) => {
+module.exports.unmute = async (options = {
+    user,
+    reason: 'No Reason',
+    moderator
+}) => {
+    const {
+        user: id,
+        reason,
+        moderator: moderatorId
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -172,7 +201,17 @@ module.exports.unmute = async (id, reason = 'No Reason', moderatorId) => {
     } catch (e) {}
 }
 
-module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
+module.exports.kick = async (options = {
+    user,
+    reason: 'No Reason',
+    moderator
+}) => {
+    const {
+        user: id,
+        reason,
+        moderator: moderatorId
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -221,7 +260,23 @@ module.exports.kick = async (id, reason = 'No Reason', moderatorId) => {
     await member.kick(reason);
 }
 
-module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAFE_INTEGER, moderatorId, stack = false, deleteDays = 0) => {
+module.exports.ban = async (options = {
+    user,
+    reason: 'No Reason',
+    duration: Number.MAX_SAFE_INTEGER,
+    moderator,
+    stack: false,
+    deleteDays: 0
+}) => {
+    const {
+        user: id,
+        reason,
+        length: banLength,
+        moderator: moderatorId,
+        stack,
+        deleteDays
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -301,7 +356,17 @@ module.exports.ban = async (id, reason = 'No Reason', banLength = Number.MAX_SAF
     });
 }
 
-module.exports.unban = async (id, reason = 'No Reason', moderatorId) => {
+module.exports.unban = async (options = {
+    user,
+    reason: 'No Reason',
+    moderator
+}) => {
+    const {
+        user: id,
+        reason,
+        moderator: moderatorId
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -355,7 +420,23 @@ module.exports.unban = async (id, reason = 'No Reason', moderatorId) => {
     } catch (e) {}
 }
 
-module.exports.warn = async (id, reason = 'No Reason', moderatorId, count = 1, silent = false, group) => {
+module.exports.warn = async (options = {
+    user,
+    reason: 'No Reason',
+    moderator,
+    count: 1,
+    silent: false,
+    group
+}) => {
+    const {
+        user: id,
+        reason,
+        moderator: moderatorId,
+        count,
+        silent,
+        group
+    } = options;
+
     const user = await client.users.fetch(id);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
@@ -433,12 +514,32 @@ module.exports.warn = async (id, reason = 'No Reason', moderatorId, count = 1, s
         user: user.id,
         createdAt: { $gt : Date.now() - (1000 * 60 * 60 * 24 * 60) }
     });
-    if(warnCount >= 3) await module.exports.mute(user.id, `${warnCount} warns`, warnCount < 10 ? 86400000 * warnCount * 2 : Number.MAX_SAFE_INTEGER, null, true);
+    if(warnCount >= 3) await module.exports.mute({
+        user: user.id,
+        reason: `${warnCount} warns`,
+        duration: warnCount < 10 ? 86400000 * warnCount * 2 : Number.MAX_SAFE_INTEGER,
+        stack: true
+    });
 
-    if(count > 1) await module.exports.warn(user.id, reason, moderatorId, count - 1, true, group || newWarn.id);
+    if(count > 1) await module.exports.warn({
+        user: user.id,
+        reason,
+        moderator: moderatorId,
+        count: count - 1,
+        silent: true,
+        group: group || newWarn.id
+    });
 }
 
-module.exports.unwarn = async (warnId, moderatorId) => {
+module.exports.unwarn = async (options = {
+    warn,
+    moderator
+}) => {
+    const {
+        warn: warnId,
+        moderator: moderatorId
+    } = options;
+
     const warn = await Warn.findOneAndDelete({ id : warnId });
     if(!warn) return;
 
@@ -491,7 +592,15 @@ module.exports.unwarn = async (warnId, moderatorId) => {
     });
     const beforeWarnCount = warnCount + 1;
 
-    if(beforeWarnCount >= 3) await module.exports.mute(user.id, `Cancel warning`, (beforeWarnCount < 10 ? 86400000 * beforeWarnCount * 2 : Number.MAX_SAFE_INTEGER) * -1, null, true);
+    if(beforeWarnCount >= 3) await module.exports.mute({
+        user: user.id,
+        reason: 'Cancel warning',
+        duration: (beforeWarnCount < 10 ? 86400000 * beforeWarnCount * 2 : Number.MAX_SAFE_INTEGER) * -1,
+        stack: true
+    });
 
-    if(warn.group?.length) for(let w of warn.group) await module.exports.unwarn(w, moderatorId);
+    if(warn.group?.length) for(let w of warn.group) await module.exports.unwarn({
+        warn: w,
+        moderator: moderatorId
+    });
 }
