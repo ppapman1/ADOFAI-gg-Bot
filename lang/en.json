@@ -79,7 +79,6 @@
   "WARN_USER_WARNED": "Warned {user}.",
   "CANCEL_WARN_CONFIRM": "Do you really want to cancel this warning? Press the Confirm button below to cancel.",
   "CANCEL_WARN_BUTTON_SUCCESS": "Canceled warn.",
-  "FOREVER_CONFIRM": "We want to punish you permanently. Press the Confirm button to continue.",
   "BLACKLIST_USER_ADDED": "You have registered {user} on the blacklist.",
   "BLACKLIST_USER_REMOVED": "You have removed {user} from the blacklist.",
   "MUSIC_NOT_PLAYING": "You're not currently playing music.",
