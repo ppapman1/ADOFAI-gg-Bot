@@ -1,6 +1,7 @@
 const { MessageEmbed } = require('discord.js');
 
 const { getCommandDescription } = require('../../lang');
+const main = require('../../main');
 const Server = require('../../server.json');
 
 const Warn = require('../../schemas/warn');
@@ -31,7 +32,8 @@ module.exports = {
         const { options } = interaction;
 
         const all = options.getBoolean('all');
-        const user = interaction.member.roles.cache.has(Server.role.staff) ? (options.getUser('user') || interaction.user) : interaction.user;
+        const user = (interaction.member.roles.cache.has(Server.role.staff)
+            || main.getOwnerID().includes(interaction.user.id)) ? (options.getUser('user') || interaction.user) : interaction.user;
 
         const warns = await Warn.find({
             user: user.id,
