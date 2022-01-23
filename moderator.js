@@ -271,7 +271,7 @@ module.exports.ban = async (options = {
     const {
         user: id,
         reason,
-        length: banLength,
+        duration: banLength,
         moderator: moderatorId,
         stack,
         deleteDays
