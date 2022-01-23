@@ -252,6 +252,7 @@
   "COMMAND_BAN_REASON_DESCRIPTION": "밴 사유입니다.",
   "COMMAND_BAN_DURATION_DESCRIPTION": "밴할 기간을 입력합니다. 예) 1d 2h",
   "COMMAND_BAN_DELETEDAYS_DESCRIPTION": "메시지를 삭제할 일수를 입력합니다.",
+  "COMMAND_BAN_EVIDENCE_DESCRIPTION": "처벌 증거 이미지의 URL을 입력합니다.",
 
   "COMMAND_KICK_DESCRIPTION": "유저를 킥합니다.",
   "COMMAND_KICK_USER_DESCRIPTION": "킥할 유저입니다.",

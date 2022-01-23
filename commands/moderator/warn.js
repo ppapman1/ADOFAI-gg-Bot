@@ -35,6 +35,11 @@ module.exports = {
                 required: true,
                 min_value: 1,
                 max_value: 10
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -46,6 +51,7 @@ module.exports = {
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
         const amount = options.getInteger('amount');
+        const evidence = options.getString('evidence');
 
         if(amount < 1 || amount > 10) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'WRONG_WARN_AMOUNT'));
 
@@ -56,7 +62,8 @@ module.exports = {
             user: user.id,
             reason,
             moderator: interaction.user.id,
-            amount
+            amount,
+            evidence
         });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'WARN_USER_WARNED')

@@ -27,6 +27,11 @@ module.exports = {
                 type: 'STRING',
                 required: true,
                 autocomplete: true
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -38,6 +43,7 @@ module.exports = {
         const user = options.getUser('user');
         const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
+        const evidence = options.getString('evidence');
 
         if(!member) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
 
@@ -46,7 +52,8 @@ module.exports = {
         await moderator.kick({
             user: member.id,
             reason,
-            moderator: interaction.user.id
+            moderator: interaction.user.id,
+            evidence
         });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_USER_KICKED')

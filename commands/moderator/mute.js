@@ -35,6 +35,11 @@ module.exports = {
                 name: 'duration',
                 description: getCommandDescription('MUTE_DURATION_DESCRIPTION'),
                 type: 'STRING'
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -47,6 +52,7 @@ module.exports = {
         const reason = options.getString('reason') || 'No Reason';
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
+        const evidence = options.getString('evidence');
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
@@ -87,7 +93,8 @@ module.exports = {
             user: user.id,
             reason,
             duration: length,
-            moderator: interaction.user.id
+            moderator: interaction.user.id,
+            evidence
         });
 
         return interaction.editReply({

@@ -40,6 +40,11 @@ module.exports = {
                 name: 'deletedays',
                 description: getCommandDescription('BAN_DELETEDAYS_DESCRIPTION'),
                 type: 'NUMBER'
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -54,6 +59,7 @@ module.exports = {
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
         const deleteDays = options.getNumber('deletedays') || 0;
+        const evidence = options.getString('evidence');
 
         try {
             await interaction.guild.bans.fetch(user.id);
@@ -101,7 +107,8 @@ module.exports = {
             reason,
             duration: banLength,
             moderator: interaction.user.id,
-            deleteDays
+            deleteDays,
+            evidence
         });
 
         return interaction.editReply({

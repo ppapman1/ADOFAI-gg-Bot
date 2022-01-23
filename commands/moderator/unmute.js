@@ -29,6 +29,11 @@ module.exports = {
                 type: 'STRING',
                 required: true,
                 autocomplete: true
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -39,6 +44,7 @@ module.exports = {
 
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
+        const evidence = options.getString('evidence');
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
@@ -53,7 +59,8 @@ module.exports = {
         await moderator.unmute({
             user: user.id,
             reason,
-            moderator: interaction.user.id
+            moderator: interaction.user.id,
+            evidence
         })
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNMUTE_USER_UNMUTED')

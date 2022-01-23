@@ -27,6 +27,11 @@ module.exports = {
                 type: 'STRING',
                 required: true,
                 autocomplete: true
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -37,6 +42,7 @@ module.exports = {
 
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
+        const evidence = options.getString('evidence');
 
         const checkUser = await User.findOne({
             id: user.id
@@ -48,7 +54,8 @@ module.exports = {
         await moderator.unban({
             user: user.id,
             reason,
-            moderator: interaction.user.id
+            moderator: interaction.user.id,
+            evidence
         });
 
         return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'UNBAN_USER_UNBANNED')

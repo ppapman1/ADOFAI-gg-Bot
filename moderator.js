@@ -52,7 +52,8 @@ module.exports.mute = async (options = {
     duration: Number.MAX_SAFE_INTEGER,
     moderator,
     stack: false,
-    silent: false
+    silent: false,
+    evidence
 }) => {
     const {
         user: id,
@@ -60,7 +61,8 @@ module.exports.mute = async (options = {
         duration: muteLength,
         moderator: moderatorId,
         stack,
-        silent
+        silent,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -86,40 +88,42 @@ module.exports.mute = async (options = {
         setDefaultsOnInsert: true
     });
 
+    const embed = new MessageEmbed()
+        .setColor('#ff470f')
+        .setAuthor({
+            name: `Mute | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Length',
+                value: muteLength >= Number.MAX_SAFE_INTEGER ? 'Forever' : ((muteLength < 0 ? 'Remove ' : '') + (utils.msToTime(Math.abs(muteLength), true)) + (stack ? '(stack)' : '')),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason.toString()
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+
+    if(evidence) embed.setImage(evidence);
+
     if(!silent) await ServerCache.channel.modLogs.send({
-        embeds: [
-            new MessageEmbed()
-                .setColor('#ff470f')
-                .setAuthor({
-                    name: `Mute | ${user.tag}`,
-                    iconURL: user.avatarURL()
-                })
-                .addFields(
-                    {
-                        name: 'User',
-                        value: user.toString(),
-                        inline: true
-                    },
-                    {
-                        name: 'Moderator',
-                        value: moderator ? moderator.toString() : client.user.toString(),
-                        inline: true
-                    },
-                    {
-                        name: 'Length',
-                        value: muteLength >= Number.MAX_SAFE_INTEGER ? 'Forever' : ((muteLength < 0 ? 'Remove ' : '') + (utils.msToTime(Math.abs(muteLength), true)) + (stack ? '(stack)' : '')),
-                        inline: true
-                    },
-                    {
-                        name: 'Reason',
-                        value: reason.toString()
-                    }
-                )
-                .setTimestamp()
-                .setFooter({
-                    text: `ID: ${user.id}`
-                })
-        ]
+        embeds: [embed]
     });
 
     if(!silent) try {
@@ -139,12 +143,14 @@ module.exports.mute = async (options = {
 module.exports.unmute = async (options = {
     user,
     reason: 'No Reason',
-    moderator
+    moderator,
+    evidence
 }) => {
     const {
         user: id,
         reason,
-        moderator: moderatorId
+        moderator: moderatorId,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -160,38 +166,38 @@ module.exports.unmute = async (options = {
         setDefaultsOnInsert: true
     });
 
-    const embeds = [
-        new MessageEmbed()
-            .setColor('#43b581')
-            .setAuthor({
-                name: `Unmute | ${user.tag}`,
-                iconURL: user.avatarURL()
-            })
-            .addFields(
-                {
-                    name: 'User',
-                    value: user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: moderator ? moderator.toString() : client.user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason.toString(),
-                    inline: true
-                }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: `ID: ${user.id}`
-            })
-    ]
+    const embed = new MessageEmbed()
+        .setColor('#43b581')
+        .setAuthor({
+            name: `Unmute | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason.toString(),
+                inline: true
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+
+    if(evidence) embed.setImage(evidence);
 
     await ServerCache.channel.modLogs.send({
-        embeds
+        embeds: [embed]
     });
 
     try {
@@ -204,12 +210,14 @@ module.exports.unmute = async (options = {
 module.exports.kick = async (options = {
     user,
     reason: 'No Reason',
-    moderator
+    moderator,
+    evidence
 }) => {
     const {
         user: id,
         reason,
-        moderator: moderatorId
+        moderator: moderatorId,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -218,37 +226,37 @@ module.exports.kick = async (options = {
     const member = await ServerCache.adofai_gg.members.fetch(user.id);
     if(!member.kickable) return;
 
-    const embeds = [
-        new MessageEmbed()
-            .setColor('#f04947')
-            .setAuthor({
-                name: `Kick | ${user.tag}`,
-                iconURL: user.avatarURL()
-            })
-            .addFields(
-                {
-                    name: 'User',
-                    value: user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: moderator ? moderator.toString() : client.user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason
-                }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: `ID: ${user.id}`
-            })
-    ]
+    const embed = new MessageEmbed()
+        .setColor('#f04947')
+        .setAuthor({
+            name: `Kick | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+
+    if(evidence) embed.setImage(evidence);
 
     await ServerCache.channel.modLogs.send({
-        embeds
+        embeds: [embed]
     });
 
     try {
@@ -266,7 +274,8 @@ module.exports.ban = async (options = {
     duration: Number.MAX_SAFE_INTEGER,
     moderator,
     stack: false,
-    deleteDays: 0
+    deleteDays: 0,
+    evidence
 }) => {
     const {
         user: id,
@@ -274,7 +283,8 @@ module.exports.ban = async (options = {
         duration: banLength,
         moderator: moderatorId,
         stack,
-        deleteDays
+        deleteDays,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -300,41 +310,43 @@ module.exports.ban = async (options = {
         upsert: true,
         setDefaultsOnInsert: true
     });
+    
+    const embed = new MessageEmbed()
+        .setColor('#f04947')
+        .setAuthor({
+            name: `Ban | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Length',
+                value: banLength >= Number.MAX_SAFE_INTEGER ? 'Forever' : ((banLength < 0 ? 'Remove ' : '') + (utils.msToTime(Math.abs(banLength), true)) + (stack ? '(stack)' : '')),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+    
+    if(evidence) embed.setImage(evidence);
 
     await ServerCache.channel.modLogs.send({
-        embeds: [
-            new MessageEmbed()
-                .setColor('#f04947')
-                .setAuthor({
-                    name: `Ban | ${user.tag}`,
-                    iconURL: user.avatarURL()
-                })
-                .addFields(
-                    {
-                        name: 'User',
-                        value: user.toString(),
-                        inline: true
-                    },
-                    {
-                        name: 'Moderator',
-                        value: moderator ? moderator.toString() : client.user.toString(),
-                        inline: true
-                    },
-                    {
-                        name: 'Length',
-                        value: banLength >= Number.MAX_SAFE_INTEGER ? 'Forever' : ((banLength < 0 ? 'Remove ' : '') + (utils.msToTime(Math.abs(banLength), true)) + (stack ? '(stack)' : '')),
-                        inline: true
-                    },
-                    {
-                        name: 'Reason',
-                        value: reason
-                    }
-                )
-                .setTimestamp()
-                .setFooter({
-                    text: `ID: ${user.id}`
-                })
-        ]
+        embeds: [embed]
     });
 
     try {
@@ -359,12 +371,14 @@ module.exports.ban = async (options = {
 module.exports.unban = async (options = {
     user,
     reason: 'No Reason',
-    moderator
+    moderator,
+    evidence
 }) => {
     const {
         user: id,
         reason,
-        moderator: moderatorId
+        moderator: moderatorId,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -379,38 +393,38 @@ module.exports.unban = async (options = {
         setDefaultsOnInsert: true
     });
 
-    const embeds = [
-        new MessageEmbed()
-            .setColor('#fada5e')
-            .setAuthor({
-                name: `Unban | ${user.tag}`,
-                iconURL: user.avatarURL()
-            })
-            .addFields(
-                {
-                    name: 'User',
-                    value: user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: moderator ? moderator.toString() : client.user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason,
-                    inline: true
-                }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: `ID: ${user.id}`
-            })
-    ]
+    const embed = new MessageEmbed()
+        .setColor('#fada5e')
+        .setAuthor({
+            name: `Unban | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason,
+                inline: true
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+
+    if(evidence) embed.setImage(evidence);
 
     await ServerCache.channel.modLogs.send({
-        embeds
+        embeds: [embed]
     });
 
     try {
@@ -424,17 +438,19 @@ module.exports.warn = async (options = {
     user,
     reason: 'No Reason',
     moderator,
-    count: 1,
+    amount: 1,
     silent: false,
-    group
+    group,
+    evidence
 }) => {
     const {
         user: id,
         reason,
         moderator: moderatorId,
-        count,
+        amount: count,
         silent,
-        group
+        group,
+        evidence
     } = options;
 
     const user = await client.users.fetch(id);
@@ -457,42 +473,42 @@ module.exports.warn = async (options = {
         }
     });
 
-    const embeds = [
-        new MessageEmbed()
-            .setColor('#fada5e')
-            .setAuthor({
-                name: `Warn | ${user.tag}`,
-                iconURL: user.avatarURL()
-            })
-            .addFields(
-                {
-                    name: 'User',
-                    value: user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: moderator ? moderator.toString() : client.user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Amount',
-                    value: count.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: reason
-                }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: `ID: ${user.id}`
-            })
-    ]
+    const embed = new MessageEmbed()
+        .setColor('#fada5e')
+        .setAuthor({
+            name: `Warn | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Amount',
+                value: count.toString(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: reason
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
+
+    if(evidence) embed.setImage(evidence);
 
     if(!silent) await ServerCache.channel.modLogs.send({
-        embeds,
+        embeds: [embed],
         components: [
             new MessageActionRow()
                 .addComponents(
@@ -546,38 +562,36 @@ module.exports.unwarn = async (options = {
     const user = await client.users.fetch(warn.user);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
-    const embeds = [
-        new MessageEmbed()
-            .setColor('#43b581')
-            .setAuthor({
-                name: `Unwarn | ${user.tag}`,
-                iconURL: user.avatarURL()
-            })
-            .addFields(
-                {
-                    name: 'User',
-                    value: user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Moderator',
-                    value: moderator ? moderator.toString() : client.user.toString(),
-                    inline: true
-                },
-                {
-                    name: 'Reason',
-                    value: warn.reason,
-                    inline: true
-                }
-            )
-            .setTimestamp()
-            .setFooter({
-                text: `ID: ${user.id}`
-            })
-    ]
+    const embed = new MessageEmbed()
+        .setColor('#43b581')
+        .setAuthor({
+            name: `Unwarn | ${user.tag}`,
+            iconURL: user.avatarURL()
+        })
+        .addFields(
+            {
+                name: 'User',
+                value: user.toString(),
+                inline: true
+            },
+            {
+                name: 'Moderator',
+                value: moderator ? moderator.toString() : client.user.toString(),
+                inline: true
+            },
+            {
+                name: 'Reason',
+                value: warn.reason,
+                inline: true
+            }
+        )
+        .setTimestamp()
+        .setFooter({
+            text: `ID: ${user.id}`
+        });
 
     await ServerCache.channel.modLogs.send({
-        embeds
+        embeds: [embed]
     });
 
     try {
