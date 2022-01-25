@@ -3,7 +3,7 @@
 
   "SERVER_ONLY": "이 기능은 서버에서만 사용할 수 있습니다.",
 
-  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있고, `/invite` 명령어를 이용해 봇을 초대할 수 있습니다.",
+  "FIRST_TIME_BOT": "봇을 처음 사용하시는군요! `/language` 명령어를 사용해 언어를 바꿀 수 있고, 봇 프로필을 열어 봇을 초대할 수 있습니다.",
   "LANGUAGE_CHANGED": "언어가 한국어로 변경되었습니다!",
 
   "TEST": "와 샌즈",
@@ -47,8 +47,6 @@
   "PUBLIC": "공개",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
-
-  "BOT_INVITE": "최소한의 권한으로 초대하려면 [여기]({minperm})를, 관리자 권한으로 초대하려면 [여기]({admin})를 클릭하세요.",
 
   "EXPECTED_PP": "예상 PP는 `{pp}`입니다.",
   "ACCURACY_IS_TOO_LOW": "정확도는 0보다 작을 수 없습니다.",
@@ -178,8 +176,6 @@
   "COMMAND_CALCULATEPP_ID_DESCRIPTION": "레벨 ID입니다.",
   "COMMAND_CALCULATEPP_ACCURACY_DESCRIPTION": "정확도입니다.",
   "COMMAND_CALCULATEPP_PITCH_DESCRIPTION": "피치입니다.",
-
-  "COMMAND_INVITE_DESCRIPTION": "봇을 초대하는 링크를 표시합니다.",
 
   "COMMAND_LANGUAGE_DESCRIPTION": "봇의 언어를 설정합니다.",
   "COMMAND_LANGUAGE_LANG_DESCRIPTION": "원하는 언어를 선택합니다.",
