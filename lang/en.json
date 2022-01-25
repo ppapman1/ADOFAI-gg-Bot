@@ -1,7 +1,6 @@
 {
   "DISPLAY_NAME": "English",
   "SERVER_ONLY": "This function is only available on the server.",
-  "FIRST_TIME_BOT": "It's your first time using a bot! You can change the language using the `/language` command and invite the bot using the `/invite` command.",
   "LANGUAGE_CHANGED": "Language changed to english!",
   "TEST": "Wa Sans",
   "ERROR": "Error Encountered.",
@@ -35,7 +34,6 @@
   "EVIDENCE": "Evidence",
   "PUBLIC": "Public",
   "SERVERCOUNT": "Currently, the bot is on {servercount} servers.",
-  "BOT_INVITE": "Click [here]({minperm}) to invite with minimal permissions, and [here]({admin}) to invite with administrator permissions.",
   "EXPECTED_PP": "Expected PP is `{pp}`.",
   "ACCURACY_IS_TOO_LOW": "Accuracy cannot be less than zero.",
   "ACCURACY_CANNOT_EXCEED": "※ Accuracy cannot exceed {accuracy}%, which is the maximum accuracy of this level.",
@@ -119,7 +117,6 @@
   "COMMAND_CALCULATEPP_ID_DESCRIPTION": "This is the level ID.",
   "COMMAND_CALCULATEPP_ACCURACY_DESCRIPTION": "This is accuracy.",
   "COMMAND_CALCULATEPP_PITCH_DESCRIPTION": "This is pitch.",
-  "COMMAND_INVITE_DESCRIPTION": "Show bot invite link.",
   "COMMAND_LANGUAGE_DESCRIPTION": "Set bot's language.",
   "COMMAND_LANGUAGE_LANG_DESCRIPTION": "Select language you want.",
   "COMMAND_LEVEL_DESCRIPTION": "Find and display the level with your ID.",
