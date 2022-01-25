@@ -9,23 +9,18 @@ const newSchema = new Schema({
         unique: true,
         default: uniqueString
     },
-    message: {
+    guild: {
         type: String,
         required: true
     },
-    name: {
+    event: {
         type: String,
-        required: true,
-        maxlength: 80
+        required: true
     },
-    description: {
-        type: String
-    },
-    users: {
-        type: Array,
-        required: true,
-        default: []
+    todo: {
+        type: String,
+        required: true
     }
 });
 
-module.exports = mongoose.model('VoteOption', newSchema);
+module.exports = mongoose.model('Todo', newSchema);

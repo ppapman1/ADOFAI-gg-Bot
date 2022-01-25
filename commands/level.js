@@ -1,14 +1,15 @@
 const api = require('../api');
-const lang = require("../lang");
+const lang = require('../lang');
+const { getCommandDescription } = require('../lang');
 
 module.exports = {
     info: {
         name: 'level',
-        description: 'ID로 레벨을 찾아 표시합니다. // Find and display the level with your ID.',
+        description: getCommandDescription('LEVEL_DESCRIPTION'),
         options: [
             {
                 name: 'id',
-                description: '정보를 볼 레벨 ID입니다. // This is the level ID to view information.',
+                description: getCommandDescription('LEVEL_ID_DESCRIPTION'),
                 type: 'INTEGER',
                 required: true,
                 min_value: 1

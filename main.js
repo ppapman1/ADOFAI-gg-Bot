@@ -1,7 +1,8 @@
-const { Client , Intents , Team } = require('discord.js');
+const { Client , Intents , Team , MessageEmbed , Util } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
 const path = require('path');
+const util = require('util');
 
 const setting = require('./setting.json');
 const utils = require('./utils');
@@ -27,12 +28,14 @@ const Vote = require('./schemas/vote');
 const VoteOption = require('./schemas/voteOption');
 const CommandHistory = require('./schemas/commandHistory');
 const InteractionHistory = require('./schemas/interactionHistory');
+const Todo = require('./schemas/todo');
 
 const intents = [
     Intents.FLAGS.GUILDS,
     Intents.FLAGS.GUILD_MESSAGES,
     Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES
+    Intents.FLAGS.GUILD_VOICE_STATES,
+    Intents.FLAGS.GUILD_SCHEDULED_EVENTS
 ];
 
 if(process.argv[2] === '--debug') {
@@ -70,6 +73,7 @@ utils.setup(client);
 const connect = require('./schemas');
 connect();
 
+let permissionHandler = {};
 let commandHandler = {};
 let autoCompleteHandler = {};
 let selectHandler = {};
@@ -121,7 +125,8 @@ const loadDokdo = () => {
         Vote,
         VoteOption,
         CommandHistory,
-        InteractionHistory
+        InteractionHistory,
+        Todo
     }
 
     DokdoHandler = new Dokdo(client, {
@@ -150,6 +155,7 @@ const loadDokdo = () => {
 }
 
 const loadCommands = () => {
+    permissionHandler = {};
     commandHandler = {};
     commands = [];
     allCommands = [];
@@ -164,8 +170,10 @@ const loadCommands = () => {
             const file = require.resolve('./' + path.join('commands', sub || '', c));
             delete require.cache[file];
             const module = require(file);
+            if(module.checkPermission) permissionHandler[module.info.name] = module.checkPermission;
             commandHandler[module.info.name] = module.handler;
             if(module.autoCompleteHandler) autoCompleteHandler[module.info.name] = module.autoCompleteHandler;
+            if(module.setup) module.setup(client);
             if(module.private) {
                 privateCommands.push(module.info);
                 permissions[module.info.name] = module.permissions;
@@ -310,7 +318,7 @@ const cacheServer = async () => {
         ServerCache.channel[c] = await client.channels.fetch(Server.channel[c]);
     console.log('channel cached');
     for(let e in Server.emoji)
-        ServerCache.emoji[e] = await guild.emojis.fetch(Server.emoji[e]);
+        ServerCache.emoji[e] = client.emojis.cache.get(Server.emoji[e]) || await guild.emojis.fetch(Server.emoji[e]);
     console.log('emoji cached');
 
     console.log('cache finish');
@@ -353,9 +361,14 @@ client.on('interactionCreate', async interaction => {
     let user = await User.findOne({ id : interaction.user.id });
     let guild;
     if(interaction.guild) guild = await Guild.findOne({ id : interaction.guild.id });
+
+    let locale = interaction.locale.substring(0, 2);
+    if(!lang.getLangList().includes(locale)) locale = 'en';
+
     if(!user) {
         user = new User({
-            id: interaction.user.id
+            id: interaction.user.id,
+            lang: locale
         });
         await user.save();
 
@@ -365,6 +378,20 @@ client.on('interactionCreate', async interaction => {
         else if(!interaction.isAutocomplete()) try {
             await interaction.user.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
+    }
+    if(!user.localeUpdated) {
+        const changed = user.lang !== locale;
+
+        user = await User.findOneAndUpdate({
+            id: interaction.user.id
+        }, {
+            lang: locale,
+            localeUpdated: true
+        }, {
+            new: true
+        });
+
+        if(changed) await interaction.user.send(lang.langByLangName(user.lang, 'LOCALE_CHANGED'));
     }
     if(!guild && interaction.guild) {
         guild = new Guild({
@@ -385,7 +412,14 @@ client.on('interactionCreate', async interaction => {
             lang.langByLangName(interaction.dbUser.lang, 'SERVER_ONLY')
         );
 
-        if(commandHandler[interaction.commandName] != null) commandHandler[interaction.commandName](interaction);
+        if(commandHandler[interaction.commandName] != null) {
+            const checkPermission = permissionHandler[interaction.commandName];
+            if(checkPermission) {
+                const check = await permissionHandler[interaction.commandName](interaction);
+                if(!check) return;
+            }
+            commandHandler[interaction.commandName](interaction);
+        }
 
         await CommandHistory.create({
             guild: interaction.guild.id,
@@ -406,7 +440,7 @@ client.on('interactionCreate', async interaction => {
 
         await InteractionHistory.create({
             type: 'SELECT_MENU',
-            guild: interaction.guild.id,
+            guild: interaction.guild?.id,
             channel: interaction.channel.id,
             user: interaction.user.id,
             customId: interaction.customId,
@@ -459,6 +493,48 @@ client.on('guildDelete', async guild => {
 
 client.on('debug', d => {
     if(debug) console.log(d);
+});
+
+process.on('uncaughtException', async e => {
+    console.error(e);
+
+    const recentCommands = await CommandHistory.find().sort({
+        _id: -1
+    }).limit(3);
+    let err = util.inspect(e, {
+        depth: 1,
+        colors: true
+    });
+    if(err.length > 4000) err = util.inspect(e, {
+        depth: 1
+    });
+    const errMessage = {
+        embeds: [
+            new MessageEmbed()
+                .setColor('#ff0000')
+                .setTitle('오류 발생')
+                .setDescription(`${err.length > 4000 ? '첨부파일 확인' : `\`\`\`ansi\n${err}\n\`\`\``}`)
+                .addField('최근 명령어(최신순)', `\`\`\`\n${recentCommands.map(a => a.command.substring(0, 330)).join('\n')}\n\`\`\``)
+                .setTimestamp()
+        ]
+    }
+    if(err.length > 4000) errMessage.files = [{
+        attachment: Buffer.from(err),
+        name: 'error.log'
+    }];
+
+    const users = await User.find({
+        trackError: true
+    });
+
+    for(let u of users) {
+        try {
+            const user = await client.users.fetch(u.id);
+            await user.send(errMessage);
+        } catch(e) {
+            console.log(e);
+        }
+    }
 });
 
 client.login(setting.TOKEN);

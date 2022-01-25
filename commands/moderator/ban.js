@@ -4,6 +4,7 @@ const parseDuration = require('parse-duration');
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 const moderator = require('../../moderator');
 
@@ -15,30 +16,35 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'ban',
-        description: '유저를 밴합니다. // Ban the user.',
+        description: getCommandDescription('BAN_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '밴할 유저입니다. // User to ban.',
+                description: getCommandDescription('BAN_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '밴 사유입니다. // It\'s the reason for ban.',
+                description: getCommandDescription('BAN_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'duration',
-                description: '밴할 기간을 입력합니다. 예) 1d 2h // Enter the period to ban. ex) 1d 2h',
+                description: getCommandDescription('BAN_DURATION_DESCRIPTION'),
                 type: 'STRING'
             },
             {
                 name: 'deletedays',
-                description: '메시지를 삭제할 일수를 입력합니다. // Enter the days to delete message.',
+                description: getCommandDescription('BAN_DELETEDAYS_DESCRIPTION'),
                 type: 'NUMBER'
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
+                type: 'STRING'
             }
         ]
     },
@@ -53,6 +59,7 @@ module.exports = {
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
         const deleteDays = options.getNumber('deletedays') || 0;
+        const evidence = options.getString('evidence');
 
         try {
             await interaction.guild.bans.fetch(user.id);
@@ -69,7 +76,8 @@ module.exports = {
 
         if(banLength >= Number.MAX_SAFE_INTEGER) {
             const replyMsg = await interaction.editReply({
-                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM'),
+                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM')
+                    .replace('{user}', user.username),
                 components: [
                     new MessageActionRow()
                         .addComponents(
@@ -94,7 +102,14 @@ module.exports = {
             }
         }
 
-        await moderator.ban(user.id, reason, banLength, interaction.user.id, false, deleteDays);
+        await moderator.ban({
+            user: user.id,
+            reason,
+            duration: banLength,
+            moderator: interaction.user.id,
+            deleteDays,
+            evidence
+        });
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'BAN_USER_BANNED')

@@ -1,4 +1,5 @@
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 
 const MusicQueue = require('../../schemas/musicQueue');
 
@@ -7,7 +8,7 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'clear',
-        description: '음악 대기열을 비웁니다. // Clear the music queue.'
+        description: getCommandDescription('CLEAR_DESCRIPTION')
     },
     handler: async interaction => {
         const firstMusic = await MusicQueue.findOne({

@@ -77,11 +77,11 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
     let difficultyString = level.difficulty.toString();
     if(level.censored) difficultyString = 'minus2';
 
-    const levelEmoji = main.Server.emoji[difficultyString];
-    if(!levelEmoji) return {
-        content: lang.langByLangName(language, 'UNSUPPORTED_LEVEL'),
-        ephemeral: true
-    }
+    const levelEmoji = main.Server.emoji[difficultyString] || difficultyString;
+    // if(!levelEmoji) return {
+    //     content: lang.langByLangName(language, 'UNSUPPORTED_LEVEL'),
+    //     ephemeral: true
+    // }
 
     const levelInfoButtons = [
         new MessageButton()
@@ -136,7 +136,8 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
                 .addField('Lv.', levelEmoji.toString(), true)
                 .addField('BPM', level.minBpm.toString(), true)
                 .addField('Tiles', level.tiles.toString(), true)
-                .addField('Tags', level.tags.length ? level.tags.map(t => main.Server.emoji[utils.getTagByID(t.id).emojiName].toString()).join(' ') : 'No Tags')
+                .addField('Tags', level.tags.length ? level.tags.map(t => main.Server.emoji[utils.getTagByID(t.id)?.emojiName]?.toString()
+                    || main.Server.emoji.noEmoji.toString()).join(' ') : 'No Tags')
                 .addField('Description', level.description || `There's no description for this level.`)
                 .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
                 .setFooter({
@@ -162,7 +163,7 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
 
         selectOptions.push({
             label: title.substring(0, 100),
-            description: `by ${l.creators.join(' & ')}`,
+            description: `by ${l.creators.join(' & ')} | ID : ${l.id}`,
             value: `showlevel_${userid}_${l.id}`,
             emoji: {
                 id: Server.emoji[l.censored ? 'minus2' : l.difficulty.toString()]
@@ -312,7 +313,7 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                             .setCustomId(`rankingpage_${interaction.user.id}_${offset - amount}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PREV'))
                             .setStyle('PRIMARY')
-                            .setDisabled(offset == 0),
+                            .setDisabled(offset === 0),
                         new MessageButton()
                             .setCustomId('fake')
                             .setLabel(`${Math.ceil(offset / 5) + 1} / ${Math.ceil(ranking.count / 5)}`)
@@ -322,7 +323,7 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                             .setCustomId(`rankingpage_${interaction.user.id}_${rank - 1}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
                             .setStyle('PRIMARY')
-                            .setDisabled(leftCount == 0)
+                            .setDisabled(leftCount === 0)
                     )
             ]
         }

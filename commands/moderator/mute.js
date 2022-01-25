@@ -1,13 +1,14 @@
+const { MessageActionRow , MessageButton } = require("discord.js");
 const parseDuration = require('parse-duration');
 
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 const moderator = require('../../moderator');
 
 const Server = require('../../server.json');
-const {MessageActionRow, MessageButton} = require("discord.js");
 
 module.exports = {
     private: true,
@@ -15,24 +16,29 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'mute',
-        description: '유저를 뮤트합니다. // Mute the user.',
+        description: getCommandDescription('MUTE_DESCRIPTION'),
         options: [
             {
                 name: 'user',
-                description: '뮤트할 유저입니다. // User to mute.',
+                description: getCommandDescription('MUTE_USER_DESCRIPTION'),
                 type: 'USER',
                 required: true
             },
             {
                 name: 'reason',
-                description: '뮤트 사유입니다. // It\'s the reason for mute.',
+                description: getCommandDescription('MUTE_REASON_DESCRIPTION'),
                 type: 'STRING',
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'duration',
-                description: '뮤트할 기간을 입력합니다. 예) 1d 2h // Enter the period to mute. ex) 1d 2h',
+                description: getCommandDescription('MUTE_DURATION_DESCRIPTION'),
+                type: 'STRING'
+            },
+            {
+                name: 'evidence',
+                description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
                 type: 'STRING'
             }
         ]
@@ -46,17 +52,19 @@ module.exports = {
         const reason = options.getString('reason') || 'No Reason';
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
+        const evidence = options.getString('evidence');
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
 
-        const muteLength = parsedDuration || Number.MAX_SAFE_INTEGER;
+        const length = parsedDuration || Number.MAX_SAFE_INTEGER;
 
-        if(muteLength >= Number.MAX_SAFE_INTEGER) {
+        if(length >= Number.MAX_SAFE_INTEGER) {
             const replyMsg = await interaction.editReply({
-                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM'),
+                content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM')
+                    .replace('{user}', user.username),
                 components: [
                     new MessageActionRow()
                         .addComponents(
@@ -81,7 +89,13 @@ module.exports = {
             }
         }
 
-        await moderator.mute(user.id, reason, muteLength, interaction.user.id);
+        await moderator.mute({
+            user: user.id,
+            reason,
+            duration: length,
+            moderator: interaction.user.id,
+            evidence
+        });
 
         return interaction.editReply({
             content: lang.langByLangName(interaction.dbUser.lang, 'MUTE_USER_MUTED')

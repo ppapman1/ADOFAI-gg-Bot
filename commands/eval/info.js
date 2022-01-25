@@ -6,12 +6,10 @@ const Eval = require('../../schemas/eval');
 
 module.exports.commandHandler = async interaction => {
     const name = interaction.options.getString('name');
-    const nameRegex = new RegExp(utils.escapeRegExp(name), 'i');
+    // const nameRegex = new RegExp(utils.escapeRegExp(name), 'i');
 
     const eval = await Eval.findOne({
-        name: {
-            $regex: nameRegex
-        }
+        name
     });
     if(!eval) return interaction.reply('해당 eval을 찾을 수 없습니다.');
 

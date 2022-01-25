@@ -2,7 +2,8 @@
   "adofai_gg": "serverid",
 
   "role": {
-    "staff": "roleid"
+    "staff": "roleid",
+    "forumadmin": "roleid"
   },
 
   "channel": {
@@ -61,6 +62,7 @@
     "gallop": "",
     "magicshape": "",
     "memorization": "",
+    "gimmick": "",
     "nospeedchange": "",
     "noswirls": "",
     "triplet": "",
@@ -71,8 +73,8 @@
     "tresillo": "",
     "funkybeat": "",
     "64beat": "",
-    "acceldecel": "",
     "slow": "",
+    "speedchange": "",
     "short": "",
     "long": "",
     "nsfw": "",
@@ -80,6 +82,8 @@
     "DIFFICULTY_DESC": "",
     "DIFFICULTY_ASC": "",
     "RECENT_DESC": "",
-    "RECENT_ASC": ""
+    "RECENT_ASC": "",
+
+    "noEmoji": ""
   }
 }

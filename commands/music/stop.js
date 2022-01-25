@@ -1,11 +1,12 @@
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const music = require('../../music');
 
 module.exports = {
     group: 'music',
     info: {
         name: 'stop',
-        description: '봇을 음성 채널에서 내보냅니다. // Leave the bot from the voice channel.'
+        description: getCommandDescription('STOP_DESCRIPTION'),
     },
     handler: async interaction => {
         const player = music.getPlayer(interaction.guild);

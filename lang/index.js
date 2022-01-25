@@ -39,7 +39,7 @@ module.exports.getLangChoices = () => {
     if(!loaded) load();
 
     const result = [];
-    for(let i in lang) result.push({
+    for(let i in lang) result.unshift({
         name: lang[i].DISPLAY_NAME,
         value: i
     });
@@ -47,11 +47,31 @@ module.exports.getLangChoices = () => {
     return result;
 }
 
+module.exports.getLangList = () => {
+    return Object.keys(lang);
+}
+
 module.exports.getFirstTimeString = () => {
     if(!loaded) load();
 
     const result = [];
-    for(let l in lang) result.push(lang[l].FIRST_TIME_BOT);
+    for(let l in lang) {
+        const str = lang[l].FIRST_TIME_BOT;
+        if(str) result.unshift(str);
+    }
 
     return result.join('\n');
+}
+
+module.exports.getCommandDescription = key => {
+    if(!loaded) load();
+
+    const result = [];
+    for(let l in lang) {
+        const str = lang[l][`COMMAND_${key}`];
+        if(str) result.unshift(str);
+    }
+
+    if(!result.length) return `missing key "${key}"`;
+    return result.join(' // ').substring(0, 100);
 }

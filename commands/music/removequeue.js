@@ -1,4 +1,5 @@
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 
 const MusicQueue = require('../../schemas/musicQueue');
 const main = require("../../main");
@@ -7,7 +8,7 @@ module.exports = {
     group: 'music',
     info: {
         name: 'removequeue',
-        description: '대기열 번호로 음악을 삭제합니다. // Delete the music with the queue number.',
+        description: getCommandDescription('REMOVEQUEUE_DESCRIPTION'),
         options: [
             {
                 name: 'number',

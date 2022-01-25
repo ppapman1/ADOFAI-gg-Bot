@@ -31,6 +31,11 @@ const newSchema = new Schema({
     options: {
         type: JSON,
         required: true
+    },
+    createdAt: {
+        type: Number,
+        required: true,
+        default: Date.now
     }
 });
 

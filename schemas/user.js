@@ -12,6 +12,11 @@ const newSchema = new Schema({
         required: true,
         default: 'en'
     },
+    localeUpdated: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
     unmuteAt: {
         type: Number
     },
@@ -24,6 +29,11 @@ const newSchema = new Schema({
         default: false
     },
     dokdoPermission: {
+        type: Boolean,
+        required: true,
+        default: false
+    },
+    trackError: {
         type: Boolean,
         required: true,
         default: false

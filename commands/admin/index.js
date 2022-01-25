@@ -1,35 +1,31 @@
-const fs = require('fs');
-
-const permissions = require('../../permissions');
-const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
+const main = require('../../main');
+const utils = require('../../utils');
 
 module.exports = {
-    private: true,
-    permissions: permissions.ownerOnly,
     info: {
-        defaultPermission: false,
         name: 'admin',
-        description: '봇 관리자 전용 명령어입니다. // This is a bot manager-only command.',
+        description: getCommandDescription('ADMIN_DESCRIPTION'),
         options: [
             {
                 name: 'clearcommand',
-                description: '디스코드 애플리케이션에 등록된 슬래시 커맨드를 모두 삭제합니다. 봇 재시작이 필요합니다.',
+                description: getCommandDescription('ADMIN_CLEARCOMMAND_DESCRIPTION'),
+                type: 'SUB_COMMAND'
+            },
+            {
+                name: 'trackerror',
+                description: getCommandDescription('ADMIN_TRACKERROR_DESCRIPTION'),
                 type: 'SUB_COMMAND'
             }
         ]
     },
-    handler: async interaction => {
-        let command = interaction.options.getSubcommand();
-        if(!fs.existsSync(`./commands/admin/${command}.js`)) command = interaction.options.getSubcommandGroup();
-
-        if(fs.existsSync(`./commands/admin/${command}.js`)) {
-            const file = require.resolve(`./${command}.js`);
-            if(process.argv[2] == '--debug') delete require.cache[file];
-            require(file)(interaction);
+    checkPermission: async interaction => {
+        if(main.getTeamOwner() !== interaction.user.id) {
+            await interaction.reply('🤔');
+            return false;
         }
-        else interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
-            ephemeral: true
-        });
-    }
+
+        return true;
+    },
+    handler: utils.subCommandHandler('admin')
 }

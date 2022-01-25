@@ -1,6 +1,7 @@
 const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
 
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
 
 const Vote = require('../../schemas/vote');
@@ -11,34 +12,34 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'vote',
-        description: '투표를 시작합니다. // Start a vote.',
+        description: getCommandDescription('VOTE_DESCRIPTION'),
         options: [
             {
                 name: 'question',
-                description: '투표의 질문입니다. // The question of the vote.',
+                description: getCommandDescription('VOTE_QUESTION_DESCRIPTION'),
                 type: 'STRING',
                 required: true
             },
             {
                 name: 'options',
-                description: '투표할 항목들을 쉼표(,)로 구분하여 입력합니다. // The options of the vote, separated by commas.',
+                description: getCommandDescription('VOTE_OPTIONS_DESCRIPTION'),
                 type: 'STRING',
                 required: true
             },
             {
                 name: 'realtimeresult',
-                description: '실시간으로 투표 결과를 보여줍니다. // Show the realtime result of the vote.',
+                description: getCommandDescription('VOTE_REALTIMERESULT_DESCRIPTION'),
                 type: 'BOOLEAN',
                 required: true
             },
             {
                 name: 'role',
-                description: '투표에 참여할 수 있는 역할을 지정합니다. // The role that can participate in the vote.',
+                description: getCommandDescription('VOTE_ROLE_DESCRIPTION'),
                 type: 'ROLE'
             },
             {
                 name: 'roles',
-                description: '투표할 역할 ID를 쉼표로 구분하여 지정합니다. // The role IDs that can participate in the vote, separated by commas.',
+                description: getCommandDescription('VOTE_ROLES_DESCRIPTION'),
                 type: 'STRING'
             }
         ]
@@ -60,9 +61,15 @@ module.exports = {
             ephemeral: true
         });
 
-        if(voteOptions.some(a => a.length > 80)) return interaction.reply({
+        if(voteOptions.some(a => a.split(':')[0].length > 80)) return interaction.reply({
             content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_OPTION_TOO_LONG')
                 .replace('{maximum}', 80),
+            ephemeral: true
+        });
+
+        if(voteOptions.some(a => a.split(':')[1]?.length > 200)) return interaction.reply({
+            content: lang.langByLangName(interaction.dbUser.lang, 'VOTE_OPTION_DESCRIPTION_TOO_LONG')
+                .replace('{maximum}', 200),
             ephemeral: true
         });
 
@@ -81,9 +88,14 @@ module.exports = {
         const components = [];
         let buttons = [];
         for(let o of voteOptions) {
+            const params = o.split(':');
+            const name = params[0].trim();
+            const description = params.length >= 2 ? params.slice(1).join(':').trim() : null;
+
             const option = new VoteOption({
                 message: message.id,
-                name: o
+                name,
+                description
             });
             await option.save();
 
@@ -98,7 +110,7 @@ module.exports = {
             buttons.push(
                 new MessageButton()
                     .setCustomId(`vote_${option.id}`)
-                    .setLabel(o)
+                    .setLabel(name)
                     .setStyle('PRIMARY')
             );
         }
@@ -124,7 +136,7 @@ module.exports = {
                         iconURL: interaction.user.avatarURL()
                     })
                     .setTitle(question)
-                    .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a}`).join('\n'))
+                    .setDescription((roles.length ? `For : ${roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : '') + voteOptions.map((a, i) => `**${i + 1}**. ${a.split(':')[0]}\n${a.split(':').slice(1).join(':') || ''}`.trim()).join('\n\n'))
                     .setTimestamp()
             ],
             components

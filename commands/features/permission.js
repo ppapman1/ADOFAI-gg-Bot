@@ -172,7 +172,7 @@ module.exports.commandHandler = async interaction => {
                 permissions: p[1]
             }));
             const guildCommandInfo = await interaction.guild.commands.fetch();
-            if(!guildCommandInfo.find(c => c.name === command)) return i.follorUp({
+            if(!guildCommandInfo.find(c => c.name === command)) return i.followUp({
                 content: 'command not enabled yet',
                 ephemeral: true
             });

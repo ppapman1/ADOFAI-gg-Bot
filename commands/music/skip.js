@@ -1,5 +1,6 @@
 const main = require('../../main');
 const lang = require('../../lang');
+const { getCommandDescription } = require('../../lang');
 const music = require('../../music');
 
 const MusicQueue = require('../../schemas/musicQueue');
@@ -8,7 +9,7 @@ module.exports = {
     group: 'music',
     info: {
         name: 'skip',
-        description: '음악을 건너뜁니다. // Skip the music.'
+        description: getCommandDescription('SKIP_DESCRIPTION')
     },
     handler: async interaction => {
         const player = music.getPlayer(interaction.guild);

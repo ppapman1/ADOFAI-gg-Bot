@@ -116,7 +116,7 @@ module.exports = client => {
                         new MessageEmbed()
                             .setColor('#42a7ff')
                             .setTitle('새로운 티켓 생성 / New Ticket')
-                            .setDescription(`새로운 티켓 ${channelName}${utils.checkBatchim(channelName) ? '이' : '가'} 생성되었습니다. 이곳에 ${message.client.user}를 멘션하고 말하면 메시지가 전달됩니다.\nA new ticket ${channelName} has been created. If you mention ${message.client.user} here, the message will be delivered.`)
+                            .setDescription(`새로운 티켓 ${channelName}${utils.checkBatchim(channelName) ? '이' : '가'} 생성되었습니다. 이곳에 ${message.client.user}를 멘션하고 말하면 메시지가 전달됩니다.\nA new ticket ${channelName} has been created. If you mention ${message.client.user} here, the message will be delivered.\n\n사용자 언어(User Language) : ${confirmInteraction.locale}`)
                             .setTimestamp()
                             .setFooter({
                                 text: message.author.username,
@@ -151,7 +151,7 @@ module.exports = client => {
             }
         }
 
-        if(message.channel.type == 'GUILD_TEXT') {
+        if(message.channel.type === 'GUILD_TEXT') {
             const ticket = await Ticket.findOne({
                 channel: message.channel.id,
                 open: true

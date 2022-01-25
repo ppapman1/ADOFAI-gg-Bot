@@ -76,7 +76,12 @@ module.exports = client => {
         });
 
         for(let m of users)
-            await moderator.ban(m.id, '긴급 스팸 대량 차단 / Emergency spam blocking', Number.MAX_SAFE_INTEGER, message.client.user.id, false, 1);
+            await moderator.ban({
+                user: m.id,
+                reason: '긴급 스팸 대량 차단 / Emergency spam blocking',
+                duration: Number.MAX_SAFE_INTEGER,
+                deleteDays: 1
+            });
 
         return message.reply('ban finish');
     });
