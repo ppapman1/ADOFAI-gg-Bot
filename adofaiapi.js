@@ -197,6 +197,7 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
     );
 
     return {
+        content: null,
         embeds: [
             new MessageEmbed()
                 .setColor(artistStatus[artist.status].color)
