@@ -202,7 +202,7 @@ module.exports.unmute = async (options = {
 
     try {
         await user.send({
-            embeds
+            embeds: [embed]
         });
     } catch (e) {}
 }
@@ -261,7 +261,7 @@ module.exports.kick = async (options = {
 
     try {
         await user.send({
-            embeds
+            embeds: [embed]
         });
     } catch (e) {}
 
@@ -429,7 +429,7 @@ module.exports.unban = async (options = {
 
     try {
         await user.send({
-            embeds
+            embeds: [embed]
         });
     } catch (e) {}
 }
@@ -522,7 +522,7 @@ module.exports.warn = async (options = {
 
     if(!silent) try {
         await user.send({
-            embeds
+            embeds: [embed]
         });
     } catch (e) {}
 
@@ -596,7 +596,7 @@ module.exports.unwarn = async (options = {
 
     try {
         await user.send({
-            embeds
+            embeds: [embed]
         });
     } catch (e) {}
 
