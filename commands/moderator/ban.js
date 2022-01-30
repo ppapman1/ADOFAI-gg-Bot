@@ -39,7 +39,9 @@ module.exports = {
             {
                 name: 'deletedays',
                 description: getCommandDescription('BAN_DELETEDAYS_DESCRIPTION'),
-                type: 'NUMBER'
+                type: 'NUMBER',
+                min_value: 0,
+                max_value: 7
             },
             {
                 name: 'evidence',
@@ -67,8 +69,6 @@ module.exports = {
         } catch(e) {}
 
         if(member && member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));
-
-        if(deleteDays < 0 || deleteDays > 7) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'DELETE_DAYS_RANGE'));
 
         if(parsedDuration && parsedDuration < 1000) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'TOO_SHORT_LENGTH'));
 
