@@ -41,6 +41,7 @@ module.exports = {
 
         // error
         if(!level) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'));
+        if(level.error) return interaction.editReply(level.discordMessage);
         
         if(accuracy) if(accuracy < 0) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'ACCURACY_IS_TOO_LOW'));
             

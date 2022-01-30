@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu, Util } = require('discord.js');
 const axios = require('axios');
 const querystring = require('querystring');
 
@@ -59,9 +59,18 @@ module.exports.searchLevel = async (data, getFullData = false) => {
 }
 
 module.exports.getLevel = async id => {
-    const level = await api.get(`/levels/${id}`);
-
-    return level.data;
+    try {
+        const level = await api.get(`/levels/${id}`);
+        return level.data;
+    } catch(e) {
+        return {
+            error: true,
+            data: e,
+            discordMessage: {
+                content: `\`\`\`\n${Util.escapeCodeBlock(e.toString())}\n\`\`\``
+            }
+        }
+    }
 }
 
 module.exports.getLevelInfoMessage = (level, language = 'en', random = false, musicButton = false) => {

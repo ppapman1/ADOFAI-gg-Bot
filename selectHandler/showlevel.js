@@ -17,6 +17,7 @@ module.exports = async interaction => {
         content: lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'),
         components: []
     });
+    if(level.error) return interaction.editReply(level.discordMessage);
 
     return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
 }

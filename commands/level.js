@@ -23,6 +23,7 @@ module.exports = {
         const level = await api.getLevel(levelID);
 
         if(!level) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'LEVEL_NOT_FOUND'));
+        if(level.error) return interaction.editReply(level.discordMessage);
 
         return interaction.editReply(api.getLevelInfoMessage(level, interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
     }
