@@ -85,7 +85,6 @@
   "UNMUTE_ALREADY_UNMUTED": "{user}님은 뮤트되지 않았습니다.",
   "UNMUTE_USER_UNMUTED": "{user}님을 뮤트 해제했습니다.",
 
-  "DELETE_DAYS_RANGE": "메시지 삭제 기간은 0~7일이어야 합니다.",
   "BAN_ALREADY_BANNED": "이미 밴된 유저입니다.",
   "BAN_USER_BANNED": "{user}님을 {duration}동안 밴했습니다.",
 
