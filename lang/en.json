@@ -66,7 +66,6 @@
   "MUTE_USER_MUTED": "Muted {user} for {duration}.",
   "UNMUTE_ALREADY_UNMUTED": "{user} has not been muted.",
   "UNMUTE_USER_UNMUTED": "I unmuted {user}.",
-  "DELETE_DAYS_RANGE": "The message deletion period must be 0-7 days.",
   "BAN_ALREADY_BANNED": "Already banned user.",
   "BAN_USER_BANNED": "Banned {user} for {duration}.",
   "UNBAN_ALREADY_UNBANNED": "{user} has not been banned.",
