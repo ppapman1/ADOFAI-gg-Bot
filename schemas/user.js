@@ -28,7 +28,7 @@ const newSchema = new Schema({
         required: true,
         default: false
     },
-    dokdoPermission: {
+    jejudoPermission: {
         type: Boolean,
         required: true,
         default: false

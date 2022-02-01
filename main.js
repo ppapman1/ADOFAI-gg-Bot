@@ -1,6 +1,6 @@
-const { Client , Intents , Team , MessageEmbed , Util } = require('discord.js');
+const { Client , Intents , Team , MessageEmbed } = require('discord.js');
 const fs = require('fs');
-const Dokdo = require('dokdo');
+const { Jejudo } = require('jejudo');
 const path = require('path');
 const util = require('util');
 
@@ -50,7 +50,7 @@ const client = new Client({
         'MESSAGE'
     ]
 });
-let DokdoHandler;
+let JejudoHandler;
 
 let application;
 let owners = [];
@@ -101,8 +101,8 @@ const loadOwners = async () => {
     teamOwner = application.owner instanceof Team ? application.owner.ownerId : application.owner.id;
 }
 
-const loadDokdo = () => {
-    const globalVariable = {
+const loadJejudo = () => {
+    const globalVariables = {
         ServerCache,
         User,
         Ticket,
@@ -129,17 +129,15 @@ const loadDokdo = () => {
         Todo
     }
 
-    DokdoHandler = new Dokdo(client, {
-        aliases: [ 'dokdo', 'dok' ],
-        prefix: setting.DOKDO_PREFIX,
+    JejudoHandler = new Jejudo(client, {
         owners: teamOwner,
-        isOwner: async user => {
+        isOwner: async interaction => {
             const checkUser = await User.findOne({
-                id: user.id
+                id: interaction.user.id
             });
             if(!checkUser) return false;
 
-            return checkUser.dokdoPermission || false;
+            return checkUser.jejudoPermission || false;
         },
         secrets: [
             setting.MONGODB_HOST,
@@ -148,10 +146,18 @@ const loadDokdo = () => {
             setting.MONGODB_USER,
             setting.MONGODB_PASSWORD
         ],
-        globalVariable
+        globalVariables,
+        noPermission: i => {
+            return i.reply('🤔');
+        }
     });
 
-    module.exports.getGlobalVariable = () => globalVariable;
+    JejudoHandler.commandName = 'jeju';
+    JejudoHandler.defaultPermission = true;
+
+    module.exports.getGlobalVariable = () => globalVariables;
+
+    process.env.SHELL = 'powershell.exe';
 }
 
 const loadCommands = () => {
@@ -163,6 +169,8 @@ const loadCommands = () => {
     groupCommands = {};
     permissions = {};
     groupByCommand = {};
+
+    allCommands.push(JejudoHandler.commandJSON);
 
     const registerLoop = (c, sub) => {
         c.forEach(c => {
@@ -335,7 +343,7 @@ const loadHandler = () => {
 }
 
 module.exports.loadOwners = loadOwners;
-module.exports.loadDokdo = loadDokdo;
+module.exports.loadJejudo = loadJejudo;
 module.exports.loadCommands = loadCommands;
 module.exports.loadSelectHandler = loadSelectHandler;
 module.exports.loadButtonHandler = loadButtonHandler;
@@ -346,7 +354,7 @@ client.once('ready', async () => {
     console.log(`${client.user.tag}으로 로그인하였습니다.`);
 
     await loadOwners();
-    loadDokdo();
+    loadJejudo();
     loadCommands();
     loadSelectHandler();
     loadButtonHandler();
@@ -404,6 +412,8 @@ client.on('interactionCreate', async interaction => {
 
     interaction.dbUser = user;
     if(interaction.guild) interaction.dbGuild = guild;
+
+    JejudoHandler.run(interaction);
 
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
@@ -471,12 +481,10 @@ client.on('interactionCreate', async interaction => {
 
 client.on('messageCreate', message => {
     if(message.author.bot) return;
-
-    if(DokdoHandler) DokdoHandler.run(message);
 });
 
 client.on('messageDelete', async message => {
-    const vote = await Vote.deleteMany({
+    await Vote.deleteMany({
         message: message.id
     });
 

@@ -18,8 +18,8 @@ module.exports = {
                 type: 'SUB_COMMAND'
             },
             {
-                name: 'dokdo',
-                description: getCommandDescription('RELOAD_DOKDO_DESCRIPTION'),
+                name: 'jejudo',
+                description: getCommandDescription('RELOAD_JEJUDO_DESCRIPTION'),
                 type: 'SUB_COMMAND'
             },
             {
@@ -68,8 +68,8 @@ module.exports = {
             case 'commands':
                 await main.registerCommands();
                 break;
-            case 'dokdo':
-                await main.loadDokdo();
+            case 'jejudo':
+                await main.loadJejudo();
                 break;
             case 'owners':
                 await main.loadOwners();
