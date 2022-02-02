@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu, Util } = require('discord.js');
+const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu, Util} = require('discord.js');
 const axios = require('axios');
 const querystring = require('querystring');
 
@@ -63,12 +63,23 @@ module.exports.getLevel = async id => {
         const level = await api.get(`/levels/${id}`);
         return level.data;
     } catch(e) {
+        const discordMessage = {
+            embeds: [
+                new MessageEmbed()
+                    .setColor('#ff0000')
+                    .setTitle('API Error')
+                    .setDescription(`\`\`\`\n${Util.escapeCodeBlock(e.toString())}\n\`\`\`\n[이곳을 눌러](${setting.ADOFAIGG_STATUS}) 서버 상태를 확인하세요.\n[Click here](${setting.ADOFAIGG_STATUS}) to check the server status.`)
+                    .setFooter({
+                        text: e.config.baseURL + e.config.url
+                    })
+                    .setTimestamp()
+            ]
+        };
+
         return {
             error: true,
             data: e,
-            discordMessage: {
-                content: `\`\`\`\n${Util.escapeCodeBlock(e.toString())}\n\`\`\``
-            }
+            discordMessage
         }
     }
 }

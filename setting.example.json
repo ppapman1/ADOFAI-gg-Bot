@@ -2,6 +2,7 @@
   "TOKEN": "bot token",
   "MAIN_SITE": "https://adofai.gg",
   "API": "https://adofai.gg:9200/api/v1",
+  "ADOFAIGG_STATUS": "https://adofaigg.statuspage.io",
 
   "ADOFAI_ARTIST_DUMP": "https://7thbeat.sgp1.digitaloceanspaces.com/adofai_dump/adofai_artists.json",
   "WEBSITE_7BG": "https://7thbe.at",
