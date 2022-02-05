@@ -3,6 +3,7 @@ const Url = require('url');
 const querystring = require('querystring');
 const fs = require('fs');
 
+const main = require('./main');
 const lang = require('./lang');
 const tags = require('./tags.json');
 const api = require('./api');
@@ -188,7 +189,7 @@ module.exports.subCommandHandler = directory => async interaction => {
         else handler(interaction);
     }
     else interaction.reply({
-        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR_MESSAGE'),
         ephemeral: true
     });
 }
@@ -260,6 +261,33 @@ module.exports.levelAutoCompleteHandler = async interaction => {
         name: a,
         value: a
     })));
+}
+
+module.exports.permissionChecker = (checker, permissionName) => async interaction => {
+    const result = await checker(interaction);
+
+    if(!result) {
+        await interaction.reply({
+            embeds: [
+                new MessageEmbed()
+                    .setColor('#ff0000')
+                    .setTitle(`🛑 ${lang.langByLangName(interaction.dbUser.lang, 'ERROR')}`)
+                    .setDescription(lang.langByLangName(interaction.dbUser.lang, 'MISSING_PERMISSION')
+                        .replace('{commandName}', interaction.commandName)
+                        .replace('{permission}', permissionName)
+                    )
+                    .setTimestamp()
+            ]
+        });
+        return false;
+    }
+
+    return true;
+}
+
+module.exports.teamOwnerOnlyHandler = async interaction => {
+    return module.exports.permissionChecker(interaction => main.getTeamOwner() === interaction.user.id,
+        lang.langByLangName(interaction.dbUser.lang, 'BOT_OWNER'))(interaction);
 }
 
 module.exports.textProgressBar = (percentage, size) => {

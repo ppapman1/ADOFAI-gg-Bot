@@ -4,7 +4,7 @@ const lang = require("../lang");
 module.exports = async interaction => {
     const params = interaction.customId.split('_');
     if(params.length != 3) return interaction.update({
-        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR_MESSAGE'),
         embeds: [],
         components: []
     });
@@ -15,7 +15,7 @@ module.exports = async interaction => {
 
     const ranking = await api.getPPEmbedField(interaction, Number(params[2]));
     if(!ranking) return interaction.update({
-        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR_MESSAGE'),
         embeds: [],
         components: []
     });

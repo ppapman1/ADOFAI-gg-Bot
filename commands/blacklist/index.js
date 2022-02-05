@@ -35,13 +35,6 @@ module.exports = {
             }
         ]
     },
-    checkPermission: async interaction => {
-        if(main.getTeamOwner() !== interaction.user.id) {
-            await interaction.reply('🤔');
-            return false;
-        }
-
-        return true;
-    },
+    checkPermission: utils.teamOwnerOnlyHandler,
     handler: utils.subCommandHandler('blacklist')
 }

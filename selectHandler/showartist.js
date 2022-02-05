@@ -6,7 +6,7 @@ const ADOFAIArtist = require('../schemas/ADOFAIArtist');
 module.exports = async interaction => {
     const params = interaction.values[0].split('_');
     if(params.length !== 3) return interaction.update({
-        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR'),
+        content: lang.langByLangName(interaction.dbUser.lang, 'ERROR_MESSAGE'),
         components: []
     });
     if(params[1] !== interaction.user.id) return interaction.reply({
