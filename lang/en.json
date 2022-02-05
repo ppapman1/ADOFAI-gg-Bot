@@ -3,7 +3,6 @@
   "SERVER_ONLY": "This function is only available on the server.",
   "LANGUAGE_CHANGED": "Language changed to english!",
   "TEST": "Wa Sans",
-  "ERROR": "Error Encountered.",
   "UNKNOWN_RELOAD_TARGET": "Unknown reload target.",
   "RELOADED": "Reloaded {target}.",
   "SEARCH_NOT_FOUND": "No search results found.",
