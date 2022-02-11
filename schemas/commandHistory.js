@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const newSchema = new Schema({
     guild: {
-        type: String,
-        required: true
+        type: String
     },
     channel: {
         type: String,

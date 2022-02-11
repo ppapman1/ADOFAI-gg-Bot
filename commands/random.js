@@ -91,7 +91,7 @@ module.exports = {
 
             if(!search.length) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'SEARCH_NOT_FOUND'));
 
-            msg = await interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang, true, interaction.dbGuild.features?.includes('music')));
+            msg = await interaction.editReply(api.getLevelInfoMessage(search[0], interaction.dbUser.lang, true, interaction.dbGuild?.features?.includes('music')));
         }
 
         await pickLevel();

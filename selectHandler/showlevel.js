@@ -19,5 +19,5 @@ module.exports = async interaction => {
     });
     if(level.error) return interaction.editReply(level.discordMessage);
 
-    return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang, false, interaction.dbGuild.features?.includes('music')));
+    return interaction.update(api.getLevelInfoMessage(level, interaction.dbUser.lang, false, interaction.dbGuild?.features?.includes('music')));
 }

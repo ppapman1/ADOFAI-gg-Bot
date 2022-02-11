@@ -428,7 +428,7 @@ client.on('interactionCreate', async interaction => {
         }
 
         await CommandHistory.create({
-            guild: interaction.guild.id,
+            guild: interaction.guild?.id,
             channel: interaction.channel.id,
             user: interaction.user.id,
             command: interaction.toString(),
@@ -461,7 +461,7 @@ client.on('interactionCreate', async interaction => {
 
         await InteractionHistory.create({
             type: 'BUTTON',
-            guild: interaction.guild.id,
+            guild: interaction.guild?.id,
             channel: interaction.channel.id,
             user: interaction.user.id,
             customId: interaction.customId
