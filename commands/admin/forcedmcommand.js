@@ -4,7 +4,7 @@ module.exports = async interaction => {
     await User.updateOne({
         id: interaction.user.id
     }, {
-        trackError: !interaction.dbUser.forceDMCommand
+        forceDMCommand: !interaction.dbUser.forceDMCommand
     });
 
     return interaction.reply({
