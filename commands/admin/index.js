@@ -3,6 +3,7 @@ const main = require('../../main');
 const utils = require('../../utils');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'admin',
         description: getCommandDescription('ADMIN_DESCRIPTION'),
@@ -15,6 +16,11 @@ module.exports = {
             {
                 name: 'trackerror',
                 description: getCommandDescription('ADMIN_TRACKERROR_DESCRIPTION'),
+                type: 'SUB_COMMAND'
+            },
+            {
+                name: 'forcedmcommand',
+                description: getCommandDescription('ADMIN_FORCEDMCOMMAND_DESCRIPTION'),
                 type: 'SUB_COMMAND'
             }
         ]

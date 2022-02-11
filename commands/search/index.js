@@ -2,6 +2,7 @@ const utils = require('../../utils');
 const { getCommandDescription } = require('../../lang');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'search',
         description: getCommandDescription('SEARCH_DESCRIPTION'),

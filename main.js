@@ -84,6 +84,7 @@ let privateCommands = [];
 let groupCommands = {};
 let permissions = {};
 let groupByCommand = {};
+let dmAllowedCommands = [];
 
 module.exports.getGroups = () => [...new Set(Object.values(groupByCommand))];
 module.exports.getGroupCommands = () => groupCommands;
@@ -163,6 +164,7 @@ const loadCommands = () => {
     groupCommands = {};
     permissions = {};
     groupByCommand = {};
+    dmAllowedCommands = [];
 
     const registerLoop = (c, sub) => {
         c.forEach(c => {
@@ -186,6 +188,8 @@ const loadCommands = () => {
             else commands.push(module.info);
 
             if(typeof module.group !== 'string') allCommands.push(module.info);
+
+            if(module.allowDM) dmAllowedCommands.push(module.info.name);
         });
     }
 
@@ -408,7 +412,9 @@ client.on('interactionCreate', async interaction => {
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
 
-        if(!interaction.guild) return interaction.reply(
+        if(!interaction.guild
+            && !interaction.dbUser.forceDMCommand
+            && !dmAllowedCommands.includes(interaction.commandName)) return interaction.reply(
             lang.langByLangName(interaction.dbUser.lang, 'SERVER_ONLY')
         );
 

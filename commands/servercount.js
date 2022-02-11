@@ -1,6 +1,7 @@
 const lang = require('../lang');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'servercount',
         description: lang.getCommandDescription('SERVERCOUNT_DESCRIPTION')

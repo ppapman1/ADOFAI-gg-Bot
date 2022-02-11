@@ -5,6 +5,7 @@ const { getCommandDescription } = require('../lang');
 const main = require('../main');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'calculatepp',
         description: getCommandDescription('CALCULATEPP_DESCRIPTION'),

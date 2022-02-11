@@ -3,6 +3,7 @@ const lang = require('../lang');
 const { getCommandDescription } = require('../lang');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'level',
         description: getCommandDescription('LEVEL_DESCRIPTION'),

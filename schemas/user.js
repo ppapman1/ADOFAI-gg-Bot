@@ -37,6 +37,11 @@ const newSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    forceDMCommand: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

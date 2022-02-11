@@ -3,6 +3,7 @@ const utils = require('../../utils');
 const { getCommandDescription } = require('../../lang');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'blacklist',
         description: getCommandDescription('BLACKLIST_DESCRIPTION'),

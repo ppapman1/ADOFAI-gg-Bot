@@ -2,6 +2,7 @@ const api = require('../api');
 const { getCommandDescription } = require('../lang');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'ranking',
         description: getCommandDescription('RANKING_DESCRIPTION'),

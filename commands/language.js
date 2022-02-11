@@ -4,6 +4,7 @@ const { getCommandDescription } = require('../lang');
 const User = require('../schemas/user');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'language',
         description: getCommandDescription('LANGUAGE_DESCRIPTION'),

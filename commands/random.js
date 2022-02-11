@@ -4,6 +4,7 @@ const api = require("../api");
 const utils = require('../utils');
 
 module.exports = {
+    allowDM: true,
     info: {
         name: 'random',
         description: getCommandDescription('RANDOM_DESCRIPTION'),
