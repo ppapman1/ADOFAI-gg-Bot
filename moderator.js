@@ -35,7 +35,12 @@ module.exports.setup = (c, s) => {
         });
 
         for(let u of moreMuteUsers) {
-            let member = await ServerCache.adofai_gg.members.fetch(u.id);
+            let member;
+            try {
+                member = await ServerCache.adofai_gg.members.fetch(u.id);
+            } catch(e) {
+                continue;
+            }
             if(!member.communicationDisabledUntilTimestamp) member = await ServerCache.adofai_gg.members.fetch({
                 user: u.id,
                 force: true
