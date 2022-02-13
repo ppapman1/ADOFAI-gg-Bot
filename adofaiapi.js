@@ -13,27 +13,32 @@ const artistStatus = [
     {
         ko: '대기 중',
         en: 'Pending',
-        color: '#ffffff'
+        color: '#ffffff',
+        emoji: '⚫'
     },
     {
         ko: '허락',
         en: 'Allowed',
-        color: '#2bb127'
+        color: '#2bb127',
+        emoji: '🟢'
     },
     {
         ko: '대부분 거절',
         en: 'Mostly Declined',
-        color: '#dc9c41'
+        color: '#dc9c41',
+        emoji: '🟠'
     },
     {
         ko: '거절',
         en: 'Declined',
-        color: '#b13327'
+        color: '#b13327',
+        emoji: '🔴'
     },
     {
         ko: '대부분 허락',
         en: 'Mostly Allowed',
-        color: '#73bb17'
+        color: '#73bb17',
+        emoji: '🟢'
     }
 ]
 
@@ -97,7 +102,8 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
         selectOptions.push({
             label: l.name,
             description: artistStatus[l.status][language],
-            value: `showartist_${userid}_${l.id}`
+            value: `showartist_${userid}_${l.id}`,
+            emoji: artistStatus[l.status].emoji
         });
     }
 
