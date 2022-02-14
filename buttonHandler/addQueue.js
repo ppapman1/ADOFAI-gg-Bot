@@ -12,9 +12,9 @@ module.exports = async interaction => {
     if(!interaction.guild.me.voice.channel) {
         const voiceChannel = interaction.member.voice.channel;
         if(!voiceChannel) return interaction.reply({
-            content: lang.langByLangName(interaction.dbUser.lang, 'MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL')),
+            content: lang.langByLangName(interaction.dbUser.lang, 'MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL'),
             ephemeral: true
-        }
+        });
 
         await interaction.deferReply();
 
