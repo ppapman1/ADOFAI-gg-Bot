@@ -1,6 +1,6 @@
 const main = require("../../main");
 const utils = require('../../utils');
-const { getCommandDescription } = require('../../lang');
+const { getCommandDescription, langByLangName } = require('../../lang');
 
 module.exports = {
     info: {
@@ -56,7 +56,11 @@ module.exports = {
             }
         ]
     },
-    checkPermission: utils.teamOwnerOnlyHandler,
+    checkPermission: interaction => utils.permissionChecker(() =>
+            main.getTeamOwner() === interaction.user.id
+            || interaction.dbUser.dokdoPermission,
+        langByLangName(interaction.dbUser.lang, 'DOKDO_PERMISSION')
+    )(interaction),
     handler: utils.subCommandHandler('features'),
     autoCompleteHandler: utils.autoCompleteHandler('features')
 }
