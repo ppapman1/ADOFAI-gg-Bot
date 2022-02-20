@@ -48,6 +48,7 @@
   "ERROR": "오류",
 
   "BOT_OWNER": "봇 소유자",
+  "DOKDO_PERMISSION": "dokdo",
 
   "MISSING_PERMISSION": "이 명령어를 사용할 권한이 없습니다!\n/{commandName} 명령어는 {permission} 권한이 필요합니다.",
 
