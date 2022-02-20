@@ -209,6 +209,7 @@
   "COMMAND_ADMIN_CLEARCOMMAND_DESCRIPTION": "디스코드 애플리케이션에 등록된 슬래시 커맨드를 모두 삭제합니다. 봇 재시작이 필요합니다.",
   "COMMAND_ADMIN_TRACKERROR_DESCRIPTION": "봇의 오류 트래킹 DM을 토글합니다.",
   "COMMAND_ADMIN_FORCEDMCOMMAND_DESCRIPTION": "강제로 DM에서 모든 명령어를 사용합니다.",
+  "COMMAND_ADMIN_EPHEMERALONLY_DESCRIPTION": "모든 명령어 결과를 ephemeral로 표시합니다.",
 
   "COMMAND_BLACKLIST_DESCRIPTION": "블랙리스트 관련 명령어입니다.",
 

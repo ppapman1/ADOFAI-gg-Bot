@@ -42,6 +42,11 @@ const newSchema = new Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    ephemaralOnly: {
+        type: Boolean,
+        required: true,
+        default: false
     }
 });
 

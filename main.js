@@ -409,6 +409,25 @@ client.on('interactionCreate', async interaction => {
     interaction.dbUser = user;
     if(interaction.guild) interaction.dbGuild = guild;
 
+    if(user.ephemaralOnly) {
+        interaction.originalReply = interaction.reply;
+        interaction.originalDeferReply = interaction.deferReply;
+
+        interaction.reply = options => {
+            if(typeof options === 'string') options = { content: options };
+            options.ephemeral = true;
+
+            return interaction.originalReply(options);
+        }
+
+        interaction.deferReply = options => {
+            if(!options) options = {};
+            options.ephemeral = true;
+
+            return interaction.originalDeferReply(options);
+        }
+    }
+
     if(interaction.isCommand() || interaction.isContextMenu()) {
         if(!interaction.commandName) return;
 

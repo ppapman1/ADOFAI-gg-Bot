@@ -22,6 +22,11 @@ module.exports = {
                 name: 'forcedmcommand',
                 description: getCommandDescription('ADMIN_FORCEDMCOMMAND_DESCRIPTION'),
                 type: 'SUB_COMMAND'
+            },
+            {
+                name: 'ephemeralonly',
+                description: getCommandDescription('ADMIN_EPHEMERALONLY_DESCRIPTION'),
+                type: 'SUB_COMMAND'
             }
         ]
     },
