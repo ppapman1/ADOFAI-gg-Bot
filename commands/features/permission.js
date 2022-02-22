@@ -1,10 +1,8 @@
-const { MessageActionRow , MessageButton , MessageSelectMenu } = require('discord.js');
+const { ActionRow, ButtonComponent, ButtonStyle, SelectMenuComponent, SelectMenuOption, ApplicationCommandPermissionType: CommandPermissions } = require('discord.js');
 const JSON5 = require('json5');
 
-const main = require('../../main');
 const utils = require('../../utils');
 
-const Guild = require('../../schemas/guild');
 const FeaturesPermission = require('../../schemas/featuresPermission');
 
 module.exports.commandHandler = async interaction => {
@@ -29,40 +27,42 @@ module.exports.commandHandler = async interaction => {
         fetchReply: true,
         content: `${command} command's permission list`,
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageSelectMenu()
+                    new SelectMenuComponent()
                         .setCustomId('permission')
                         .setPlaceholder('Select permission to delete')
-                        .addOptions(permissions.permissions.length ? permissions.permissions.map(p => ({
-                            label: `${p.type}: ${p.type === 'USER'
+                        .addOptions(...(permissions.permissions.length ? permissions.permissions.map(p =>
+                        new SelectMenuOption()
+                            .setLabel(`${p.type}: ${p.type === 'USER'
                                 ? interaction.client.users.cache.get(p.id)?.username || 'invalid-user'
-                                : interaction.guild.roles.cache.get(p.id)?.name || 'invalid-role'}`,
-                            description: p.permission ? 'Allowed' : 'Denied',
-                            value: `${p.type}_${p.id}`
-                        })) : [{
-                            label: 'fake',
-                            description: 'how',
-                            value: 'fake'
-                        }])
+                                : interaction.guild.roles.cache.get(p.id)?.name || 'invalid-role'}`)
+                            .setDescription(p.permission ? 'Allowed' : 'Denied')
+                            .setValue(`${p.type}_${p.id}`)
+                        ) : [
+                            new SelectMenuOption()
+                            .setLabel('fake')
+                            .setDescription('how')
+                            .setValue('fake')
+                        ]))
                         .setDisabled(!permissions.permissions.length)
                 ),
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('add')
                         .setLabel('Add')
-                        .setStyle('PRIMARY')
+                        .setStyle(ButtonStyle.Primary)
                         .setDisabled(permissions.permissions.length >= 10),
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('addme')
                         .setLabel('Add me')
-                        .setStyle('PRIMARY')
+                        .setStyle(ButtonStyle.Primary)
                         .setDisabled(permissions.permissions.length >= 10),
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('apply')
                         .setLabel('Apply')
-                        .setStyle('SUCCESS')
+                        .setStyle(ButtonStyle.Success)
                 )
         ]
     });
@@ -119,6 +119,9 @@ module.exports.commandHandler = async interaction => {
                 ephemeral: true
             });
 
+            if(json.type === 'USER') json.type = CommandPermissions.User;
+            if(json.type === 'ROLE') json.type = CommandPermissions.Role;
+
             const check = permissions.permissions.find(p => p.type === json.type && p.id === json.id);
             if(check) return i.followUp({
                 content: 'permission already exists',
@@ -139,7 +142,7 @@ module.exports.commandHandler = async interaction => {
             return sendComponents();
         } else if(action === 'addme') {
             const json = {
-                type: 'USER',
+                type: CommandPermissions.User,
                 id: interaction.user.id,
                 permission: true
             };

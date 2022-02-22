@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton, MessageEmbed, MessageSelectMenu, Util} = require('discord.js');
+const { ActionRow, ButtonComponent, ButtonStyle, Embed, SelectMenuComponent, SelectMenuOption, Util } = require('discord.js');
 const axios = require('axios');
 const querystring = require('querystring');
 
@@ -65,8 +65,8 @@ module.exports.getLevel = async id => {
     } catch(e) {
         const discordMessage = {
             embeds: [
-                new MessageEmbed()
-                    .setColor('#ff0000')
+                new Embed()
+                    .setColor(0xff0000)
                     .setTitle('API Error')
                     .setDescription(`\`\`\`\n${Util.escapeCodeBlock(e.toString())}\n\`\`\`\n[이곳을 눌러](${setting.ADOFAIGG_STATUS}) 서버 상태를 확인하세요.\n[Click here](${setting.ADOFAIGG_STATUS}) to check the server status.`)
                     .setFooter({
@@ -104,61 +104,89 @@ module.exports.getLevelInfoMessage = (level, language = 'en', random = false, mu
     // }
 
     const levelInfoButtons = [
-        new MessageButton()
+        new ButtonComponent()
             .setLabel(lang.langByLangName(language, 'DOWNLOAD'))
-            .setStyle('LINK')
+            .setStyle(ButtonStyle.Link)
             .setURL(level.download)
-            .setEmoji(Server.emoji.download),
-        new MessageButton()
+            .setEmoji({
+                id: Server.emoji.download
+            }),
+        new ButtonComponent()
             .setLabel(lang.langByLangName(language, 'WORKSHOP'))
-            .setStyle('LINK')
+            .setStyle(ButtonStyle.Link)
             .setURL(level.workshop || level.download)
-            .setEmoji(Server.emoji.steam)
+            .setEmoji({
+                id: Server.emoji.steam
+            })
             .setDisabled(!level.workshop),
-        new MessageButton()
+        new ButtonComponent()
             .setLabel(lang.langByLangName(language, 'WATCH_VIDEO'))
-            .setStyle('LINK')
+            .setStyle(ButtonStyle.Link)
             .setURL(level.video)
-            .setEmoji(Server.emoji.youtube)
+            .setEmoji({
+                id: Server.emoji.youtube
+            })
     ];
 
     if(musicButton) levelInfoButtons.push(
-        new MessageButton()
+        new ButtonComponent()
             .setCustomId(`addQueue_${utils.parseYouTubeLink(level.video).videoCode}`)
             .setLabel(lang.langByLangName(language, 'PLAY_THIS_MUSIC'))
-            .setStyle('PRIMARY')
-            .setEmoji('🎵')
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji({
+                name: '🎵'
+            })
     );
 
     const components = [
-        new MessageActionRow()
-            .addComponents(levelInfoButtons)
+        new ActionRow()
+            .addComponents(...levelInfoButtons)
     ];
 
     if(random) components.push(
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('reroll')
                     .setLabel(lang.langByLangName(language, 'REROLL'))
-                    .setStyle('PRIMARY')
-                    .setEmoji(Server.emoji.reroll)
+                    .setStyle(ButtonStyle.Primary)
+                    .setEmoji({
+                        id: Server.emoji.reroll
+                    })
             )
     );
 
     return {
         embeds: [
-            new MessageEmbed()
-                .setColor('#349eeb')
+            new Embed()
+                .setColor(0x349eeb)
                 .setTitle(title)
                 .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
                 .setDescription(`Level by ${level.creators.join(' & ')}`)
-                .addField('Lv.', levelEmoji.toString(), true)
-                .addField('BPM', level.minBpm.toString(), true)
-                .addField('Tiles', level.tiles.toString(), true)
-                .addField('Tags', level.tags.length ? level.tags.map(t => main.Server.emoji[utils.getTagByID(t.id)?.emojiName]?.toString()
-                    || main.Server.emoji.noEmoji.toString()).join(' ') : 'No Tags')
-                .addField('Description', level.description || `There's no description for this level.`)
+                .addField({
+                    name: 'Lv.',
+                    value: levelEmoji.toString(),
+                    inline: true
+                })
+                .addField({
+                    name: 'BPM',
+                    value: level.minBpm.toString(),
+                    inline: true
+                })
+                .addField({
+                    name: 'Tiles',
+                    value: level.tiles.toString(),
+                    inline: true
+                })
+                .addField({
+                    name: 'Tags',
+                    value: level.tags.length ? level.tags.map(t => main.Server.emoji[utils.getTagByID(t.id)?.emojiName]?.toString()
+                        || main.Server.emoji.noEmoji.toString()).join(' ') : 'No Tags'
+                })
+                .addField({
+                    name: 'Description',
+                    value: level.description || `There's no description for this level.`
+                })
                 .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
                 .setFooter({
                     text: `ID : ${level.id}`
@@ -174,53 +202,57 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
 
     const selectOptions = [];
 
-    if(!search.length) selectOptions.push({
-        label: 'how did you found this?',
-        value: 'fake'
-    });
+    if(!search.length) selectOptions.push(
+        new SelectMenuOption()
+            .setLabel('how did you found this?')
+            .setValue('fake')
+    );
     else for(let l of search) {
         const title = `${l.artists.join(' & ')} - ${l.title}`;
 
-        selectOptions.push({
-            label: title.substring(0, 100),
-            description: `by ${l.creators.join(' & ')} | ID : ${l.id}`,
-            value: `showlevel_${userid}_${l.id}`,
-            emoji: {
-                id: Server.emoji[l.censored ? 'minus2' : l.difficulty.toString()]
-            }
-        });
+        selectOptions.push(
+            new SelectMenuOption()
+                .setLabel(title.substring(0, 100))
+                .setDescription(`by ${l.creators.join(' & ')} | ID : ${l.id}`)
+                .setValue(`showlevel_${userid}_${l.id}`)
+                .setEmoji({
+                    id: Server.emoji[l.censored ? 'minus2' : l.difficulty.toString()]
+                })
+        );
     }
 
     const components = [
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuComponent()
                     .setCustomId(`showlevel`)
                     .setPlaceholder(lang.langByLangName(language, 'SELECT_LEVEL_SELECT_MENU'))
-                    .addOptions(selectOptions)
+                    .addOptions(...selectOptions)
             ),
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('prev')
                     .setLabel(lang.langByLangName(language, 'PREV'))
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                     .setDisabled(page <= 1),
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('page')
                     .setLabel(`${page} / ${totalPage}`)
-                    .setStyle('SECONDARY')
+                    .setStyle(ButtonStyle.Secondary)
                     .setDisabled(),
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('next')
                     .setLabel(lang.langByLangName(language, 'NEXT'))
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                     .setDisabled(page >= totalPage),
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('removeTags')
                     .setLabel(lang.langByLangName(language, 'REMOVE_TAGS'))
-                    .setStyle('SECONDARY')
-                    .setEmoji('❌')
+                    .setStyle(ButtonStyle.Secondary)
+                    .setEmoji({
+                        name: '❌'
+                    })
                     .setDisabled(!selectedTags.length)
             )
     ]
@@ -230,46 +262,48 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
     for(let tagSubject in tags) {
         for(let tagName in tags[tagSubject]) {
             const tag = tags[tagSubject][tagName];
-            tagOptions.push({
-                label: tag.title[language],
-                description: tag.description[language],
-                value: tag.id.toString(),
-                emoji: {
-                    id: Server.emoji[tagName]
-                },
-                default: selectedTags.includes(tag.id.toString())
-            });
+            tagOptions.push(
+                new SelectMenuOption()
+                    .setLabel(tag.title[language])
+                    .setDescription(tag.description[language])
+                    .setValue(tag.id.toString())
+                    .setEmoji({
+                        id: Server.emoji[tagName]
+                    })
+                    .setDefault(selectedTags.includes(tag.id.toString()))
+            );
         }
     }
 
     components.unshift(
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuComponent()
                     .setCustomId('tagSearch')
                     .setPlaceholder(lang.langByLangName(language, 'TAG_SEARCH_SELECT_MENU'))
-                    .addOptions(tagOptions)
+                    .addOptions(...tagOptions)
                     .setMinValues(1)
             )
     );
 
     const sortOptions = [];
 
-    for(let sortSubject in sorts) sortOptions.push({
-        label: sorts[sortSubject].name[language],
-        value: sortSubject,
-        emoji: {
-            id: Server.emoji[sortSubject]
-        },
-        default: sort === sortSubject
-    });
+    for(let sortSubject in sorts) sortOptions.push(
+        new SelectMenuOption()
+            .setLabel(sorts[sortSubject].name[language])
+            .setValue(sortSubject)
+            .setEmoji({
+                id: Server.emoji[sortSubject]
+            })
+            .setDefault(sort === sortSubject)
+    );
 
     components.unshift(
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuComponent()
                     .setCustomId('sort')
-                    .addOptions(sortOptions)
+                    .addOptions(...sortOptions)
             )
     );
 
@@ -327,22 +361,22 @@ module.exports.getPPEmbedField = async (interaction, offset = 0, amount = 5) => 
                 }
             ],
             components: [
-                new MessageActionRow()
+                new ActionRow()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonComponent()
                             .setCustomId(`rankingpage_${interaction.user.id}_${offset - amount}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PREV'))
-                            .setStyle('PRIMARY')
+                            .setStyle(ButtonStyle.Primary)
                             .setDisabled(offset === 0),
-                        new MessageButton()
+                        new ButtonComponent()
                             .setCustomId('fake')
                             .setLabel(`${Math.ceil(offset / 5) + 1} / ${Math.ceil(ranking.count / 5)}`)
-                            .setStyle('SECONDARY')
+                            .setStyle(ButtonStyle.Secondary)
                             .setDisabled(),
-                        new MessageButton()
+                        new ButtonComponent()
                             .setCustomId(`rankingpage_${interaction.user.id}_${rank - 1}`)
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'NEXT'))
-                            .setStyle('PRIMARY')
+                            .setStyle(ButtonStyle.Primary)
                             .setDisabled(leftCount === 0)
                     )
             ]

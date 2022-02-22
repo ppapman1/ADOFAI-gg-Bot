@@ -1,5 +1,6 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const { getCommandDescription } = require('../../lang');
-const main = require('../../main');
 const utils = require('../../utils');
 
 module.exports = {
@@ -11,22 +12,22 @@ module.exports = {
             {
                 name: 'clearcommand',
                 description: getCommandDescription('ADMIN_CLEARCOMMAND_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'trackerror',
                 description: getCommandDescription('ADMIN_TRACKERROR_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'forcedmcommand',
                 description: getCommandDescription('ADMIN_FORCEDMCOMMAND_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'ephemeralonly',
                 description: getCommandDescription('ADMIN_EPHEMERALONLY_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             }
         ]
     },

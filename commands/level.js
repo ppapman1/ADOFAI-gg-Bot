@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const api = require('../api');
 const lang = require('../lang');
 const { getCommandDescription } = require('../lang');
@@ -11,7 +13,7 @@ module.exports = {
             {
                 name: 'id',
                 description: getCommandDescription('LEVEL_ID_DESCRIPTION'),
-                type: 'INTEGER',
+                type: Options.Integer,
                 required: true,
                 min_value: 1
             }

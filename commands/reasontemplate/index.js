@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const permission = require('../../permissions');
 const utils = require('../../utils');
 const { getCommandDescription } = require('../../lang');
@@ -15,19 +17,19 @@ module.exports = {
             {
                 name: 'create',
                 description: getCommandDescription('REASONTEMPLATE_CREATE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'type',
                         description: getCommandDescription('REASONTEMPLATE_CREATE_TYPE_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         choices: typeChoices
                     },
                     {
                         name: 'reason',
                         description: getCommandDescription('REASONTEMPLATE_CREATE_REASON_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     }
                 ]
@@ -35,19 +37,19 @@ module.exports = {
             {
                 name: 'delete',
                 description: getCommandDescription('REASONTEMPLATE_DELETE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'type',
                         description: getCommandDescription('REASONTEMPLATE_DELETE_TYPE_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         choices: typeChoices
                     },
                     {
                         name: 'reason',
                         description: getCommandDescription('REASONTEMPLATE_DELETE_REASON_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }

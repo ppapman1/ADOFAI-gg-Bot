@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageSelectMenu } = require('discord.js');
+const { ActionRow , SelectMenuComponent, SelectMenuOption, ApplicationCommandOptionType: Options } = require('discord.js');
 const ytdl = require('ytdl-core');
 
 const lang = require('../../lang');
@@ -14,7 +14,7 @@ module.exports = {
             {
                 name: 'music',
                 description: getCommandDescription('PLAY_MUSIC_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true
             }
         ]
@@ -49,16 +49,17 @@ module.exports = {
             const msg = await interaction.editReply({
                 content: lang.langByLangName(interaction.dbUser.lang, 'MUSIC_SELECT_MESSAGE'),
                 components: [
-                    new MessageActionRow()
+                    new ActionRow()
                         .addComponents(
-                            new MessageSelectMenu()
+                            new SelectMenuComponent()
                                 .setCustomId('select')
                                 .setPlaceholder(lang.langByLangName(interaction.dbUser.lang, 'MUSIC_SELECT_PLACEHOLDER'))
-                                .addOptions(result.map(video => ({
-                                    label: video.title,
-                                    description: `by ${video.author.name}`,
-                                    value: video.id
-                                })))
+                                .addOptions(...result.map(video =>
+                                    new SelectMenuOption()
+                                        .setLabel(video.title)
+                                        .setDescription(`by ${video.author.name}`)
+                                        .setValue(video.id)
+                                ))
                         )
                 ]
             });

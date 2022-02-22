@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageSelectMenu , MessageEmbed } = require('discord.js');
+const { ActionRow, SelectMenuComponent, SelectMenuOption, Embed } = require('discord.js');
 
 const utils = require('../utils');
 
@@ -56,16 +56,17 @@ module.exports = client => {
                 const msg = await message.channel.send({
                     content: '티켓을 여시겠습니까? 티켓을 열려면 아래에서 열 서버를 선택해주세요.\nDo you want to open the ticket? Please select the server below to open the ticket.',
                     components: [
-                        new MessageActionRow()
+                        new ActionRow()
                             .addComponents(
-                                new MessageSelectMenu()
+                                new SelectMenuComponent()
                                     .setCustomId('selectGuild')
                                     .setPlaceholder('티켓을 열 서버를 선택하세요. / Select ticket server.')
-                                    .addOptions(guilds.map(g => ({
-                                        label: message.client.guilds.cache.get(g.id)?.name || '알 수 없음',
-                                        description: g.ticketGuildDescription,
-                                        value: g.id
-                                    })))
+                                    .addOptions(...guilds.map(g =>
+                                        new SelectMenuOption()
+                                            .setLabel(message.client.guilds.cache.get(g.id)?.name || '알 수 없음')
+                                            .setDescription(g.ticketGuildDescription)
+                                            .setValue(g.id)
+                                    ))
                             )
                     ]
                 });
@@ -113,8 +114,8 @@ module.exports = client => {
 
                 await ticketChannel.send({
                     embeds: [
-                        new MessageEmbed()
-                            .setColor('#42a7ff')
+                        new Embed()
+                            .setColor(0x42a7ff)
                             .setTitle('새로운 티켓 생성 / New Ticket')
                             .setDescription(`새로운 티켓 ${channelName}${utils.checkBatchim(channelName) ? '이' : '가'} 생성되었습니다. 이곳에 ${message.client.user}를 멘션하고 말하면 메시지가 전달됩니다.\nA new ticket ${channelName} has been created. If you mention ${message.client.user} here, the message will be delivered.\n\n사용자 언어(User Language) : ${confirmInteraction.locale}`)
                             .setTimestamp()
@@ -127,8 +128,8 @@ module.exports = client => {
 
                 await confirmInteraction.reply({
                     embeds: [
-                        new MessageEmbed()
-                            .setColor('#42a7ff')
+                        new Embed()
+                            .setColor(0x42a7ff)
                             .setTitle('새로운 티켓 생성 / New Ticket')
                             .setDescription('새로운 티켓이 생성되었습니다. 이곳에 메시지를 적으면 관리자에게 메시지를 더 전달할 수 있습니다.\nA new ticket has been created. If you write a message here, you can deliver more messages to the administrator.')
                             .setTimestamp()

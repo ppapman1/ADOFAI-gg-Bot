@@ -1,4 +1,4 @@
-const { Util , MessageActionRow , MessageButton } = require('discord.js');
+const { Util , ActionRow , ButtonComponent, ButtonStyle } = require('discord.js');
 
 const main = require('../main.js');
 const utils = require('../utils.js');
@@ -44,12 +44,12 @@ module.exports = client => {
         const msg = await message.channel.send({
             content: `Ban List\`\`\`${users.map(m => Util.escapeCodeBlock(m.user.tag)).join('\n')}\`\`\``,
             components: [
-                new MessageActionRow()
+                new ActionRow()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonComponent()
                             .setCustomId('confirm')
                             .setLabel('Ban')
-                            .setStyle('DANGER')
+                            .setStyle(ButtonStyle.Danger)
                     )
             ]
         });

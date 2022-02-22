@@ -1,10 +1,10 @@
-const { MessageActionRow , MessageButton, MessageEmbed, MessageSelectMenu } = require('discord.js');
+const { ActionRow , ButtonComponent, ButtonStyle, Embed, SelectMenuComponent, SelectMenuOption } = require('discord.js');
 const axios = require('axios');
 const crpyto = require('crypto');
 const Url = require('url');
 
 const setting = require('./setting.json');
-const main = require("./main");
+const Server = require('./server.json');
 const lang = require('./lang');
 
 const ADOFAIArtist = require('./schemas/ADOFAIArtist');
@@ -13,31 +13,31 @@ const artistStatus = [
     {
         ko: '대기 중',
         en: 'Pending',
-        color: '#ffffff',
+        color: 0xffffff,
         emoji: '⚫'
     },
     {
         ko: '허락',
         en: 'Allowed',
-        color: '#2bb127',
+        color: 0x2bb127,
         emoji: '🟢'
     },
     {
         ko: '대부분 거절',
         en: 'Mostly Declined',
-        color: '#dc9c41',
+        color: 0xdc9c41,
         emoji: '🟠'
     },
     {
         ko: '거절',
         en: 'Declined',
-        color: '#b13327',
+        color: 0xb13327,
         emoji: '🔴'
     },
     {
         ko: '대부분 허락',
         en: 'Mostly Allowed',
-        color: '#73bb17',
+        color: 0x73bb17,
         emoji: '🟢'
     }
 ]
@@ -94,43 +94,45 @@ module.exports.getSearchList = (search, page, totalPage, userid, language = 'en'
 
     const selectOptions = [];
 
-    if(!search.length) selectOptions.push({
-        label: 'how did you found this?',
-        value: 'fake'
-    });
-    else for(let l of search) {
-        selectOptions.push({
-            label: l.name,
-            description: artistStatus[l.status][language],
-            value: `showartist_${userid}_${l.id}`,
-            emoji: artistStatus[l.status].emoji
-        });
-    }
+    if(!search.length) selectOptions.push(
+        new SelectMenuOption()
+            .setLabel('how did you found this?')
+            .setValue('fake')
+    );
+    else for(let l of search) selectOptions.push(
+        new SelectMenuOption()
+            .setLabel(l.name)
+            .setDescription(artistStatus[l.status][language])
+            .setValue(`showartist_${userid}_${l.id}`)
+            .setEmoji({
+                name: artistStatus[l.status].emoji
+            })
+    );
 
     const components = [
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuComponent()
                     .setCustomId(`showartist`)
                     .setPlaceholder(lang.langByLangName(language, 'SELECT_ARTIST_SELECT_MENU'))
-                    .addOptions(selectOptions)
+                    .addOptions(...selectOptions)
             ),
-        new MessageActionRow()
+        new ActionRow()
             .addComponents(
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('prev')
                     .setLabel(lang.langByLangName(language, 'PREV'))
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                     .setDisabled(page <= 1),
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('page')
                     .setLabel(`${page} / ${totalPage}`)
-                    .setStyle('SECONDARY')
+                    .setStyle(ButtonStyle.Secondary)
                     .setDisabled(),
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId('next')
                     .setLabel(lang.langByLangName(language, 'NEXT'))
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
                     .setDisabled(page >= totalPage)
             )
     ]
@@ -158,11 +160,15 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
         else linktype = 'Other';
 
         artistLinkButtons.push(
-            new MessageButton()
+            new ButtonComponent()
                 .setLabel(linktype)
-                .setStyle('LINK')
+                .setStyle(ButtonStyle.Link)
                 .setURL(l)
-                .setEmoji(linktype === 'Other' ? '🔗' : main.Server.emoji[linktype.toLowerCase()].toString())
+                .setEmoji(linktype === 'Other' ? {
+                    name: '🔗'
+                } : {
+                    id: Server.emoji[linktype.toLowerCase()]
+                })
         );
     }
 
@@ -172,40 +178,46 @@ module.exports.getArtistInfoMessage = (artist, language = 'en') => {
         const isImage = e.endsWith('.jpg') || e.endsWith('.png') || e.endsWith('.gif') || e.endsWith('.jpeg');
 
         if(isImage) evidenceButtons.push(
-            new MessageButton()
+            new ButtonComponent()
                 .setCustomId(`evidence_${artist.id}_${i}`)
                 .setLabel(`${lang.langByLangName(language, 'EVIDENCE')} ${Number(i) + 1}`)
-                .setStyle('SECONDARY')
-                .setEmoji('🖼️')
+                .setStyle(ButtonStyle.Secondary)
+                .setEmoji({
+                    name: '🖼️'
+                })
         );
         else {
             const url = Url.parse(e);
             const isDiscord = url.hostname.endsWith('discord.com') || url.hostname.endsWith('discordapp.com');
 
             evidenceButtons.push(
-                new MessageButton()
+                new ButtonComponent()
                     .setLabel(`${lang.langByLangName(language, 'EVIDENCE')} ${Number(i) + 1}`)
-                    .setStyle('LINK')
+                    .setStyle(ButtonStyle.Link)
                     .setURL(e)
-                    .setEmoji(isDiscord ? main.Server.emoji.discord.toString() : '🔗')
+                    .setEmoji(isDiscord ? {
+                        id: Server.emoji.discord
+                    } : {
+                        name: '🔗'
+                    })
             );
         }
     }
 
     const components = [];
     if(evidenceButtons.length) components.push(
-        new MessageActionRow()
-            .addComponents(evidenceButtons)
+        new ActionRow()
+            .addComponents(...evidenceButtons)
     );
     if(artistLinkButtons.length) components.push(
-        new MessageActionRow()
-            .addComponents(artistLinkButtons)
+        new ActionRow()
+            .addComponents(...artistLinkButtons)
     );
 
     return {
         content: null,
         embeds: [
-            new MessageEmbed()
+            new Embed()
                 .setColor(artistStatus[artist.status].color)
                 .setAuthor({
                     name: artistStatus[artist.status][language]

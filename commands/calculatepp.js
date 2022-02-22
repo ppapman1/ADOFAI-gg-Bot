@@ -1,4 +1,5 @@
-const { MessageEmbed } = require('discord.js');
+const { ApplicationCommandOptionType: Options, Embed } = require('discord.js');
+
 const api = require('../api');
 const lang = require("../lang");
 const { getCommandDescription } = require('../lang');
@@ -13,20 +14,20 @@ module.exports = {
             {
                 name: 'id',
                 description: getCommandDescription('CALCULATEPP_ID_DESCRIPTION'),
-                type: 'INTEGER',
+                type: Options.Integer,
                 required: true,
                 min_value: 1
             },
             {
                 name: 'accuracy',
                 description: getCommandDescription('CALCULATEPP_ACCURACY_DESCRIPTION'),
-                type: 'NUMBER',
+                type: Options.Number,
                 min_value: 1
             },
             {
                 name: 'pitch',
                 description: getCommandDescription('CALCULATEPP_PITCH_DESCRIPTION'),
-                type: 'NUMBER',
+                type: Options.Number,
                 min_value: 1
             }
         ]
@@ -101,14 +102,26 @@ module.exports = {
 
         return interaction.editReply({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#349eeb')
+                new Embed()
+                    .setColor(0x349eeb)
                     .setTitle(`${level.artists.join(' & ')} - ${level.title}`)
                     .setURL(`${setting.MAIN_SITE}/levels/${level.id}`)
                     .setDescription(lang.langByLangName(interaction.dbUser.lang, 'EXPECTED_PP').replace('{pp}', resultPP.toFixed(2)) + "\n\u200B")
-                    .addField('Lv.', levelEmoji.toString(), true)
-                    .addField('Speed', "`×" + (pitch/100).toFixed(2) + "`", true)
-                    .addField('Accuracy', "`" + ((accuracy === -1) ? maxAccuracy : accuracy).toFixed(2) + "%`", true)
+                    .addField({
+                        name: 'Lv.',
+                        value: levelEmoji.toString(),
+                        inline: true
+                    })
+                    .addField({
+                        name: 'Speed',
+                        value: "`×" + (pitch/100).toFixed(2) + "`",
+                        inline: true
+                    })
+                    .addField({
+                        name: 'Accuracy',
+                        value: "`" + ((accuracy === -1) ? maxAccuracy : accuracy).toFixed(2) + "%`",
+                        inline: true
+                    })
                     // .setImage(`https://i.ytimg.com/vi/${utils.parseYouTubeLink(level.video).videoCode}/original.jpg`)
                     .setFooter({
                         text: `ID : ${level.id}`

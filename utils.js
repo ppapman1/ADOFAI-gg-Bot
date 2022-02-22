@@ -1,4 +1,4 @@
-const { MessageEmbed , Util } = require('discord.js');
+const { Embed , Util } = require('discord.js');
 const Url = require('url');
 const querystring = require('querystring');
 const fs = require('fs');
@@ -269,8 +269,8 @@ module.exports.permissionChecker = (checker, permissionName) => async interactio
     if(!result) {
         await interaction.reply({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#ff0000')
+                new Embed()
+                    .setColor(0xff0000)
                     .setTitle(`🛑 ${lang.langByLangName(interaction.dbUser.lang, 'ERROR')}`)
                     .setDescription(lang.langByLangName(interaction.dbUser.lang, 'MISSING_PERMISSION')
                         .replace('{commandName}', interaction.commandName)
@@ -324,14 +324,14 @@ module.exports.realtimeVoteEmbed = async message => {
         value: `${a.description ? `${a.description}\n` : ''}[${module.exports.textProgressBar((a.users.length / totalVotes || 0) * 100, 16)}] ${((a.users.length / totalVotes || 0) * 100).toFixed(2)}% (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`
     }));
 
-    return new MessageEmbed()
-        .setColor('#349eeb')
+    return new Embed()
+        .setColor(0x349eeb)
         .setAuthor({
             name: user?.username || 'Unknown User',
             iconURL: user?.avatarURL()
         })
         .setTitle(Util.escapeMarkdown(vote.question))
         .setDescription(`${vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
-        .addFields(fields)
+        .addFields(...fields)
         .setTimestamp();
 }

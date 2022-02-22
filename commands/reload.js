@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const permissions = require('../permissions');
 const main = require("../main");
 const lang = require("../lang");
@@ -15,42 +17,42 @@ module.exports = {
             {
                 name: 'owners',
                 description: getCommandDescription('RELOAD_OWNERS_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'dokdo',
                 description: getCommandDescription('RELOAD_DOKDO_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'commands',
                 description: getCommandDescription('RELOAD_COMMANDS_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'modules',
                 description: getCommandDescription('RELOAD_MODULES_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'lang',
                 description: getCommandDescription('RELOAD_LANG_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'select',
                 description: getCommandDescription('RELOAD_SELECT_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'button',
                 description: getCommandDescription('RELOAD_BUTTON_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'handler',
                 description: getCommandDescription('RELOAD_HANDLER_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             }
         ]
     },

@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const api = require('../api');
 const { getCommandDescription } = require('../lang');
 
@@ -10,7 +12,7 @@ module.exports = {
             {
                 name: 'page',
                 description: getCommandDescription('RANKING_PAGE_DESCRIPTION'),
-                type: 'NUMBER'
+                type: Options.Number
             }
         ]
     },

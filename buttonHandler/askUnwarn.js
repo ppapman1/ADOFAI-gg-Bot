@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton } = require('discord.js');
+const { ActionRow , ButtonComponent, ButtonStyle } = require('discord.js');
 
 const lang = require("../lang");
 
@@ -13,12 +13,12 @@ module.exports = async interaction => {
     await interaction.reply({
         content: lang.langByLangName(interaction.dbUser.lang, 'CANCEL_WARN_CONFIRM'),
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId(`unwarn_${params[1]}_${interaction.message.id}`)
                         .setLabel('확인 | Confirm')
-                        .setStyle('DANGER')
+                        .setStyle(ButtonStyle.Danger)
                 )
         ],
         ephemeral: true

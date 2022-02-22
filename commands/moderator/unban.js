@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const permissions = require('../../permissions');
 const lang = require('../../lang');
 const { getCommandDescription } = require('../../lang');
@@ -18,20 +20,20 @@ module.exports = {
             {
                 name: 'user',
                 description: getCommandDescription('UNBAN_USER_DESCRIPTION'),
-                type: 'USER',
+                type: Options.User,
                 required: true
             },
             {
                 name: 'reason',
                 description: getCommandDescription('UNBAN_REASON_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: 'STRING'
+                type: Options.String
             }
         ]
     },

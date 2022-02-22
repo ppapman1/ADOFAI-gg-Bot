@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { Embed } = require('discord.js');
 
 const Guild = require('../schemas/guild');
 
@@ -24,7 +24,7 @@ module.exports = client => {
 
         const msg = await textChannel.send({
             embeds: [
-                new MessageEmbed()
+                new Embed()
                     .setColor(joined ? '#00ff00' : '#ff0000')
                     .setTitle(`유저 ${joined ? '입' : '퇴'}장`)
                     .setDescription(`${state.member}님이 음성 채널에${joined ? ' 입' : '서 퇴'}장하셨습니다.`)

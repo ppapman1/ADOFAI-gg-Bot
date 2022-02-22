@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { Embed } = require('discord.js');
 
 const ADOFAIArtist = require('../schemas/ADOFAIArtist');
 
@@ -13,8 +13,8 @@ module.exports = async interaction => {
 
     return interaction.reply({
         embeds: [
-            new MessageEmbed()
-                .setColor('#349eeb')
+            new Embed()
+                .setColor(0x349eeb)
                 .setImage(artist.evidences[params[2]])
         ],
         ephemeral: true

@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const permissions = require('../../permissions');
 const main = require('../../main');
 const lang = require('../../lang');
@@ -18,20 +20,20 @@ module.exports = {
             {
                 name: 'user',
                 description: getCommandDescription('WARN_USER_DESCRIPTION'),
-                type: 'USER',
+                type: Options.User,
                 required: true
             },
             {
                 name: 'reason',
                 description: getCommandDescription('WARN_REASON_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'amount',
                 description: getCommandDescription('WARN_AMOUNT_DESCRIPTION'),
-                type: 'INTEGER',
+                type: Options.Integer,
                 required: true,
                 min_value: 1,
                 max_value: 10
@@ -39,7 +41,7 @@ module.exports = {
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: 'STRING'
+                type: Options.String
             }
         ]
     },

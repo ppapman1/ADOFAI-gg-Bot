@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Embed, ActionRow, ButtonComponent, ButtonStyle } = require('discord.js');
 
 const lang = require('../../lang');
 
@@ -22,12 +22,12 @@ module.exports = async interaction => {
     const msg = await interaction.editReply({
         content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_CLOSE_CONFIRM'),
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('ticketCloseConfirm')
                         .setLabel(lang.langByLangName(interaction.dbUser.lang, 'CLOSE'))
-                        .setStyle('DANGER')
+                        .setStyle(ButtonStyle.Danger)
                 )
         ]
     });
@@ -65,8 +65,8 @@ module.exports = async interaction => {
     if(ticketUser) try {
         await ticketUser.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#ff0000')
+                new Embed()
+                    .setColor(0xff0000)
                     .setTitle('티켓 닫힘 / Ticket Closed')
                     .setDescription(`${interaction.channel.name} 티켓이 닫혔습니다. 봇에게 다른 메시지를 보내 티켓을 새로 열 수 있습니다.\nTickets ${interaction.channel.name} have been closed. You can send another message to the bot to open a new ticket.`)
             ]

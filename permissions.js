@@ -1,3 +1,5 @@
+const { ApplicationCommandPermissionType: Permission } = require('discord.js');
+
 const main = require('./main');
 const Server = require('./server.json');
 
@@ -5,14 +7,14 @@ let ownerOnly = [];
 for(let u of main.getOwnerID()) {
     ownerOnly.push({
         id: u,
-        type: 'USER',
+        type: Permission.User,
         permission: true
     });
 }
 
 const teamOwnerOnly = [{
     id: main.getTeamOwner(),
-    type: 'USER',
+    type: Permission.User,
     permission: true
 }];
 
@@ -21,7 +23,7 @@ ownerOnly = ownerOnly.length > 10 ? teamOwnerOnly : ownerOnly;
 const staffOnly = ownerOnly.slice();
 staffOnly.push({
     id: Server.role.staff,
-    type: 'ROLE',
+    type: Permission.Role,
     permission: true
 });
 

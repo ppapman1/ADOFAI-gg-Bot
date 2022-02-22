@@ -1,4 +1,5 @@
-const main = require('../../main');
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const utils = require('../../utils');
 const { getCommandDescription } = require('../../lang');
 
@@ -12,12 +13,12 @@ module.exports = {
             {
                 name: 'create',
                 description: getCommandDescription('EVAL_CREATE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('EVAL_CREATE_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     }
                 ]
@@ -25,12 +26,12 @@ module.exports = {
             {
                 name: 'info',
                 description: getCommandDescription('EVAL_INFO_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('EVAL_CREATE_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }
@@ -39,31 +40,31 @@ module.exports = {
             {
                 name: 'message',
                 description: getCommandDescription('EVAL_MESSAGE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('EVAL_CREATE_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     },
                     {
                         name: 'message',
                         description: getCommandDescription('EVAL_MESSAGE_MESSAGE_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     },
                     {
                         name: 'buttontext',
                         description: getCommandDescription('EVAL_MESSAGE_BUTTONTEXT_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     },
                     {
                         name: 'buttoncolor',
                         description: getCommandDescription('EVAL_MESSAGE_BUTTONCOLOR_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         choices: [
                             {
@@ -87,17 +88,17 @@ module.exports = {
                     {
                         name: 'params',
                         description: getCommandDescription('EVAL_MESSAGE_PARAMS_DESCRIPTION'),
-                        type: 'STRING'
+                        type: Options.String
                     },
                     {
                         name: 'buttoncolors',
                         description: getCommandDescription('EVAL_MESSAGE_BUTTONCOLORS_DESCRIPTION'),
-                        type: 'STRING'
+                        type: Options.String
                     },
                     {
                         name: 'role',
                         description: getCommandDescription('EVAL_MESSAGE_ROLE_DESCRIPTION'),
-                        type: 'ROLE'
+                        type: Options.Role
                     }
                 ]
             }

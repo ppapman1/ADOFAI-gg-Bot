@@ -1,4 +1,4 @@
-const { MessageActionRow, MessageButton } = require('discord.js');
+const { ActionRow, ButtonComponent, ButtonStyle } = require('discord.js');
 
 const lang = require('../../lang');
 
@@ -25,12 +25,12 @@ module.exports = async interaction => {
     const msg = await interaction.editReply({
         content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_UNARCHIVE_CONFIRM'),
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('ticketUnarchiveConfirm')
                         .setLabel(lang.langByLangName(interaction.dbUser.lang, 'UNARCHIVE'))
-                        .setStyle('DANGER')
+                        .setStyle(ButtonStyle.Danger)
                 )
         ]
     });

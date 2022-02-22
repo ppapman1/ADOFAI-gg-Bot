@@ -1,4 +1,5 @@
-const main = require("../../main");
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const utils = require('../../utils');
 const { getCommandDescription } = require('../../lang');
 
@@ -11,12 +12,12 @@ module.exports = {
             {
                 name: 'add',
                 description: getCommandDescription('BLACKLIST_ADD_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'user',
                         description: getCommandDescription('BLACKLIST_ADD_USER_DESCRIPTION'),
-                        type: 'USER',
+                        type: Options.User,
                         required: true
                     }
                 ]
@@ -24,12 +25,12 @@ module.exports = {
             {
                 name: 'remove',
                 description: getCommandDescription('BLACKLIST_REMOVE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'user',
                         description: getCommandDescription('BLACKLIST_REMOVE_USER_DESCRIPTION'),
-                        type: 'USER',
+                        type: Options.User,
                         required: true
                     }
                 ]

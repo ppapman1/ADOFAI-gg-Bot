@@ -1,4 +1,4 @@
-const { MessageEmbed , Util } = require('discord.js');
+const { Embed , Util, ApplicationCommandOptionType: Options, ChannelType: Channel } = require('discord.js');
 
 const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
@@ -22,8 +22,8 @@ const getListMessage = async (guild, event, language = 'ko', fetchedEvent) => {
 
     return {
         embeds: [
-            new MessageEmbed()
-                .setColor('#349eeb')
+            new Embed()
+                .setColor(0x349eeb)
                 .setTitle(`${fetchedEvent.name} ${lang.langByLangName(language, 'TODO_LIST_TITLE')}`)
                 .setDescription(checkTodo.length ? checkTodo.map((a, i) => `**${i + 1}**. ${Util.escapeMarkdown(a.todo)}`).join('\n') : lang.langByLangName(language, 'TODO_LIST_EMPTY'))
                 .setTimestamp()
@@ -41,19 +41,19 @@ module.exports = {
             {
                 name: 'create',
                 description: getCommandDescription('TODO_CREATE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'target',
                         description: getCommandDescription('TODO_CREATE_TARGET_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     },
                     {
                         name: 'todo',
                         description: getCommandDescription('TODO_CREATE_TODO_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     }
                 ]
@@ -61,19 +61,19 @@ module.exports = {
             {
                 name: 'delete',
                 description: getCommandDescription('TODO_DELETE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'target',
                         description: getCommandDescription('TODO_CREATE_TARGET_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     },
                     {
                         name: 'num',
                         description: getCommandDescription('TODO_DELETE_NUM_DESCRIPTION'),
-                        type: 'INTEGER',
+                        type: Options.Integer,
                         min_value: 1,
                         required: true
                     }
@@ -82,12 +82,12 @@ module.exports = {
             {
                 name: 'list',
                 description: getCommandDescription('TODO_LIST_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'target',
                         description: getCommandDescription('TODO_CREATE_TARGET_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }
@@ -96,13 +96,16 @@ module.exports = {
             {
                 name: 'setchannel',
                 description: getCommandDescription('TODO_SETCHANNEL_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'channel',
                         description: getCommandDescription('TODO_SETCHANNEL_CHANNEL_DESCRIPTION'),
-                        type: 'CHANNEL',
-                        channel_types: [ 0 , 5 ],
+                        type: Options.Channel,
+                        channel_types: [ 
+                            Channel.GuildText, 
+                            Channel.GuildNews
+                        ],
                         required: true
                     }
                 ]

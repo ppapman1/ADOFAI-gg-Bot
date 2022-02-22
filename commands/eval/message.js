@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton , Util } = require('discord.js');
+const { ActionRow , ButtonComponent , Util } = require('discord.js');
 
 const utils = require("../../utils");
 
@@ -43,8 +43,8 @@ module.exports.commandHandler = async interaction => {
 
         if(buttons.length >= 5) {
             components.push(
-                new MessageActionRow()
-                    .addComponents(buttons)
+                new ActionRow()
+                    .addComponents(...buttons)
             );
             buttons = [];
         }
@@ -52,7 +52,7 @@ module.exports.commandHandler = async interaction => {
         const customParam = customParams[Math.min(i, customParams.length - 1)];
         const buttonColorNum = Number(buttonColors[Math.min(i, buttonColors.length - 1)]);
         buttons.push(
-            new MessageButton()
+            new ButtonComponent()
                 .setCustomId(`eval_run${role ? `:${role.id}` : ''}_${eval.id}${customParam ? `_${customParam}` : ''}`)
                 .setLabel(buttonText[i])
                 .setStyle(buttonColorMap[buttonColorNum - 1] || buttonColor)
@@ -60,8 +60,8 @@ module.exports.commandHandler = async interaction => {
     }
 
     if(buttons.length) components.push(
-        new MessageActionRow()
-            .addComponents(buttons)
+        new ActionRow()
+            .addComponents(...buttons)
     );
 
     try {

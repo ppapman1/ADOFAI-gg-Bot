@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Embed, ActionRow, ButtonComponent, ButtonStyle } = require('discord.js');
 const uniqueString = require('unique-string');
 
 const utils = require('./utils');
@@ -93,8 +93,8 @@ module.exports.mute = async (options = {
         setDefaultsOnInsert: true
     });
 
-    const embed = new MessageEmbed()
-        .setColor('#ff470f')
+    const embed = new Embed()
+        .setColor(0xff470f)
         .setAuthor({
             name: `Mute | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -134,8 +134,8 @@ module.exports.mute = async (options = {
     if(!silent) try {
         if(muteLength > 0) await user.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#ff470f')
+                new Embed()
+                    .setColor(0xff470f)
                     .setDescription(dmTemplate({
                         ko: '뮤트',
                         en: 'muted'
@@ -171,8 +171,8 @@ module.exports.unmute = async (options = {
         setDefaultsOnInsert: true
     });
 
-    const embed = new MessageEmbed()
-        .setColor('#43b581')
+    const embed = new Embed()
+        .setColor(0x43b581)
         .setAuthor({
             name: `Unmute | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -231,8 +231,8 @@ module.exports.kick = async (options = {
     const member = await ServerCache.adofai_gg.members.fetch(user.id);
     if(!member.kickable) return;
 
-    const embed = new MessageEmbed()
-        .setColor('#f04947')
+    const embed = new Embed()
+        .setColor(0xf04947)
         .setAuthor({
             name: `Kick | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -316,8 +316,8 @@ module.exports.ban = async (options = {
         setDefaultsOnInsert: true
     });
     
-    const embed = new MessageEmbed()
-        .setColor('#f04947')
+    const embed = new Embed()
+        .setColor(0xf04947)
         .setAuthor({
             name: `Ban | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -357,8 +357,8 @@ module.exports.ban = async (options = {
     try {
         if(banLength > 0) await user.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#f04947')
+                new Embed()
+                    .setColor(0xf04947)
                     .setDescription(dmTemplate({
                         ko: '밴',
                         en: 'banned'
@@ -398,8 +398,8 @@ module.exports.unban = async (options = {
         setDefaultsOnInsert: true
     });
 
-    const embed = new MessageEmbed()
-        .setColor('#fada5e')
+    const embed = new Embed()
+        .setColor(0xfada5e)
         .setAuthor({
             name: `Unban | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -478,8 +478,8 @@ module.exports.warn = async (options = {
         }
     });
 
-    const embed = new MessageEmbed()
-        .setColor('#fada5e')
+    const embed = new Embed()
+        .setColor(0xfada5e)
         .setAuthor({
             name: `Warn | ${user.tag}`,
             iconURL: user.avatarURL()
@@ -515,12 +515,12 @@ module.exports.warn = async (options = {
     if(!silent) await ServerCache.channel.modLogs.send({
         embeds: [embed],
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId(`askUnwarn_${newWarn.id}`)
                         .setLabel('취소 | Cancel')
-                        .setStyle('DANGER')
+                        .setStyle(ButtonStyle.Danger)
                 )
         ]
     });
@@ -567,8 +567,8 @@ module.exports.unwarn = async (options = {
     const user = await client.users.fetch(warn.user);
     const moderator = moderatorId ? await client.users.fetch(moderatorId) : null;
 
-    const embed = new MessageEmbed()
-        .setColor('#43b581')
+    const embed = new Embed()
+        .setColor(0x43b581)
         .setAuthor({
             name: `Unwarn | ${user.tag}`,
             iconURL: user.avatarURL()

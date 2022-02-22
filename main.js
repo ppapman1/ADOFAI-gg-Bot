@@ -1,4 +1,4 @@
-const { Client , Intents , Team , MessageEmbed , Util } = require('discord.js');
+const { Client, Team, Embed, GatewayIntentBits, Partials, ApplicationCommandPermissionType: CommandPermissions } = require('discord.js');
 const fs = require('fs');
 const Dokdo = require('dokdo');
 const path = require('path');
@@ -31,23 +31,24 @@ const InteractionHistory = require('./schemas/interactionHistory');
 const Todo = require('./schemas/todo');
 
 const intents = [
-    Intents.FLAGS.GUILDS,
-    Intents.FLAGS.GUILD_MESSAGES,
-    Intents.FLAGS.DIRECT_MESSAGES,
-    Intents.FLAGS.GUILD_VOICE_STATES,
-    Intents.FLAGS.GUILD_SCHEDULED_EVENTS
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.DirectMessages,
+    GatewayIntentBits.GuildVoiceStates
 ];
 
 if(process.argv[2] === '--debug') {
-    intents.push(Intents.FLAGS.GUILD_MEMBERS);
-    intents.push(Intents.FLAGS.GUILD_PRESENCES);
+    intents.push(...[
+        GatewayIntentBits.GuildMembers,
+        GatewayIntentBits.GuildPresences
+    ]);
 }
 
 const client = new Client({
     intents,
     partials: [
-        'CHANNEL',
-        'MESSAGE'
+        Partials.Channel,
+        Partials.Message
     ]
 });
 let DokdoHandler;
@@ -281,9 +282,18 @@ const registerCommands = async () => {
                 guild: g.id,
                 command: c[1].name
             });
+
+            const legacyPermission = {
+                USER: CommandPermissions.User,
+                ROLE: CommandPermissions.Role
+            }
+
             if(permissions != null) fullPermissions.push({
                 id: c[1].id,
-                permissions: permissions.permissions
+                permissions: permissions.permissions.map(p => {
+                    p.type = legacyPermission[p.type] || p.type;
+                    return p;
+                })
             });
         }
         await guild.commands.permissions.set({
@@ -376,7 +386,7 @@ client.on('interactionCreate', async interaction => {
         });
         await user.save();
 
-        if(interaction.isCommand()) try {
+        if(interaction.isChatInputCommand()) try {
             await interaction.channel.send(`${interaction.user}\n${lang.getFirstTimeString()}`);
         } catch (e) {}
         else if(!interaction.isAutocomplete()) try {
@@ -428,7 +438,7 @@ client.on('interactionCreate', async interaction => {
         }
     }
 
-    if(interaction.isCommand() || interaction.isContextMenu()) {
+    if(interaction.isChatInputCommand() || interaction.isContextMenuCommand()) {
         if(!interaction.commandName) return;
 
         if(!interaction.guild
@@ -501,7 +511,7 @@ client.on('messageCreate', message => {
 });
 
 client.on('messageDelete', async message => {
-    const vote = await Vote.deleteMany({
+    await Vote.deleteMany({
         message: message.id
     });
 
@@ -522,6 +532,7 @@ client.on('debug', d => {
 
 process.on('uncaughtException', async e => {
     console.error(e);
+    process.exit(1);
 
     const recentCommands = await CommandHistory.find().sort({
         _id: -1
@@ -535,11 +546,14 @@ process.on('uncaughtException', async e => {
     });
     const errMessage = {
         embeds: [
-            new MessageEmbed()
-                .setColor('#ff0000')
+            new Embed()
+                .setColor(0xff0000)
                 .setTitle('오류 발생')
                 .setDescription(`${err.length > 4000 ? '첨부파일 확인' : `\`\`\`ansi\n${err}\n\`\`\``}`)
-                .addField('최근 명령어(최신순)', `\`\`\`\n${recentCommands.map(a => a.command.substring(0, 330)).join('\n')}\n\`\`\``)
+                .addField({
+                    name: '최근 명령어(최신순)',
+                    value: `\`\`\`\n${recentCommands.map(a => a.command.substring(0, 330)).join('\n')}\n\`\`\``
+                })
                 .setTimestamp()
         ]
     }

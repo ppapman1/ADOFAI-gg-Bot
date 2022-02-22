@@ -1,4 +1,4 @@
-const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
+const { Embed , ActionRow , ButtonComponent, ButtonStyle } = require('discord.js');
 const ytdl = require('ytdl-core');
 
 const lang = require('../../lang');
@@ -33,8 +33,8 @@ module.exports = {
 
         return interaction.reply({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#349eeb')
+                new Embed()
+                    .setColor(0x349eeb)
                     .setAuthor({
                         name: info.videoDetails.author.name,
                         iconURL: info.videoDetails.author.thumbnails[0].url
@@ -48,13 +48,15 @@ module.exports = {
                     })
             ],
             components: [
-                new MessageActionRow()
+                new ActionRow()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonComponent()
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'WATCH_VIDEO'))
-                            .setStyle('LINK')
+                            .setStyle(ButtonStyle.Link)
                             .setURL(`https://youtu.be/${nowPlaying.url}`)
-                            .setEmoji(Server.emoji.youtube)
+                            .setEmoji({
+                                id: Server.emoji.youtube
+                            })
                     )
             ]
         });

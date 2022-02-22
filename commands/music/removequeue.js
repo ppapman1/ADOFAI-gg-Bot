@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const lang = require('../../lang');
 const { getCommandDescription } = require('../../lang');
 
@@ -13,7 +15,7 @@ module.exports = {
             {
                 name: 'number',
                 description: '대기열 번호입니다. // Enter the queue number.',
-                type: 'INTEGER',
+                type: Options.Integer,
                 required: true,
                 min_value: 1
             }

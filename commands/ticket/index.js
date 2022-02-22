@@ -1,7 +1,8 @@
+const { ApplicationCommandOptionType: Options, ChannelType: Channel } = require('discord.js');
+
 const lang = require('../../lang');
 const { getCommandDescription } = require('../../lang');
 const utils = require('../../utils');
-
 
 module.exports = {
     group: 'ticket',
@@ -13,12 +14,12 @@ module.exports = {
             {
                 name: 'setname',
                 description: getCommandDescription('TICKET_SETNAME_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('TICKET_SETNAME_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     }
                 ]
@@ -26,37 +27,37 @@ module.exports = {
             {
                 name: 'open',
                 description: getCommandDescription('TICKET_OPEN_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'close',
                 description: getCommandDescription('TICKET_CLOSE_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'delete',
                 description: getCommandDescription('TICKET_DELETE_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'archive',
                 description: getCommandDescription('TICKET_ARCHIVE_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'unarchive',
                 description: getCommandDescription('TICKET_UNARCHIVE_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'category',
                 description: getCommandDescription('TICKET_CATEGORY_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'type',
                         description: getCommandDescription('TICKET_CATEGORY_TYPE_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         choices: [
                             {
@@ -76,8 +77,8 @@ module.exports = {
                     {
                         name: 'category',
                         description: getCommandDescription('TICKET_CATEGORY_CATEGORY_DESCRIPTION'),
-                        type: 'CHANNEL',
-                        channel_types: [ 4 ],
+                        type: Options.Channel,
+                        channel_types: [Channel.GuildCategory],
                         required: true
                     }
                 ]
@@ -85,12 +86,12 @@ module.exports = {
             {
                 name: 'description',
                 description: getCommandDescription('TICKET_DESCRIPTION_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'description',
                         description: getCommandDescription('TICKET_DESCRIPTION_DESCRIPTION_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true
                     }
                 ]

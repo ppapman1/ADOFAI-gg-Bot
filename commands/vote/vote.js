@@ -1,4 +1,4 @@
-const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
+const { Embed , ActionRow , ButtonComponent, ButtonStyle, ApplicationCommandOptionType: Options } = require('discord.js');
 
 const lang = require('../../lang');
 const { getCommandDescription } = require('../../lang');
@@ -17,30 +17,30 @@ module.exports = {
             {
                 name: 'question',
                 description: getCommandDescription('VOTE_QUESTION_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true
             },
             {
                 name: 'options',
                 description: getCommandDescription('VOTE_OPTIONS_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true
             },
             {
                 name: 'realtimeresult',
                 description: getCommandDescription('VOTE_REALTIMERESULT_DESCRIPTION'),
-                type: 'BOOLEAN',
+                type: Options.Boolean,
                 required: true
             },
             {
                 name: 'role',
                 description: getCommandDescription('VOTE_ROLE_DESCRIPTION'),
-                type: 'ROLE'
+                type: Options.Role
             },
             {
                 name: 'roles',
                 description: getCommandDescription('VOTE_ROLES_DESCRIPTION'),
-                type: 'STRING'
+                type: Options.String
             }
         ]
     },
@@ -101,23 +101,23 @@ module.exports = {
 
             if(buttons.length >= 5) {
                 components.push(
-                    new MessageActionRow()
-                        .addComponents(buttons)
+                    new ActionRow()
+                        .addComponents(...buttons)
                 );
                 buttons = [];
             }
 
             buttons.push(
-                new MessageButton()
+                new ButtonComponent()
                     .setCustomId(`vote_${option.id}`)
                     .setLabel(name)
-                    .setStyle('PRIMARY')
+                    .setStyle(ButtonStyle.Primary)
             );
         }
 
         if(buttons.length) components.push(
-            new MessageActionRow()
-                .addComponents(buttons)
+            new ActionRow()
+                .addComponents(...buttons)
         );
 
         if(realtimeResult) {
@@ -129,8 +129,8 @@ module.exports = {
         }
         else return interaction.editReply({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#349eeb')
+                new Embed()
+                    .setColor(0x349eeb)
                     .setAuthor({
                         name: interaction.user.username,
                         iconURL: interaction.user.avatarURL()

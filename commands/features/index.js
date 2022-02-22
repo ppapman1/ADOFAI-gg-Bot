@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const main = require("../../main");
 const utils = require('../../utils');
 const { getCommandDescription, langByLangName } = require('../../lang');
@@ -10,12 +12,12 @@ module.exports = {
             {
                 name: 'enable',
                 description: getCommandDescription('FEATURES_ENABLE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('FEATURES_ENABLE_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }
@@ -24,12 +26,12 @@ module.exports = {
             {
                 name: 'disable',
                 description: getCommandDescription('FEATURES_DISABLE_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'name',
                         description: getCommandDescription('FEATURES_ENABLE_NAME_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }
@@ -38,17 +40,17 @@ module.exports = {
             {
                 name: 'list',
                 description: getCommandDescription('FEATURES_LIST_DESCRIPTION'),
-                type: 'SUB_COMMAND'
+                type: Options.Subcommand
             },
             {
                 name: 'permission',
                 description: getCommandDescription('FEATURES_PERMISSION_DESCRIPTION'),
-                type: 'SUB_COMMAND',
+                type: Options.Subcommand,
                 options: [
                     {
                         name: 'command',
                         description: getCommandDescription('FEATURES_PERMISSION_COMMAND_DESCRIPTION'),
-                        type: 'STRING',
+                        type: Options.String,
                         required: true,
                         autocomplete: true
                     }

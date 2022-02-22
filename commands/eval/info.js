@@ -1,4 +1,4 @@
-const { Util , MessageActionRow , MessageButton } = require('discord.js');
+const { Util , ActionRow , ButtonComponent, ButtonStyle } = require('discord.js');
 
 const utils = require('../../utils');
 
@@ -16,12 +16,12 @@ module.exports.commandHandler = async interaction => {
     return interaction.reply({
         content: `\`${Util.escapeCodeBlock(eval.name)}\` Code\n\`\`\`js\n${Util.escapeCodeBlock(eval.code)}\`\`\`\nID : \`${eval.id}\``,
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId(`eval_delete_${eval.id}`)
                         .setLabel('삭제')
-                        .setStyle('DANGER')
+                        .setStyle(ButtonStyle.Danger)
                 )
         ]
     });

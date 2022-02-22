@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { Embed, ApplicationCommandOptionType: Options } = require('discord.js');
 
 const { getCommandDescription } = require('../../lang');
 const main = require('../../main');
@@ -15,12 +15,12 @@ module.exports = {
             {
                 name: 'all',
                 description: getCommandDescription('WARNHISTORY_ALL_DESCRIPTION'),
-                type: 'BOOLEAN'
+                type: Options.Boolean
             },
             {
                 name: 'user',
                 description: getCommandDescription('WARNHISTORY_USER_DESCRIPTION'),
-                type: 'USER'
+                type: Options.User
             }
         ]
     },
@@ -42,13 +42,13 @@ module.exports = {
 
         await interaction.editReply({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#e86b6b')
+                new Embed()
+                    .setColor(0xe86b6b)
                     .setAuthor({
                         name: `${warns.length} Warnings for ${user.tag} (${user.id})`,
                         iconURL: user.avatarURL()
                     })
-                    .addFields((await Promise.all(warns.map(async a => ({
+                    .addFields(...(await Promise.all(warns.map(async a => ({
                         name: `ID: ${a.id} | Moderator: ${(await interaction.client.users.fetch(a.moderator)).tag}`,
                         value: `${a.reason} - <t:${Math.floor(a.createdAt / 1000)}:R>`
                     })))))

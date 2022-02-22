@@ -1,4 +1,4 @@
-const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { Embed, ActionRow, ButtonComponent, ButtonStyle } = require('discord.js');
 
 const lang = require('../../lang');
 
@@ -31,12 +31,12 @@ module.exports = async interaction => {
     const msg = await interaction.editReply({
         content: lang.langByLangName(interaction.dbUser.lang, 'TICKET_OPEN_CONFIRM'),
         components: [
-            new MessageActionRow()
+            new ActionRow()
                 .addComponents(
-                    new MessageButton()
+                    new ButtonComponent()
                         .setCustomId('ticketOpenConfirm')
                         .setLabel(lang.langByLangName(interaction.dbUser.lang, 'OPEN'))
-                        .setStyle('SUCCESS')
+                        .setStyle(ButtonStyle.Success)
                 )
         ]
     });
@@ -74,8 +74,8 @@ module.exports = async interaction => {
     if(ticketUser) try {
         await ticketUser.send({
             embeds: [
-                new MessageEmbed()
-                    .setColor('#00ff00')
+                new Embed()
+                    .setColor(0x00ff00)
                     .setTitle('티켓 열림 / Ticket Opened')
                     .setDescription(`${interaction.channel.name} 티켓이 다시 열렸습니다. 봇에게 메시지를 보내 관리자에게 메시지를 전달할 수 있습니다.\nTickets ${interaction.channel.name} have been reopened. You can send a message to the bot and deliver the message to the administrator.`)
             ]

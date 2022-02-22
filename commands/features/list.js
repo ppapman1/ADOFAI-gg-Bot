@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { Embed } = require('discord.js');
 
 const main = require('../../main');
 
@@ -10,8 +10,8 @@ module.exports.commandHandler = async interaction => {
 
     return interaction.reply({
         embeds: [
-            new MessageEmbed()
-                .setColor('#349eeb')
+            new Embed()
+                .setColor(0x349eeb)
                 .setTitle('Features')
                 .setDescription(groups.map(g => `${guild.features.includes(g) ? '✅' : '❌'} ${g}`).join('\n'))
                 .setTimestamp()

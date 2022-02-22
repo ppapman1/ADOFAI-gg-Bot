@@ -1,3 +1,5 @@
+const { ApplicationCommandType: Command } = require('discord.js');
+
 const lang = require('../../lang');
 const utils = require('../../utils');
 
@@ -9,7 +11,7 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'Stop Vote',
-        type: 'MESSAGE'
+        type: Command.Message
     },
     handler: async interaction => {
         const message = await interaction.options.getMessage('message').fetch();

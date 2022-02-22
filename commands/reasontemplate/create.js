@@ -1,4 +1,4 @@
-const { Util , MessageEmbed } = require('discord.js');
+const { Util , Embed } = require('discord.js');
 
 const lang = require('../../lang');
 
@@ -28,12 +28,12 @@ module.exports = async interaction => {
 
     return interaction.reply({
         embeds: [
-            new MessageEmbed()
+            new Embed()
                 .setAuthor({
                     name: interaction.user.username,
                     iconURL: interaction.user.avatarURL()
                 })
-                .setColor('#349eeb')
+                .setColor(0x349eeb)
                 .setTitle(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATE'))
                 .setDescription(lang.langByLangName(interaction.dbUser.lang, 'TEMPLATE_CREATED_DESCRIPTION')
                     .replace('{type}', templateType.find(a => a.value === type).name)

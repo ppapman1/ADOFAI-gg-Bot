@@ -1,3 +1,5 @@
+const { ApplicationCommandOptionType: Options } = require('discord.js');
+
 const lang = require('../lang');
 const { getCommandDescription } = require('../lang');
 
@@ -12,7 +14,7 @@ module.exports = {
             {
                 name: 'lang',
                 description: getCommandDescription('LANGUAGE_LANG_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true,
                 choices: lang.getLangChoices()
             }

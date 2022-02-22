@@ -1,4 +1,4 @@
-const { MessageActionRow , MessageButton } = require("discord.js");
+const { ActionRow , ButtonComponent, ButtonStyle, ApplicationCommandOptionType: Options } = require("discord.js");
 const parseDuration = require('parse-duration');
 
 const permissions = require('../../permissions');
@@ -21,25 +21,25 @@ module.exports = {
             {
                 name: 'user',
                 description: getCommandDescription('MUTE_USER_DESCRIPTION'),
-                type: 'USER',
+                type: Options.User,
                 required: true
             },
             {
                 name: 'reason',
                 description: getCommandDescription('MUTE_REASON_DESCRIPTION'),
-                type: 'STRING',
+                type: Options.String,
                 required: true,
                 autocomplete: true
             },
             {
                 name: 'duration',
                 description: getCommandDescription('MUTE_DURATION_DESCRIPTION'),
-                type: 'STRING'
+                type: Options.String
             },
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: 'STRING'
+                type: Options.String
             }
         ]
     },
@@ -66,12 +66,12 @@ module.exports = {
                 content: lang.langByLangName(interaction.dbUser.lang, 'FOREVER_CONFIRM')
                     .replace('{user}', user.username),
                 components: [
-                    new MessageActionRow()
+                    new ActionRow()
                         .addComponents(
-                            new MessageButton()
+                            new ButtonComponent()
                                 .setCustomId('confirmmute')
                                 .setLabel('확인 | Confirm')
-                                .setStyle('DANGER')
+                                .setStyle(ButtonStyle.Danger)
                         )
                 ]
             });

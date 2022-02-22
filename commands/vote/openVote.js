@@ -1,4 +1,4 @@
-const { MessageEmbed , MessageActionRow , MessageButton } = require('discord.js');
+const { Embed, ActionRow, ButtonComponent, ButtonStyle, ApplicationCommandType: Command } = require('discord.js');
 
 const lang = require('../../lang');
 const utils = require('../../utils');
@@ -11,7 +11,7 @@ module.exports = {
     info: {
         defaultPermission: false,
         name: 'Open Vote',
-        type: 'MESSAGE'
+        type: Command.Message
     },
     handler: async interaction => {
         const message = await interaction.options.getMessage('message').fetch();
@@ -35,10 +35,10 @@ module.exports = {
             message: message.id
         });
 
-        const embed = new MessageEmbed()
-            .setColor('#349eeb')
+        const embed = new Embed()
+            .setColor(0x349eeb)
             .setTitle(vote.question)
-            .addFields(await Promise.all(voteOptions.map(async a => ({
+            .addFields(...await Promise.all(voteOptions.map(async a => ({
                 name: `${a.name} (\`${a.users.length}\` Vote${a.users.length > 1 ? 's' : ''})`,
                 value: a.users.length ? (await Promise.all(a.users.map(u => interaction.client.users.fetch(u)))).map(u => u.tag).join('\n').substring(0, 1024) : 'Nobody Voted',
                 inline: true
@@ -48,17 +48,19 @@ module.exports = {
         const msg = await interaction.editReply({
             embeds: [embed],
             components: [
-                new MessageActionRow()
+                new ActionRow()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonComponent()
                             .setLabel('Vote')
-                            .setStyle('LINK')
+                            .setStyle(ButtonStyle.Link)
                             .setURL(message.url)
-                            .setEmoji('🔗'),
-                        new MessageButton()
+                            .setEmoji({
+                                name: '🔗'
+                            }),
+                        new ButtonComponent()
                             .setCustomId('public')
                             .setLabel(lang.langByLangName(interaction.dbUser.lang, 'PUBLIC'))
-                            .setStyle('PRIMARY')
+                            .setStyle(ButtonStyle.Primary)
                     )
             ]
         });
@@ -78,13 +80,15 @@ module.exports = {
         return interaction.followUp({
             embeds: [embed],
             components: [
-                new MessageActionRow()
+                new ActionRow()
                     .addComponents(
-                        new MessageButton()
+                        new ButtonComponent()
                             .setLabel('Vote')
-                            .setStyle('LINK')
+                            .setStyle(ButtonStyle.Link)
                             .setURL(message.url)
-                            .setEmoji('🔗')
+                            .setEmoji({
+                                name: '🔗'
+                            })
                     )
             ]
         });
