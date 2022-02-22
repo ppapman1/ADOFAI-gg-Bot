@@ -35,7 +35,7 @@ module.exports = {
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: Options.String
+                type: 11
             }
         ]
     },
@@ -46,7 +46,7 @@ module.exports = {
 
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
-        const evidence = options.getString('evidence');
+        const evidence = options.getAttachment('evidence').url;
 
         const member = await interaction.guild.members.fetch(user.id);
         if(member.roles.cache.has(Server.role.staff) && !main.getOwnerID().includes(interaction.user.id)) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'CANNOT_MANAGE_STAFF'));

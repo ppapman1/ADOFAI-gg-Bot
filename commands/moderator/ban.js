@@ -46,7 +46,7 @@ module.exports = {
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: Options.String
+                type: 11
             }
         ]
     },
@@ -61,7 +61,7 @@ module.exports = {
         const duration = options.getString('duration');
         const parsedDuration = parseDuration(duration);
         const deleteDays = options.getNumber('deletedays') || 0;
-        const evidence = options.getString('evidence');
+        const evidence = options.getAttachment('evidence').url;
 
         try {
             await interaction.guild.bans.fetch(user.id);

@@ -33,7 +33,7 @@ module.exports = {
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: Options.String
+                type: 11
             }
         ]
     },
@@ -44,7 +44,7 @@ module.exports = {
 
         const user = options.getUser('user');
         const reason = options.getString('reason') || 'No Reason';
-        const evidence = options.getString('evidence');
+        const evidence = options.getAttachment('evidence').url;
 
         const checkUser = await User.findOne({
             id: user.id

@@ -33,7 +33,7 @@ module.exports = {
             {
                 name: 'evidence',
                 description: getCommandDescription('BAN_EVIDENCE_DESCRIPTION'),
-                type: Options.String
+                type: 11
             }
         ]
     },
@@ -45,7 +45,7 @@ module.exports = {
         const user = options.getUser('user');
         const member = options.getMember('user');
         const reason = options.getString('reason') || 'No Reason';
-        const evidence = options.getString('evidence');
+        const evidence = options.getAttachment('evidence').url;
 
         if(!member) return interaction.editReply(lang.langByLangName(interaction.dbUser.lang, 'KICK_ALREADY_KICKED'));
 
