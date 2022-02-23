@@ -81,6 +81,10 @@ module.exports.chunk = (str, n, put) => {
     return Array.from(Array(Math.ceil(str.length/n)), (_,i)=>str.slice(i*n,i*n+n)).join(put);
 }
 
+module.exports.chunkAsArray = (str, n) => {
+    return Array.from(Array(Math.ceil(str.length/n)), (_,i)=>str.slice(i*n,i*n+n));
+}
+
 module.exports.parseYouTubeLink = link => {
     const parsedUrl = Url.parse(link);
     const parsedQuery = querystring.parse(parsedUrl.query);
@@ -334,4 +338,8 @@ module.exports.realtimeVoteEmbed = async message => {
         .setDescription(`${vote.roles.length ? `For : ${vote.roles.map(r => message.guild.roles.cache.get(r).toString()).join(', ')}\n` : ''}Total Vote${totalVotes > 1 ? 's' : ''} : \`${totalVotes}\`\nPicked : \`${voteOptions.reduce((a, b) => a.users.length > b.users.length ? a : b).name}\``)
         .addFields(...fields)
         .setTimestamp();
+}
+
+module.exports.emojiTest = () => {
+    return Object.values(main.Server.emoji).map(e => e.toString()).join(' ');
 }
