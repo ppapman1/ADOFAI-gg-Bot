@@ -211,6 +211,17 @@
         "ko": "기본 BPM의 정수배가 아닌 BPM이 포함된 맵 (기본 BPM이 변화하는 경우 포함)",
         "en": "This level uses a song that changes BPM."
       }
+    },
+    "sudden_acceleration": {
+      "id": 24,
+      "title": {
+        "ko": "급가속",
+        "en": "Sudden Acceleration"
+      },
+      "description": {
+        "ko": "16배 이상의 토끼가 하나 이상 존재하는 레벨",
+        "en": "This level includes a sharp increase in BPM."
+      }
     }
   },
 
