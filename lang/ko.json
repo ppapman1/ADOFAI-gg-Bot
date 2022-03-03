@@ -64,56 +64,56 @@
   "TICKET_NAME_CHANGED": "티켓의 이름이 {name}{eh}로 변경되었습니다.",
   "TICKET_NOT_FOUND": "이 티켓의 정보를 찾을 수 없습니다.",
   "TICKET_OPEN_CONFIRM": "정말 티켓을 여시겠습니까? 열려면 \"열기\"를 눌러주세요.",
-  "TICKET_ALREADY_OPENING": "이미 티켓 열기가 진행중입니다. \"열기\"를 눌러주세요.",
+  "TICKET_ALREADY_OPENING": "이미 티켓 열기가 진행 중입니다. \"열기\"를 눌러주세요.",
   "TICKET_OTHER_OPENED": "다른 티켓({channel})이 이미 열려 있어 이 티켓을 다시 열 수 없습니다.",
   "TICKET_OPENED": "티켓을 다시 열었습니다. `/ticket close`를 사용해 티켓을 다시 닫을 수 있습니다.",
   "TICKET_CLOSE_CONFIRM": "정말 티켓을 닫으시겠습니까? 닫으려면 \"닫기\"를 눌러주세요.",
-  "TICKET_ALREADY_CLOSING": "이미 티켓 닫기가 진행중입니다. \"닫기\"를 눌러주세요.",
+  "TICKET_ALREADY_CLOSING": "이미 티켓 닫기가 진행 중입니다. \"닫기\"를 눌러주세요.",
   "TICKET_CLOSED": "티켓을 닫았습니다. `/ticket delete`를 사용해 티켓을 삭제할 수 있습니다.",
   "TICKET_DELETE_CONFIRM": "정말 티켓을 삭제하시겠습니까? 삭제하려면 \"삭제\"를 눌러주세요.",
-  "TICKET_ALREADY_DELETING": "이미 티켓 삭제가 진행중입니다. \"삭제\"를 눌러주세요.",
+  "TICKET_ALREADY_DELETING": "이미 티켓 삭제가 진행 중입니다. \"삭제\"를 눌러주세요.",
   "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 `/ticket close`를 입력해주세요.",
   "TICKET_ARCHIVE_CONFIRM": "정말 티켓을 아카이브하시겠습니까? 아카이브하려면 \"아카이브\"를 눌러주세요.",
   "TICKET_ALREADY_ARCHIVED": "이 티켓은 이미 아카이브되었습니다.",
-  "TICKET_ALREADY_ARCHIVING": "이미 티켓 아카이브가 진행중입니다. \"아카이브\"를 눌러주세요.",
+  "TICKET_ALREADY_ARCHIVING": "이미 티켓 아카이브가 진행 중입니다. \"아카이브\"를 눌러주세요.",
   "TICKET_ARCHIVED": "티켓을 아카이브했습니다.",
   "TICKET_UNARCHIVE_CONFIRM": "정말 티켓을 아카이브 해제하시겠습니까? 아카이브를 해제하려면 \"아카이브 해제\"를 눌러주세요.",
   "TICKET_ALREADY_UNARCHIVED": "이 티켓은 이미 아카이브 해제되었습니다.",
-  "TICKET_ALREADY_UNARCHIVING": "이미 티켓 아카이브 해제가 진행중입니다. \"아카이브 해제\"를 눌러주세요.",
+  "TICKET_ALREADY_UNARCHIVING": "이미 티켓 아카이브 해제가 진행 중입니다. \"아카이브 해제\"를 눌러주세요.",
   "TICKET_UNARCHIVED": "티켓을 아카이브 해제했습니다.",
 
   "TOO_SHORT_LENGTH": "길이가 너무 짧습니다!",
   "CANNOT_MANAGE_STAFF": "스태프를 관리할 수 없습니다.",
 
   "MUTE_ROLE_SETUP_FINISH": "뮤트 역할 설정이 끝났습니다.",
-  "MUTE_USER_MUTED": "{user}님을 {duration}동안 뮤트했습니다.",
+  "MUTE_USER_MUTED": "{user} 님을 {duration} 동안 뮤트했습니다.",
 
-  "UNMUTE_ALREADY_UNMUTED": "{user}님은 뮤트되지 않았습니다.",
-  "UNMUTE_USER_UNMUTED": "{user}님을 뮤트 해제했습니다.",
+  "UNMUTE_ALREADY_UNMUTED": "{user} 님은 뮤트된 상태가 아닙니다.",
+  "UNMUTE_USER_UNMUTED": "{user} 님을 뮤트 해제했습니다.",
 
   "BAN_ALREADY_BANNED": "이미 밴된 유저입니다.",
-  "BAN_USER_BANNED": "{user}님을 {duration}동안 밴했습니다.",
+  "BAN_USER_BANNED": "{user} 님을 {duration} 동안 밴했습니다.",
 
-  "UNBAN_ALREADY_UNBANNED": "{user}님은 밴되지 않았습니다.",
-  "UNBAN_USER_UNBANNED": "{user}님을 밴 해제했습니다.",
+  "UNBAN_ALREADY_UNBANNED": "{user} 님은 밴된 상태가 아닙니다.",
+  "UNBAN_USER_UNBANNED": "{user} 님을 밴 해제했습니다.",
 
   "KICK_ALREADY_KICKED": "이미 킥된 유저입니다.",
-  "KICK_USER_KICKED": "{user}님을 킥했습니다.",
+  "KICK_USER_KICKED": "{user} 님을 킥했습니다.",
 
   "WRONG_WARN_AMOUNT": "경고 개수가 잘못되었습니다!",
-  "WARN_USER_WARNED": "{user}님에게 경고를 부여했습니다.",
+  "WARN_USER_WARNED": "{user} 님에게 경고를 부여했습니다.",
 
-  "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래 확인 버튼을 누르세요.",
+  "CANCEL_WARN_CONFIRM": "정말 이 경고를 취소하시겠습니까? 취소하려면 아래의 \"확인\" 버튼을 누르세요.",
   "CANCEL_WARN_BUTTON_SUCCESS": "해당 경고를 취소하였습니다.",
 
-  "FOREVER_CONFIRM": "영구적으로 {user}님을 처벌하려고 합니다. 계속하려면 확인 버튼을 누르세요.",
+  "FOREVER_CONFIRM": "**영구적으로** {user} 님을 처벌하려고 합니다. 계속하려면 확인 버튼을 누르세요.",
 
-  "BLACKLIST_USER_ADDED": "{user}님을 블랙리스트에 등록했습니다.",
-  "BLACKLIST_USER_REMOVED": "{user}님을 블랙리스트에서 제거했습니다.",
+  "BLACKLIST_USER_ADDED": "{user} 님을 블랙리스트에 등록했습니다.",
+  "BLACKLIST_USER_REMOVED": "{user} 님을 블랙리스트에서 제거했습니다.",
 
-  "MUSIC_NOT_PLAYING": "현재 음악을 재생하고 있지 않습니다.",
+  "MUSIC_NOT_PLAYING": "현재 아무 음악도 재생하고 있지 않습니다.",
 
-  "MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL": "이 기능을 사용하려면 음성 채널에 연결되어 있어야 합니다!",
+    "MUSIC_NEED_TO_CONNECTED_VOICE_CHANNEL": "이 기능을 사용하려면 음성 채널에 연결되어 있어야 합니다!",
   "MUSIC_SUMMON_SUCCESS": "봇이 음성 채널에 접속하였습니다.",
 
   "MUSIC_QUEUE_ADDED": "**{title}**이(가) 대기열에 추가되었습니다.",
@@ -127,10 +127,10 @@
 
   "MUSIC_QUEUE_CLEARED": "음악 대기열을 비웠습니다.",
 
-  "MUSIC_ALREADY_PAUSED": "음악이 이미 일시정지되었습니다.",
-  "MUSIC_PAUSED": "음악을 일시정지했습니다.",
+  "MUSIC_ALREADY_PAUSED": "음악이 이미 일시 정지되었습니다.",
+  "MUSIC_PAUSED": "음악을 일시 정지했습니다.",
 
-  "MUSIC_ALREADY_PLAYING": "음악이 이미 재생중입니다.",
+  "MUSIC_ALREADY_PLAYING": "음악이 이미 재생 중입니다.",
   "MUSIC_RESUMED": "음악을 다시 재생했습니다.",
 
   "MUSIC_QUEUE_TITLE": "음악 대기열",
@@ -158,24 +158,24 @@
   "VOTE_CHANGED": "\"{beforeoption}\"에서 \"{option}\"으로 변경했습니다!",
   "VOTE_STOPPED": "투표를 종료했습니다!",
 
-  "COMMAND_TODO_DESCRIPTION": "정기회의 논의사항 관련 명령어입니다.",
-  "COMMAND_TODO_CREATE_DESCRIPTION": "정기회의 논의사항을 생성합니다.",
-  "COMMAND_TODO_CREATE_TARGET_DESCRIPTION": "대상 정기회의입니다.",
-  "COMMAND_TODO_CREATE_TODO_DESCRIPTION": "정기회의에서 논의할 내용입니다.",
-  "COMMAND_TODO_DELETE_NUM_DESCRIPTION": "삭제할 논의사항의 번호입니다.",
-  "COMMAND_TODO_DELETE_DESCRIPTION": "정기회의 논의사항을 삭제합니다.",
-  "COMMAND_TODO_LIST_DESCRIPTION": "정기회의 논의사항 목록을 확인합니다.",
-  "COMMAND_TODO_SETCHANNEL_DESCRIPTION": "정기회의 알림 채널을 설정합니다.",
-  "COMMAND_TODO_SETCHANNEL_CHANNEL_DESCRIPTION": "정기회의 알림을 보낼 채널입니다.",
+  "COMMAND_TODO_DESCRIPTION": "정기 회의 논의 사항 관련 명령어입니다.",
+  "COMMAND_TODO_CREATE_DESCRIPTION": "정기 회의 논의 사항을 생성합니다.",
+  "COMMAND_TODO_CREATE_TARGET_DESCRIPTION": "대상 정기 회의입니다.",
+  "COMMAND_TODO_CREATE_TODO_DESCRIPTION": "정기 회의에서 논의할 내용입니다.",
+  "COMMAND_TODO_DELETE_NUM_DESCRIPTION": "삭제할 논의 사항의 번호입니다.",
+  "COMMAND_TODO_DELETE_DESCRIPTION": "정기 회의 논의 사항을 삭제합니다.",
+  "COMMAND_TODO_LIST_DESCRIPTION": "정기 회의 논의 사항 목록을 확인합니다.",
+  "COMMAND_TODO_SETCHANNEL_DESCRIPTION": "정기 회의 알림 채널을 설정합니다.",
+  "COMMAND_TODO_SETCHANNEL_CHANNEL_DESCRIPTION": "정기 회의 알림을 보낼 채널입니다.",
 
   "EVENT_NOT_FOUND": "이벤트를 찾을 수 없습니다.",
-  "TODO_NOT_FOUND": "논의사항을 찾을 수 없습니다.",
-  "TODO_CREATED": "\"{event}\" 이벤트에 \"{todo}\" 논의사항을 추가하였습니다.",
-  "TODO_DELETED": "\"{event}\" 의 \"{todo}\" 논의사항을 삭제하였습니다.",
-  "TODO_LIST_TITLE": "논의사항 목록",
-  "TODO_LIST_EMPTY": "논의사항 없음",
+  "TODO_NOT_FOUND": "논의 사항을 찾을 수 없습니다.",
+  "TODO_CREATED": "\"{event}\" 이벤트에 \"{todo}\" 논의 사항을 추가하였습니다.",
+  "TODO_DELETED": "\"{event}\" 의 \"{todo}\" 논의 사항을 삭제하였습니다.",
+  "TODO_LIST_TITLE": "논의 사항 목록",
+  "TODO_LIST_EMPTY": "논의 사항 없음",
 
-  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 `/language` 명령어를 사용하세요.",
+  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 달라서   언어를 변경했습니다!\n원래대로 변경하려면 `/language` 명령어를 사용하세요.",
 
   "COMMAND_CALCULATEPP_DESCRIPTION": "예상 PP를 계산합니다.",
   "COMMAND_CALCULATEPP_ID_DESCRIPTION": "레벨 ID입니다.",
@@ -186,7 +186,7 @@
   "COMMAND_LANGUAGE_LANG_DESCRIPTION": "원하는 언어를 선택합니다.",
 
   "COMMAND_LEVEL_DESCRIPTION": "ID로 레벨을 찾아 표시합니다.",
-  "COMMAND_LEVEL_ID_DESCRIPTION": "정보를 볼 레벨 ID입니다.",
+  "COMMAND_LEVEL_ID_DESCRIPTION": "정보를 볼 레벨의 ID입니다.",
 
   "COMMAND_RANDOM_DESCRIPTION": "조건에 맞는 랜덤한 레벨을 골라 추천합니다.",
 
@@ -287,7 +287,7 @@
 
   "COMMAND_NOWPLAYING_DESCRIPTION": "현재 재생중인 곡 정보를 보여줍니다.",
 
-  "COMMAND_PAUSE_DESCRIPTION": "음악을 일시정지합니다.",
+  "COMMAND_PAUSE_DESCRIPTION": "음악을 일시 정지합니다.",
 
   "COMMAND_PLAY_DESCRIPTION": "대기열에 음악을 추가합니다.",
   "COMMAND_PLAY_MUSIC_DESCRIPTION": "추가할 음악입니다.",
@@ -297,7 +297,7 @@
   "COMMAND_REMOVEQUEUE_DESCRIPTION": "대기열 번호로 음악을 삭제합니다.",
   "COMMAND_REMOVEQUEUE_NUMBER_DESCRIPTION": "대기열 번호입니다.",
 
-  "COMMAND_RESUME_DESCRIPTION": "일시정지된 음악을 다시 재생합니다.",
+  "COMMAND_RESUME_DESCRIPTION": "일시 정지된 음악을 다시 재생합니다.",
 
   "COMMAND_SKIP_DESCRIPTION": "음악을 건너뜁니다.",
 
@@ -318,17 +318,17 @@
   "COMMAND_SEARCH_DESCRIPTION": "검색 관련 명령어들입니다.",
 
   "COMMAND_SEARCH_LEVEL_DESCRIPTION": "ADOFAI.gg에서 레벨을 검색합니다.",
-  "COMMAND_SEARCH_LEVEL_QUERY_DESCRIPTION": "검색할 레벨의 이름, 제작자, 작곡가 등을 입력하세요.",
+  "COMMAND_SEARCH_LEVEL_QUERY_DESCRIPTION": "검색할 레벨의 이름, 제작자, 작곡가 등을 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MINDIFFICULTY_DESCRIPTION": "최소 레벨을 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MAXDIFFICULTY_DESCRIPTION": "최대 레벨을 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MINBPM_DESCRIPTION": "최소 BPM을 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MAXBPM_DESCRIPTION": "최대 BPM을 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MINTILES_DESCRIPTION": "최소 타일 수를 입력합니다.",
   "COMMAND_SEARCH_LEVEL_MAXTILES_DESCRIPTION": "최대 타일 수를 입력합니다.",
-  "COMMAND_SEARCH_LEVEL_SHOWNOTVERIFIED_DESCRIPTION": "책정되지 않은 레벨(0레벨)을 포함해서 검색합니다.",
+  "COMMAND_SEARCH_LEVEL_SHOWNOTVERIFIED_DESCRIPTION": "책정되지 않은 레벨을 포함해서 검색합니다.",
 
   "COMMAND_SEARCH_ARTIST_DESCRIPTION": "ADOFAI.gg에서 작곡가를 검색합니다.",
-  "COMMAND_SEARCH_ARTIST_NAME_DESCRIPTION": "검색할 작곡가의 이름을 입력하세요.",
+  "COMMAND_SEARCH_ARTIST_NAME_DESCRIPTION": "검색할 작곡가의 이름을 입력합니다.",
 
   "COMMAND_TICKET_DESCRIPTION": "티켓 관리 관련 명령어입니다.",
   "COMMAND_TICKET_SETNAME_DESCRIPTION": "티켓의 이름을 설정합니다.",
