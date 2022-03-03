@@ -120,6 +120,8 @@
   "TODO_CREATED": "Added \"{todo}\" to the to-do list of \"{event}\".",
   "TODO_DELETED": "Removed \"{todo}\" from the to-do list of \"{event}\".",
   "TODO_LIST_TITLE": "To-do List",
+  "TODO_LIST_EMPTY": "No to-dos",
+  "LOCALE_CHANGED": "We have changed the bot language due to the difference of the Discord client language and the bot language.\nPlease use the `/language` command to revert.",
   "COMMAND_CALCULATEPP_DESCRIPTION": "Calculate the expected pp",
   "COMMAND_CALCULATEPP_ID_DESCRIPTION": "This is the level ID.",
   "COMMAND_CALCULATEPP_ACCURACY_DESCRIPTION": "This is accuracy.",
