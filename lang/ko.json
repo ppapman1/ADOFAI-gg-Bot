@@ -10,8 +10,8 @@
 
   "ERROR_MESSAGE": "오류가 발생하였습니다.",
 
-  "UNKNOWN_RELOAD_TARGET": "알 수 없는 리로드 대상입니다.",
-  "RELOADED": "{target}{el_rel} 리로드하였습니다.",
+  "UNKNOWN_RELOAD_TARGET": "알 수 없는 새로고침 대상입니다.",
+  "RELOADED": "{target}{el_rel} 새로고침하였습니다.",
 
   "SEARCH_NOT_FOUND": "검색 결과가 없습니다.",
   "UNSUPPORTED_LEVEL": "현재 지원되지 않는 레벨입니다.",
@@ -50,7 +50,7 @@
   "BOT_OWNER": "봇 소유자",
   "DOKDO_PERMISSION": "dokdo",
 
-  "MISSING_PERMISSION": "이 명령어를 사용할 권한이 없습니다!\n/{commandName} 명령어는 {permission} 권한이 필요합니다.",
+  "MISSING_PERMISSION": "이 명령어를 사용할 권한이 없습니다!\n`/{commandName}` 명령어는 {permission} 권한이 필요합니다.",
 
   "SERVERCOUNT": "현재 봇이 {servercount}개의 서버에 있습니다.",
 
@@ -66,13 +66,13 @@
   "TICKET_OPEN_CONFIRM": "정말 티켓을 여시겠습니까? 열려면 \"열기\"를 눌러주세요.",
   "TICKET_ALREADY_OPENING": "이미 티켓 열기가 진행중입니다. \"열기\"를 눌러주세요.",
   "TICKET_OTHER_OPENED": "다른 티켓({channel})이 이미 열려 있어 이 티켓을 다시 열 수 없습니다.",
-  "TICKET_OPENED": "티켓을 다시 열었습니다. /ticket close를 사용해 티켓을 다시 닫을 수 있습니다.",
+  "TICKET_OPENED": "티켓을 다시 열었습니다. `/ticket close`를 사용해 티켓을 다시 닫을 수 있습니다.",
   "TICKET_CLOSE_CONFIRM": "정말 티켓을 닫으시겠습니까? 닫으려면 \"닫기\"를 눌러주세요.",
   "TICKET_ALREADY_CLOSING": "이미 티켓 닫기가 진행중입니다. \"닫기\"를 눌러주세요.",
-  "TICKET_CLOSED": "티켓을 닫았습니다. /ticket delete를 사용해 티켓을 삭제할 수 있습니다.",
+  "TICKET_CLOSED": "티켓을 닫았습니다. `/ticket delete`를 사용해 티켓을 삭제할 수 있습니다.",
   "TICKET_DELETE_CONFIRM": "정말 티켓을 삭제하시겠습니까? 삭제하려면 \"삭제\"를 눌러주세요.",
   "TICKET_ALREADY_DELETING": "이미 티켓 삭제가 진행중입니다. \"삭제\"를 눌러주세요.",
-  "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 /ticket close를 입력해주세요.",
+  "TICKET_OPEN_CANT_DELETE": "티켓이 열려 있어 삭제할 수 없습니다. 티켓을 닫으려면 `/ticket close`를 입력해주세요.",
   "TICKET_ARCHIVE_CONFIRM": "정말 티켓을 아카이브하시겠습니까? 아카이브하려면 \"아카이브\"를 눌러주세요.",
   "TICKET_ALREADY_ARCHIVED": "이 티켓은 이미 아카이브되었습니다.",
   "TICKET_ALREADY_ARCHIVING": "이미 티켓 아카이브가 진행중입니다. \"아카이브\"를 눌러주세요.",
@@ -175,7 +175,7 @@
   "TODO_LIST_TITLE": "논의사항 목록",
   "TODO_LIST_EMPTY": "논의사항 없음",
 
-  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 /language 명령어를 사용하세요.",
+  "LOCALE_CHANGED": "디스코드 클라이언트 언어와 봇의 언어가 다름이 감지되어 언어를 변경했습니다!\n다시 돌아가려면 `/language` 명령어를 사용하세요.",
 
   "COMMAND_CALCULATEPP_DESCRIPTION": "예상 PP를 계산합니다.",
   "COMMAND_CALCULATEPP_ID_DESCRIPTION": "레벨 ID입니다.",
